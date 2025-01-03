@@ -1,6 +1,8 @@
 #include "raylib.h"
 #include "menu.h"
 
+int Gs, Ms;
+
 void getIn(int *M, int* x) {
     if (IsKeyPressed(KEY_DOWN)) 
         *x = (*x+1)%4;

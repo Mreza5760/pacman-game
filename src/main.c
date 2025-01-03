@@ -8,8 +8,7 @@ int main() {
     InitWindow(ScW, ScH, "Pacman");
     SetTargetFPS(60);
     
-    int Gs = 0, Ms = 0;
-    Player Pacman;
+    Gs = 0, Ms = 0;
     randomMap(); 
 
     while (!WindowShouldClose()) {
@@ -24,8 +23,7 @@ int main() {
                 pacupd(&Pacman);
                 ClearBackground(BLACK);
                 DrawMap();
-                // DrawText(TextFormat("speed: %d, posx: %d, posy: %d", Pacman.speed, Pacman.pixpos.x, Pacman.pixpos.y), 100, 100, 20, GREEN);
-                
+   
                 EndDrawing();
                 break;
             case 2:

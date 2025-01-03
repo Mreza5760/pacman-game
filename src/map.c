@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-Player Pacman;
 int Mstate[Row][Col];
 const char map[3][Row][Col] = {
    {
@@ -100,7 +99,7 @@ void DrawMap() {
         for (int j = 0; j < Col; j++) {
             switch (Mstate[i][j]) {
                 case 0:
-                    DrawCircle(j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2, Cellsz/4, WHITE);
+                    DrawCircle(j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2, Cellsz/8, WHITE);
                     break;
                 case 1 :
                     DrawRectangle(j*Cellsz, i*Cellsz, Cellsz, Cellsz, DARKBLUE);
