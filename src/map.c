@@ -78,9 +78,9 @@ void DrawMap(int x) {
     for (int i = 0; i < Row; i++) {
         for (int j = 0; j < Col; j++) {
             if (map[x][i][j] == '#') 
-                DrawRectangle(j*32, i*32, 32, 32, DARKGRAY);
+                DrawRectangle(j*Cellsz, i*Cellsz, Cellsz, Cellsz, DARKGRAY);
             else if (map[x][i][j] == 'P')
-                DrawRectangle(j*32, i*32, 32, 32, YELLOW);
+                DrawRectangle(j*Cellsz, i*Cellsz, Cellsz, Cellsz, YELLOW);
         }
     }
 }

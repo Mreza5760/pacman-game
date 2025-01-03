@@ -14,7 +14,7 @@ int main() {
             case 0:
                 getIn(&Gs, &Ms);
                 DrawM(Ms);
-                break; 
+                break;
             case 1:
                 BeginDrawing();
 
