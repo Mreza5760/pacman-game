@@ -1,13 +1,16 @@
 #include "raylib.h"
 #include "menu.h"
 #include "map.h"
+#include "player.h"
 
 int main() {
-    const int ScW = 800, ScH = 608;
+    const int ScW = Col*Cellsz, ScH = Row*Cellsz;
     InitWindow(ScW, ScH, "Pacman");
     SetTargetFPS(60);
     
-    int Gs = 0, Ms = 0, Mapnum = randomMap(); 
+    int Gs = 0, Ms = 0;
+    Player Pacman;
+    randomMap(); 
 
     while (!WindowShouldClose()) {
         switch (Gs) {
@@ -18,8 +21,10 @@ int main() {
             case 1:
                 BeginDrawing();
 
+                pacupd(&Pacman);
                 ClearBackground(BLACK);
-                DrawMap(Mapnum);
+                DrawMap();
+                // DrawText(TextFormat("speed: %d, posx: %d, posy: %d", Pacman.speed, Pacman.pixpos.x, Pacman.pixpos.y), 100, 100, 20, GREEN);
                 
                 EndDrawing();
                 break;

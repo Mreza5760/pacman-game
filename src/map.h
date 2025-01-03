@@ -5,11 +5,10 @@
 #define Col 25
 #define Cellsz 32
 
+extern int Mstate[Row][Col];
 extern const char map[3][Row][Col];
-extern Mstate[Row][Col];
-extern int Mapnum;
 
-int randomMap();
-void DrawMap(int x);
+void DrawMap();
+void randomMap();
 
 #endif

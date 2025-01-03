@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/pacman-game.dir/src/map.c.obj.d"
   "CMakeFiles/pacman-game.dir/src/menu.c.obj"
   "CMakeFiles/pacman-game.dir/src/menu.c.obj.d"
+  "CMakeFiles/pacman-game.dir/src/player.c.obj"
+  "CMakeFiles/pacman-game.dir/src/player.c.obj.d"
   "libpacman-game.dll.a"
   "pacman-game.exe"
   "pacman-game.exe.manifest"

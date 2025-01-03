@@ -200,6 +200,30 @@ src/menu.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/menu.c.s
 .PHONY : src/menu.c.s
 
+src/player.obj: src/player.c.obj
+.PHONY : src/player.obj
+
+# target to build an object file
+src/player.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/player.c.obj
+.PHONY : src/player.c.obj
+
+src/player.i: src/player.c.i
+.PHONY : src/player.i
+
+# target to preprocess a source file
+src/player.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/player.c.i
+.PHONY : src/player.c.i
+
+src/player.s: src/player.c.s
+.PHONY : src/player.s
+
+# target to generate assembly for a file
+src/player.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/player.c.s
+.PHONY : src/player.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -218,6 +242,9 @@ help:
 	@echo ... src/menu.obj
 	@echo ... src/menu.i
 	@echo ... src/menu.s
+	@echo ... src/player.obj
+	@echo ... src/player.i
+	@echo ... src/player.s
 .PHONY : help
 
 
