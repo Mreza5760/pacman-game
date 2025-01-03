@@ -1,0 +1,3 @@
+C:\msys64\ucrt64\bin\cmake.exe -E rm -f CMakeFiles\pacmangame.dir/objects.a
+C:\msys64\ucrt64\bin\ar.exe qc CMakeFiles\pacmangame.dir/objects.a @CMakeFiles\pacmangame.dir\objects1.rsp
+C:\msys64\ucrt64\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\pacmangame.dir/objects.a -Wl,--no-whole-archive -o pacmangame.exe -Wl,--out-implib,libpacmangame.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\pacmangame.dir\linkLibs.rsp

@@ -1,0 +1,2 @@
+C:\msys64\ucrt64\bin\ar.exe qc libpacman-game.a "CMakeFiles/pacman-game.dir/pacman-game.c.obj"
+C:\msys64\ucrt64\bin\ranlib.exe libpacman-game.a
