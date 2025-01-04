@@ -105,7 +105,8 @@ void DrawMap() {
                     DrawRectangle(j*Cellsz, i*Cellsz, Cellsz, Cellsz, DARKBLUE);
                     break;
                 case 2 :
-                    DrawCircleV(Pacman.pixpos, Pacman.rad, YELLOW);
+                    Vector2 pix = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2};
+                    DrawCircleV(pix, Pacman.rad, YELLOW);
                     break; 
             }
         }

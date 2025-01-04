@@ -6,8 +6,9 @@
 #define Starp 10
 
 typedef struct {
-    Vector2 pos, pixpos;
-    int helth, point, speed, rad;
+    Vector2 pos;
+    int helth, point, rad;
+    double speed;
 } Player;
 
 extern Player Pacman;
