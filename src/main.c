@@ -35,6 +35,7 @@ int main() {
         }
     }
     UnloadTexture(Pacman.tex);
+    UnloadTexture(Heart);
     CloseWindow();
     return 0;
 }

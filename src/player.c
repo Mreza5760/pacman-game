@@ -18,7 +18,7 @@ const char *pactex[5] = {
 void pacdef(Player *pac, Vector2 strpos) {
     pac->pos = strpos;
     pac->rad = Cellsz/2;
-    pac->helth = 3;
+    pac->heart = 3;
     pac->point = 0;
     pac->speed = 0.2;
     pac->dir = 0;

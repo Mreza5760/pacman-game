@@ -9,10 +9,10 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
-                "-o", "${workspaceFolder}/build/${fileBasenameNoExtension}.exe"  // Ensure exe goes to 'build' folder
+                "-o", "${workspaceFolder}/build/${fileBasenameNoExtension}.exe" 
             ],
             "options": {
-                "cwd": "${fileDirname}"  // Build in the directory of the active file
+                "cwd": "${fileDirname}"  
             },
             "problemMatcher": [
                 "$gcc"
@@ -26,15 +26,15 @@
         {
             "label": "Run Pacman",
             "type": "shell",
-            "command": "${workspaceFolder}/build/${fileBasenameNoExtension}.exe",  // Ensure exe is executed from 'build'
+            "command": "${workspaceFolder}/build/${fileBasenameNoExtension}.exe",  
             "options": {
-                "cwd": "${workspaceFolder}"  // Set the working directory to the project root
+                "cwd": "${workspaceFolder}"  
             },
             "group": {
                 "kind": "build",
                 "isDefault": false
             },
-            "dependsOn": ["C/C++: gcc.exe build active file"],  // Run this task after build
+            "dependsOn": ["C/C++: gcc.exe build active file"], 
             "problemMatcher": []
         }
     ]

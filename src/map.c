@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+Texture2D Heart;
 int Mstate[Row][Col];
 const char map[3][Row][Col] = {
    {
@@ -92,10 +93,18 @@ void randomMap() {
             Mstate[i][j] = res;
         }
     }
+    Heart = LoadTexture("../assets/sprites/heart.png");
 }
 
 void DrawMap() {
-    DrawText(TextFormat("Points: %d", Pacman.point), 20, 20, 30, RED);
+    DrawText(TextFormat("Points: %d", Pacman.point), 20, 30, 30, GREEN);
+    DrawText("Hearts:", 200, 30, 30, GREEN);
+    for (int i = 1; i <= Pacman.heart; i++) {
+        Rectangle dest = {250+i*40, 30 , 30, 30},
+        sour = {0, 0, Heart.width, Heart.height};
+        DrawTexturePro(Heart, sour, dest, (Vector2){0, 0}, 0, WHITE);
+    }
+
     for (int i = 0; i < Row; i++) {
         for (int j = 0; j < Col; j++) {
             switch (Mstate[i][j]) {
