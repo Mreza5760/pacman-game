@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/pacman-game.dir/src/ghost.c.obj"
+  "CMakeFiles/pacman-game.dir/src/ghost.c.obj.d"
   "CMakeFiles/pacman-game.dir/src/main.c.obj"
   "CMakeFiles/pacman-game.dir/src/main.c.obj.d"
   "CMakeFiles/pacman-game.dir/src/map.c.obj"

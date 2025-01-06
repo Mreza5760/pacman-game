@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "menu.h"
 #include "map.h"
+#include "ghost.h"
 #include "player.h"
 
 int main() {
@@ -8,7 +9,7 @@ int main() {
     InitWindow(ScW, ScH, "Pacman");
     SetTargetFPS(60);
     
-    Gs = 0, Ms = 0;
+    Gs = 0, Ms = 0, Df = 1;
     randomMap(); 
     while (!WindowShouldClose()) {
         switch (Gs) {
@@ -17,6 +18,15 @@ int main() {
                 DrawM(Ms);
                 break;
             case 1:
+                if (IsKeyPressed(KEY_ESCAPE)) {
+                    Gs = 4;
+                    break;
+                }
+                if (IsKeyPressed(KEY_M)) {
+                    Gs = 0;
+                    Ms = 0;  
+                    break;
+                }
                 BeginDrawing();
 
                 pacupd(&Pacman);
@@ -26,6 +36,9 @@ int main() {
                 EndDrawing();
                 break;
             case 2:
+                getDf(&Gs, &Df);
+                randomMap();
+                DrawDf(Df);
                 break;
             case 3:
                 break;

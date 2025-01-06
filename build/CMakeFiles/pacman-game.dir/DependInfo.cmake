@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "C:/Users/User/Desktop/pacman-game/src/ghost.c" "CMakeFiles/pacman-game.dir/src/ghost.c.obj" "gcc" "CMakeFiles/pacman-game.dir/src/ghost.c.obj.d"
   "C:/Users/User/Desktop/pacman-game/src/main.c" "CMakeFiles/pacman-game.dir/src/main.c.obj" "gcc" "CMakeFiles/pacman-game.dir/src/main.c.obj.d"
   "C:/Users/User/Desktop/pacman-game/src/map.c" "CMakeFiles/pacman-game.dir/src/map.c.obj" "gcc" "CMakeFiles/pacman-game.dir/src/map.c.obj.d"
   "C:/Users/User/Desktop/pacman-game/src/menu.c" "CMakeFiles/pacman-game.dir/src/menu.c.obj" "gcc" "CMakeFiles/pacman-game.dir/src/menu.c.obj.d"

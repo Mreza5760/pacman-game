@@ -1,6 +1,12 @@
 [
 {
   "directory": "C:/Users/User/Desktop/pacman-game/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu11 -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\pacman-game.dir\\src\\ghost.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\ghost.c",
+  "file": "C:/Users/User/Desktop/pacman-game/src/ghost.c",
+  "output": "CMakeFiles/pacman-game.dir/src/ghost.c.obj"
+},
+{
+  "directory": "C:/Users/User/Desktop/pacman-game/build",
   "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu11 -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\pacman-game.dir\\src\\main.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\main.c",
   "file": "C:/Users/User/Desktop/pacman-game/src/main.c",
   "output": "CMakeFiles/pacman-game.dir/src/main.c.obj"

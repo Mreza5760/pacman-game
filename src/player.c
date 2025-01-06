@@ -13,11 +13,8 @@ const char *pactex[5] = {
     "../assets/sprites/pac/pacWide2.png"
 };
 
-
-
 void pacdef(Player *pac, Vector2 strpos) {
     pac->pos = strpos;
-    pac->rad = Cellsz/2;
     pac->heart = 3;
     pac->point = 0;
     pac->speed = 0.2;

@@ -1,7 +1,7 @@
 #include "raylib.h"
 #include "menu.h"
 
-int Gs, Ms;
+int Gs, Ms, Df;
 
 void getIn(int *M, int* x) {
     if (IsKeyPressed(KEY_DOWN)) 
@@ -19,9 +19,32 @@ void DrawM(int x) {
     BeginDrawing();
 
     ClearBackground(BLACK);
-    DrawText("Menu", 300, 100, 40, YELLOW);
+    DrawText("Menu", 300, 200, 50, YELLOW);
     for (int i = 0; i < 4; i++)
-        DrawText(mod[i], 350, 200 + i*50, 20, (i==x)?RED:GREEN);
+        DrawText(mod[i], 300, 300 + i*50, 35, (i==x)?RED:GREEN);
+    
+    EndDrawing();
+}
+
+void getDf(int *G, int* x) {
+    if (IsKeyPressed(KEY_DOWN)) 
+        *x = (*x+1)%3;
+    if (IsKeyPressed(KEY_UP)) 
+        *x = (*x+2)%3;   
+    
+    if (IsKeyPressed(KEY_ENTER))
+        *G = 0;
+}
+
+void DrawDf(int x) {
+    char* mod[] = {"Easy", "Normal", "Hard"};
+    
+    BeginDrawing();
+
+    ClearBackground(BLACK);
+    DrawText("Difficulty", 300, 200, 50, YELLOW);
+    for (int i = 0; i < 3; i++)
+        DrawText(mod[i], 300, 300 + i*50, 35, (i==x)?RED:GREEN);
     
     EndDrawing();
 }

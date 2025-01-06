@@ -8,7 +8,7 @@
 typedef struct {
     Vector2 pos;
     Texture2D tex;
-    int heart, point, rad, frame, dir;
+    int heart, point, frame, dir;
     double speed;
 } Player;
 

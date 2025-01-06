@@ -148,6 +148,30 @@ pacman-game/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/build
 .PHONY : pacman-game/fast
 
+src/ghost.obj: src/ghost.c.obj
+.PHONY : src/ghost.obj
+
+# target to build an object file
+src/ghost.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/ghost.c.obj
+.PHONY : src/ghost.c.obj
+
+src/ghost.i: src/ghost.c.i
+.PHONY : src/ghost.i
+
+# target to preprocess a source file
+src/ghost.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/ghost.c.i
+.PHONY : src/ghost.c.i
+
+src/ghost.s: src/ghost.c.s
+.PHONY : src/ghost.s
+
+# target to generate assembly for a file
+src/ghost.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/ghost.c.s
+.PHONY : src/ghost.c.s
+
 src/main.obj: src/main.c.obj
 .PHONY : src/main.obj
 
@@ -255,6 +279,9 @@ help:
 	@echo ... package_source
 	@echo ... rebuild_cache
 	@echo ... pacman-game
+	@echo ... src/ghost.obj
+	@echo ... src/ghost.i
+	@echo ... src/ghost.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s

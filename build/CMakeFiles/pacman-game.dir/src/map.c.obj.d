@@ -11,6 +11,8 @@ CMakeFiles/pacman-game.dir/src/map.c.obj: \
  C:/msys64/ucrt64/include/sdks/_mingw_ddk.h \
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/stdbool.h \
  C:\Users\User\Desktop\pacman-game\src\player.h \
+ C:\Users\User\Desktop\pacman-game\src\ghost.h \
+ C:\Users\User\Desktop\pacman-game\src\menu.h \
  C:/msys64/ucrt64/include/stdlib.h C:/msys64/ucrt64/include/corecrt.h \
  C:/msys64/ucrt64/include/corecrt_wstdlib.h \
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/limits.h \

@@ -1,5 +1,7 @@
 #include "map.h"
 #include "player.h"
+#include "ghost.h"
+#include "menu.h"
 #include "raylib.h"
 #include <stdlib.h>
 #include <time.h>
@@ -9,7 +11,7 @@ int Mstate[Row][Col];
 const char map[3][Row][Col] = {
    {
         "#########################",
-        "#                       #",
+        "#              B        #",
         "#  #######   #######    #",
         "#  #     #   #     #    #",
         "#  # ### ## ## ### #    #",
@@ -33,7 +35,7 @@ const char map[3][Row][Col] = {
         "#   ####           #### #",
         "#   #                 # #",
         "#   #  # # ###     # ## #",
-        "#   #        #          #",
+        "#   #  B     #          #",
         "#   ######## #     #    #",
         "#            #     #    #",
         "#   ##########     ######",
@@ -66,29 +68,33 @@ const char map[3][Row][Col] = {
         "#       P  #####        #",
         "#                ########",
         "# #####  #####          #",
-        "#       #        ### ####",
+        "#  B    #        ### ####",
         "#  ###      ##          #",
         "#########################",
     }
 };
 
-// -1: 0:star 1:# 2:P 3:g 4:G 5:C 6:F 7:A 8:M  
+// -1:- 0:star 1:# 2:P 3:B 4:G 5:C 6:F 7:A 8:M  
 
 void randomMap() {
-    srand(time(0));
-    int x = rand()%3;
+    int x = Df;
     for (int i = 0; i < Row; i++) {
         for (int j = 0; j < Col; j++) {
             int res = 0;
+            Vector2 temp = {j, i};
             switch (map[x][i][j]) {
                 case '#' :
                     res = 1;
                     break;
                 case 'P' :
-                    Vector2 temp = {j, i};
                     pacdef(&Pacman, temp);
                     res = 2;
                     break; 
+                case 'B' :
+                    blidef(&Blinky, temp);
+                    res = 3;
+                    break;
+
             }
             Mstate[i][j] = res;
         }
@@ -97,10 +103,11 @@ void randomMap() {
 }
 
 void DrawMap() {
-    DrawText(TextFormat("Points: %d", Pacman.point), 20, 30, 30, GREEN);
-    DrawText("Hearts:", 200, 30, 30, GREEN);
+    DrawText("Points", 40, 20, 30, GREEN);
+    DrawText(TextFormat("%d", Pacman.point), 150, 20, 30, RED);
+    DrawText("Hearts", 400, 20, 30, GREEN);
     for (int i = 1; i <= Pacman.heart; i++) {
-        Rectangle dest = {250+i*40, 30 , 30, 30},
+        Rectangle dest = {480+i*50, 10, 50, 50},
         sour = {0, 0, Heart.width, Heart.height};
         DrawTexturePro(Heart, sour, dest, (Vector2){0, 0}, 0, WHITE);
     }
@@ -119,6 +126,11 @@ void DrawMap() {
                     sour = {0, 0, Pacman.tex.width, Pacman.tex.height};
                     DrawTexturePro(Pacman.tex, sour, dest, (Vector2){16, 16}, Pacman.dir*90, WHITE);
                     break; 
+                case 3 :
+                    Rectangle dest2 = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz, Cellsz},
+                    sour2 = {0, 0, Blinky.tex.width, Blinky.tex.height};
+                    DrawTexturePro(Blinky.tex, sour2, dest2, (Vector2){16, 16}, 0, WHITE);
+                    break;
             }
         }
     }
