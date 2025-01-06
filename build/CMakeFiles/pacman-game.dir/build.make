@@ -71,36 +71,86 @@ include CMakeFiles/pacman-game.dir/flags.make
 CMakeFiles/pacman-game.dir/codegen:
 .PHONY : CMakeFiles/pacman-game.dir/codegen
 
-CMakeFiles/pacman-game.dir/pacman-game.c.obj: CMakeFiles/pacman-game.dir/flags.make
-CMakeFiles/pacman-game.dir/pacman-game.c.obj: C:/Users/User/Desktop/pacman-game/pacman-game.c
-CMakeFiles/pacman-game.dir/pacman-game.c.obj: CMakeFiles/pacman-game.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\User\Desktop\pacman-game\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/pacman-game.dir/pacman-game.c.obj"
-	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pacman-game.dir/pacman-game.c.obj -MF CMakeFiles\pacman-game.dir\pacman-game.c.obj.d -o CMakeFiles\pacman-game.dir\pacman-game.c.obj -c C:\Users\User\Desktop\pacman-game\pacman-game.c
+CMakeFiles/pacman-game.dir/src/main.c.obj: CMakeFiles/pacman-game.dir/flags.make
+CMakeFiles/pacman-game.dir/src/main.c.obj: C:/Users/User/Desktop/pacman-game/src/main.c
+CMakeFiles/pacman-game.dir/src/main.c.obj: CMakeFiles/pacman-game.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\User\Desktop\pacman-game\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/pacman-game.dir/src/main.c.obj"
+	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pacman-game.dir/src/main.c.obj -MF CMakeFiles\pacman-game.dir\src\main.c.obj.d -o CMakeFiles\pacman-game.dir\src\main.c.obj -c C:\Users\User\Desktop\pacman-game\src\main.c
 
-CMakeFiles/pacman-game.dir/pacman-game.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/pacman-game.dir/pacman-game.c.i"
-	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\User\Desktop\pacman-game\pacman-game.c > CMakeFiles\pacman-game.dir\pacman-game.c.i
+CMakeFiles/pacman-game.dir/src/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/pacman-game.dir/src/main.c.i"
+	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\User\Desktop\pacman-game\src\main.c > CMakeFiles\pacman-game.dir\src\main.c.i
 
-CMakeFiles/pacman-game.dir/pacman-game.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/pacman-game.dir/pacman-game.c.s"
-	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\User\Desktop\pacman-game\pacman-game.c -o CMakeFiles\pacman-game.dir\pacman-game.c.s
+CMakeFiles/pacman-game.dir/src/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/pacman-game.dir/src/main.c.s"
+	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\User\Desktop\pacman-game\src\main.c -o CMakeFiles\pacman-game.dir\src\main.c.s
+
+CMakeFiles/pacman-game.dir/src/map.c.obj: CMakeFiles/pacman-game.dir/flags.make
+CMakeFiles/pacman-game.dir/src/map.c.obj: C:/Users/User/Desktop/pacman-game/src/map.c
+CMakeFiles/pacman-game.dir/src/map.c.obj: CMakeFiles/pacman-game.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\User\Desktop\pacman-game\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/pacman-game.dir/src/map.c.obj"
+	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pacman-game.dir/src/map.c.obj -MF CMakeFiles\pacman-game.dir\src\map.c.obj.d -o CMakeFiles\pacman-game.dir\src\map.c.obj -c C:\Users\User\Desktop\pacman-game\src\map.c
+
+CMakeFiles/pacman-game.dir/src/map.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/pacman-game.dir/src/map.c.i"
+	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\User\Desktop\pacman-game\src\map.c > CMakeFiles\pacman-game.dir\src\map.c.i
+
+CMakeFiles/pacman-game.dir/src/map.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/pacman-game.dir/src/map.c.s"
+	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\User\Desktop\pacman-game\src\map.c -o CMakeFiles\pacman-game.dir\src\map.c.s
+
+CMakeFiles/pacman-game.dir/src/menu.c.obj: CMakeFiles/pacman-game.dir/flags.make
+CMakeFiles/pacman-game.dir/src/menu.c.obj: C:/Users/User/Desktop/pacman-game/src/menu.c
+CMakeFiles/pacman-game.dir/src/menu.c.obj: CMakeFiles/pacman-game.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\User\Desktop\pacman-game\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/pacman-game.dir/src/menu.c.obj"
+	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pacman-game.dir/src/menu.c.obj -MF CMakeFiles\pacman-game.dir\src\menu.c.obj.d -o CMakeFiles\pacman-game.dir\src\menu.c.obj -c C:\Users\User\Desktop\pacman-game\src\menu.c
+
+CMakeFiles/pacman-game.dir/src/menu.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/pacman-game.dir/src/menu.c.i"
+	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\User\Desktop\pacman-game\src\menu.c > CMakeFiles\pacman-game.dir\src\menu.c.i
+
+CMakeFiles/pacman-game.dir/src/menu.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/pacman-game.dir/src/menu.c.s"
+	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\User\Desktop\pacman-game\src\menu.c -o CMakeFiles\pacman-game.dir\src\menu.c.s
+
+CMakeFiles/pacman-game.dir/src/player.c.obj: CMakeFiles/pacman-game.dir/flags.make
+CMakeFiles/pacman-game.dir/src/player.c.obj: C:/Users/User/Desktop/pacman-game/src/player.c
+CMakeFiles/pacman-game.dir/src/player.c.obj: CMakeFiles/pacman-game.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\User\Desktop\pacman-game\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/pacman-game.dir/src/player.c.obj"
+	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pacman-game.dir/src/player.c.obj -MF CMakeFiles\pacman-game.dir\src\player.c.obj.d -o CMakeFiles\pacman-game.dir\src\player.c.obj -c C:\Users\User\Desktop\pacman-game\src\player.c
+
+CMakeFiles/pacman-game.dir/src/player.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/pacman-game.dir/src/player.c.i"
+	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\User\Desktop\pacman-game\src\player.c > CMakeFiles\pacman-game.dir\src\player.c.i
+
+CMakeFiles/pacman-game.dir/src/player.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/pacman-game.dir/src/player.c.s"
+	C:\msys64\ucrt64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\User\Desktop\pacman-game\src\player.c -o CMakeFiles\pacman-game.dir\src\player.c.s
 
 # Object files for target pacman-game
 pacman__game_OBJECTS = \
-"CMakeFiles/pacman-game.dir/pacman-game.c.obj"
+"CMakeFiles/pacman-game.dir/src/main.c.obj" \
+"CMakeFiles/pacman-game.dir/src/map.c.obj" \
+"CMakeFiles/pacman-game.dir/src/menu.c.obj" \
+"CMakeFiles/pacman-game.dir/src/player.c.obj"
 
 # External object files for target pacman-game
 pacman__game_EXTERNAL_OBJECTS =
 
-libpacman-game.a: CMakeFiles/pacman-game.dir/pacman-game.c.obj
-libpacman-game.a: CMakeFiles/pacman-game.dir/build.make
-libpacman-game.a: CMakeFiles/pacman-game.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\User\Desktop\pacman-game\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library libpacman-game.a"
-	$(CMAKE_COMMAND) -P CMakeFiles\pacman-game.dir\cmake_clean_target.cmake
+pacman-game.exe: CMakeFiles/pacman-game.dir/src/main.c.obj
+pacman-game.exe: CMakeFiles/pacman-game.dir/src/map.c.obj
+pacman-game.exe: CMakeFiles/pacman-game.dir/src/menu.c.obj
+pacman-game.exe: CMakeFiles/pacman-game.dir/src/player.c.obj
+pacman-game.exe: CMakeFiles/pacman-game.dir/build.make
+pacman-game.exe: C:/msys64/ucrt64/lib/libraylib.dll.a
+pacman-game.exe: CMakeFiles/pacman-game.dir/linkLibs.rsp
+pacman-game.exe: CMakeFiles/pacman-game.dir/objects1.rsp
+pacman-game.exe: CMakeFiles/pacman-game.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\User\Desktop\pacman-game\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable pacman-game.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\pacman-game.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/pacman-game.dir/build: libpacman-game.a
+CMakeFiles/pacman-game.dir/build: pacman-game.exe
 .PHONY : CMakeFiles/pacman-game.dir/build
 
 CMakeFiles/pacman-game.dir/clean:

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Win32-mingw32-make"
+	BuildStamp="20250106-1235-Experimental"
+	Name="DESKTOP-L6CGU68"
+	Generator="ctest-3.31.3"
+	CompilerName="C:/msys64/ucrt64/bin/g++.exe"
+	CompilerVersion=""
+	OSName="Windows"
+	Hostname="DESKTOP-L6CGU68"
+	OSRelease=" Professional"
+	OSVersion=" (Build 19045)"
+	OSPlatform="AMD64"
+	Is64Bits="1"
+	VendorString=""
+	VendorID="Unknown Manufacturer"
+	FamilyID="0"
+	ModelID="0"
+	ModelName=""
+	ProcessorCacheSize="0"
+	NumberOfLogicalCPU="4"
+	NumberOfPhysicalCPU="4"
+	TotalVirtualMemory="7474"
+	TotalPhysicalMemory="3926"
+	LogicalProcessorsPerPhysical="1"
+	ProcessorClockFrequency="1440"
+	>
+	<Testing>
+		<StartDateTime>Jan 06 16:22 Iran Standard Time</StartDateTime>
+		<StartTestTime>1736167954</StartTestTime>
+		<TestList/>
+		<EndDateTime>Jan 06 16:22 Iran Standard Time</EndDateTime>
+		<EndTestTime>1736167954</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

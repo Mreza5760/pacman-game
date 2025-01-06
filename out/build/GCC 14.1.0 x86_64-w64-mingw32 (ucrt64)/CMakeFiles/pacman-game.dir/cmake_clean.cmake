@@ -1,4 +1,7 @@
 file(REMOVE_RECURSE
+  "C:/Users/User/Desktop/pacman-game/build/pacman-game.exe"
+  "C:/Users/User/Desktop/pacman-game/build/pacman-game.exe.manifest"
+  "C:/Users/User/Desktop/pacman-game/build/pacman-game.pdb"
   "CMakeFiles/pacman-game.dir/src/main.c.obj"
   "CMakeFiles/pacman-game.dir/src/main.c.obj.d"
   "CMakeFiles/pacman-game.dir/src/map.c.obj"
@@ -8,9 +11,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/pacman-game.dir/src/player.c.obj"
   "CMakeFiles/pacman-game.dir/src/player.c.obj.d"
   "libpacman-game.dll.a"
-  "pacman-game.exe"
-  "pacman-game.exe.manifest"
-  "pacman-game.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

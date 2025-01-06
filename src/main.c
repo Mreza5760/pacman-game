@@ -4,13 +4,12 @@
 #include "player.h"
 
 int main() {
-    const int ScW = Col*Cellsz, ScH = Row*Cellsz;
+    const int ScW = Col*Cellsz, ScH = Row*Cellsz+Offset;
     InitWindow(ScW, ScH, "Pacman");
     SetTargetFPS(60);
     
     Gs = 0, Ms = 0;
     randomMap(); 
-
     while (!WindowShouldClose()) {
         switch (Gs) {
             case 0:
@@ -35,6 +34,7 @@ int main() {
                 return 0;
         }
     }
+    UnloadTexture(Pacman.tex);
     CloseWindow();
     return 0;
 }

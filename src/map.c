@@ -95,18 +95,20 @@ void randomMap() {
 }
 
 void DrawMap() {
+    DrawText(TextFormat("Points: %d", Pacman.point), 20, 20, 30, RED);
     for (int i = 0; i < Row; i++) {
         for (int j = 0; j < Col; j++) {
             switch (Mstate[i][j]) {
                 case 0:
-                    DrawCircle(j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2, Cellsz/8, WHITE);
+                    DrawCircle(j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz/8, WHITE);
                     break;
                 case 1 :
-                    DrawRectangle(j*Cellsz, i*Cellsz, Cellsz, Cellsz, DARKBLUE);
+                    DrawRectangle(j*Cellsz, i*Cellsz+Offset, Cellsz, Cellsz, DARKBLUE);
                     break;
                 case 2 :
-                    Vector2 pix = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2};
-                    DrawCircleV(pix, Pacman.rad, YELLOW);
+                    Rectangle dest = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz, Cellsz},
+                    sour = {0, 0, Pacman.tex.width, Pacman.tex.height};
+                    DrawTexturePro(Pacman.tex, sour, dest, (Vector2){16, 16}, Pacman.dir*90, WHITE);
                     break; 
             }
         }

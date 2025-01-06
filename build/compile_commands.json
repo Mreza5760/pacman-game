@@ -1,8 +1,26 @@
 [
 {
   "directory": "C:/Users/User/Desktop/pacman-game/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -o CMakeFiles\\pacman-game.dir\\pacman-game.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\pacman-game.c",
-  "file": "C:/Users/User/Desktop/pacman-game/pacman-game.c",
-  "output": "CMakeFiles/pacman-game.dir/pacman-game.c.obj"
+  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu11 -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\pacman-game.dir\\src\\main.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\main.c",
+  "file": "C:/Users/User/Desktop/pacman-game/src/main.c",
+  "output": "CMakeFiles/pacman-game.dir/src/main.c.obj"
+},
+{
+  "directory": "C:/Users/User/Desktop/pacman-game/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu11 -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\pacman-game.dir\\src\\map.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\map.c",
+  "file": "C:/Users/User/Desktop/pacman-game/src/map.c",
+  "output": "CMakeFiles/pacman-game.dir/src/map.c.obj"
+},
+{
+  "directory": "C:/Users/User/Desktop/pacman-game/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu11 -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\pacman-game.dir\\src\\menu.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\menu.c",
+  "file": "C:/Users/User/Desktop/pacman-game/src/menu.c",
+  "output": "CMakeFiles/pacman-game.dir/src/menu.c.obj"
+},
+{
+  "directory": "C:/Users/User/Desktop/pacman-game/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu11 -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\pacman-game.dir\\src\\player.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\player.c",
+  "file": "C:/Users/User/Desktop/pacman-game/src/player.c",
+  "output": "CMakeFiles/pacman-game.dir/src/player.c.obj"
 }
 ]

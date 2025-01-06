@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = 
 
-C_FLAGS = -g
+C_FLAGS = -g -std=gnu11 -IC:/msys64/ucrt64/bin/../include
 
