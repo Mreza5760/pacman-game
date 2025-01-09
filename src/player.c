@@ -50,6 +50,10 @@ void pacUpd(Player *pac) {
         case 1:
             *pac = temp;
             return;
+        case 3:
+            pac->heart--;
+            // if (!pac->heart)
+            break;
     }  
     Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 
     Mstate[(int)pac->pos.y][(int)pac->pos.x] = 2;
