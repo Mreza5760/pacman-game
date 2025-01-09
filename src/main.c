@@ -27,9 +27,11 @@ int main() {
                     Ms = 0;  
                     break;
                 }
+
                 BeginDrawing();
 
-                pacupd(&Pacman);
+                pacUpd(&Pacman);
+                gosUpd(&Blinky, Pacman.pos, 3);
                 ClearBackground(BLACK);
                 DrawMap();
    
@@ -37,7 +39,6 @@ int main() {
                 break;
             case 2:
                 getDf(&Gs, &Df);
-                randomMap();
                 DrawDf(Df);
                 break;
             case 3:

@@ -1,16 +1,17 @@
 #include "raylib.h"
 #include "menu.h"
+#include "map.h"
 
 int Gs, Ms, Df;
 
-void getIn(int *M, int* x) {
+void getIn(int *G, int* x) {
     if (IsKeyPressed(KEY_DOWN)) 
         *x = (*x+1)%4;
     if (IsKeyPressed(KEY_UP)) 
         *x = (*x+3)%4;   
     
     if (IsKeyPressed(KEY_ENTER))
-        *M = *x+1;
+        *G = *x+1;
 }
 
 void DrawM(int x) {
@@ -32,8 +33,10 @@ void getDf(int *G, int* x) {
     if (IsKeyPressed(KEY_UP)) 
         *x = (*x+2)%3;   
     
-    if (IsKeyPressed(KEY_ENTER))
+    if (IsKeyPressed(KEY_ENTER)) {
         *G = 0;
+        randomMap();
+    }
 }
 
 void DrawDf(int x) {

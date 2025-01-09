@@ -3,42 +3,68 @@
 #include "raylib.h"
 
 Ghost Blinky;
+int desTar[Row][Col];
+const char *gostex[5] = {
+    "../assets/sprites/blinky.png",
+    "../assets/sprites/clyde.png",
+    "../assets/sprites/inky.png",
+    "../assets/sprites/pinky.png",
+    "../assets/sprites/blue_ghost.png"
+};
 
-void blidef(Ghost *bli, Vector2 strpos) {
-    bli->pos = strpos;
-    bli->speed = 0.2;
-    bli->beh = -1;
-    bli->tex = LoadTexture("../assets/sprites/blinky.png");
+void gosDef(Ghost *gos, Vector2 strpos, int type) {
+    gos->pos = strpos;
+    gos->speed = 0.1;
+    gos->blue = 0;
+    gos->beh = -1;
+    gos->tex = LoadTexture(gostex[type-3]);
 }
 
-// void pacupd(Player *pac) {
-//     Player temp = *pac;
-    
-//     if (changeFrame % 7 == 0) {
-//         UnloadTexture(pac->tex);
-//         pac->frame = (pac->frame+1)%5;
-//         pac->tex = LoadTexture(pactex[pac->frame]); 
-//     }
-//     changeFrame++;
-    
-//     if (IsKeyDown(KEY_RIGHT)) 
-//         pac->pos.x += pac->speed, pac->dir = 0;
-//     if (IsKeyDown(KEY_DOWN)) 
-//         pac->pos.y += pac->speed, pac->dir = 1;
-//     if (IsKeyDown(KEY_LEFT)) 
-//         pac->pos.x -= pac->speed, pac->dir = 2;
-//     if (IsKeyDown(KEY_UP)) 
-//         pac->pos.y -= pac->speed, pac->dir = 3;
+void updDes(int x, int y) {
+    for (int i = 0; i < Row; i++)
+        for (int j = 0; j < Col; j++)
+            desTar[i][j] = 100000;
+    desTar[y][x] = 0;
+    for (int k = 0; k < 2*Row+Col; k++) {
+        for (int i = 0; i < Row; i++)
+            for (int j = 0; j < Col; j++) {
+                if (Mstate[i][j] == 1) continue;
+                if (j < Col) desTar[i][j] = min(desTar[i][j], desTar[i][j+1]+1);
+                if (j) desTar[i][j] = min(desTar[i][j], desTar[i][j-1]+1);
+                if (i < Row) desTar[i][j] = min(desTar[i][j], desTar[i+1][j]+1);
+                if (i) desTar[i][j] = min(desTar[i][j], desTar[i-1][j]+1);
+            }
+    }
+}
 
-//     switch (Mstate[(int)pac->pos.y][(int)pac->pos.x]){
-//         case 0:
-//             pac->point += Starp;
-//             Mstate[(int)pac->pos.y][(int)pac->pos.x] = -1;
-//             break;
-//         case 1:
-//             *pac = temp;
-//             return;
-//     }  
-//     Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 
-//     Mstate[(int)pac->pos.y][(int)pac->pos.x] = 2;
-// }
+void gosUpd(Ghost *gos, Vector2 tar, int type) {    
+    updDes(tar.x, tar.y);
+    int dir = -1, mn = 100000, x = gos->pos.x, y =gos->pos.y;
+    
+    if (x < Col && desTar[y][x+1] < mn)
+        dir = 0, mn = desTar[y][x+1];
+    if (y < Row && desTar[y+1][x] < mn)
+        dir = 1, mn = desTar[y+1][x];
+    if (x && desTar[y][x-1] < mn)
+        dir = 2, mn = desTar[y][x-1];
+    if (y && desTar[y-1][x] < mn)
+        dir = 3, mn = desTar[y-1][x];
+
+    switch (dir) {
+        case 0:
+            gos->pos.x += gos->speed;
+            break;
+        case 1:
+            gos->pos.y += gos->speed;
+            break;
+        case 2:
+            gos->pos.x -= gos->speed;
+            break;
+        case 3:
+            gos->pos.y -= gos->speed;
+            break;
+    } 
+    Mstate[y][x] = gos->beh;
+    gos->beh = Mstate[(int)gos->pos.y][(int)gos->pos.x];
+    Mstate[(int)gos->pos.y][(int)gos->pos.x] = type;
+}

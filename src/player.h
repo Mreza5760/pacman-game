@@ -16,7 +16,7 @@ extern int changeFrame;
 extern Player Pacman;
 extern const char *pactex[5];
 
-void pacdef(Player *pac, Vector2 strpos);
-void pacupd(Player *pac);
+void pacDef(Player *pac, Vector2 strpos);
+void pacUpd(Player *pac);
 
 #endif

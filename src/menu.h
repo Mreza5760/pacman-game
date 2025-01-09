@@ -5,7 +5,7 @@
 // Ms: Play, Difficulty, Records, Exit
 extern int Gs, Ms, Df;
 
-void getIn(int* M, int* x);
+void getIn(int* G, int* x);
 void DrawM(int x);
 void getDf(int* G, int* x);
 void DrawDf(int x);

@@ -40,14 +40,14 @@ const char map[3][Row][Col] = {
         "#            #     #    #",
         "#   ##########     ######",
         "#       P               #",
-        "### ######  #####     ###",
+        "### ## ###  #####     ###",
         "#   ###                 #",
         "#   #     ####   ####   #",
         "#   ##   #       #      #",
         "#         #####  #      #",
         "#                ########",
         "# #####   ####          #",
-        "#       #        ########",
+        "#       #        ##   ###",
         "#  ###   #####   #      #",
         "#########################"
     },
@@ -74,7 +74,7 @@ const char map[3][Row][Col] = {
     }
 };
 
-// -1:- 0:star 1:# 2:P 3:B 4:G 5:C 6:F 7:A 8:M  
+// -1:- 0:star 1:# 2:P 3:B  
 
 void randomMap() {
     int x = Df;
@@ -87,11 +87,11 @@ void randomMap() {
                     res = 1;
                     break;
                 case 'P' :
-                    pacdef(&Pacman, temp);
+                    pacDef(&Pacman, temp);
                     res = 2;
                     break; 
                 case 'B' :
-                    blidef(&Blinky, temp);
+                    gosDef(&Blinky, temp, 3);
                     res = 3;
                     break;
 
@@ -107,7 +107,7 @@ void DrawMap() {
     DrawText(TextFormat("%d", Pacman.point), 150, 20, 30, RED);
     DrawText("Hearts", 400, 20, 30, GREEN);
     for (int i = 1; i <= Pacman.heart; i++) {
-        Rectangle dest = {480+i*50, 10, 50, 50},
+        Rectangle dest = {470+i*50, 10, 50, 50},
         sour = {0, 0, Heart.width, Heart.height};
         DrawTexturePro(Heart, sour, dest, (Vector2){0, 0}, 0, WHITE);
     }

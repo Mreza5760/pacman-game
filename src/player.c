@@ -13,20 +13,20 @@ const char *pactex[5] = {
     "../assets/sprites/pac/pacWide2.png"
 };
 
-void pacdef(Player *pac, Vector2 strpos) {
+void pacDef(Player *pac, Vector2 strpos) {
     pac->pos = strpos;
     pac->heart = 3;
     pac->point = 0;
-    pac->speed = 0.2;
+    pac->speed = 0.25;
     pac->dir = 0;
     pac->frame = 0;
     pac->tex = LoadTexture(pactex[pac->frame]);
 }
 
-void pacupd(Player *pac) {
+void pacUpd(Player *pac) {
     Player temp = *pac;
     
-    if (changeFrame % 7 == 0) {
+    if (changeFrame % 15 == 0) {
         UnloadTexture(pac->tex);
         pac->frame = (pac->frame+1)%5;
         pac->tex = LoadTexture(pactex[pac->frame]); 
