@@ -50,7 +50,7 @@ void death() {
         DrawMap();
 
         double T = GetTime();
-        while (GetTime() - T < 0.25);
+        while (GetTime() - T < 0.05);
     }
 
     if (!Pacman.heart) {

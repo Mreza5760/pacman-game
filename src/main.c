@@ -9,7 +9,7 @@ int main() {
     InitWindow(ScW, ScH, "Pacman");
     SetTargetFPS(60);
     
-    Gs = -1, Ms = 0, Df = 1, Ls = 0;
+    Gs = -1, Ms = 0, Df = 1, Ls = 0, nameSz = 0;
     randomMap(); 
     while (!WindowShouldClose()) {
         switch (Gs) {
@@ -21,10 +21,6 @@ int main() {
                 DrawM(Ms);
                 break;
             case 1:
-                if (IsKeyPressed(KEY_ESCAPE)) {
-                    Gs = 4;
-                    break;
-                }
                 if (IsKeyPressed(KEY_M)) {
                     Gs = 0;
                     Ms = 0;  

@@ -1,8 +1,10 @@
 #include "map.h"
 #include "menu.h"
+#include "player.h"
 #include "raylib.h"
 
-int Gs, Ms, Df, Ls;
+int Gs, Ms, Df, Ls, nameSz;
+char playerName[10];
 
 void getIn(int *G, int* x) {
     if (IsKeyPressed(KEY_DOWN)) 
@@ -84,14 +86,35 @@ void DrawLose(int x) {
     BeginDrawing();
 
     ClearBackground(BLACK);
-    DrawText("Game Over", 300, 200, 50, RED);
+    DrawText("Game Over", 100, 100, 50, RED);
+    DrawText(TextFormat("%s your score is : %d", playerName, Pacman.point), 100, 200, 40, WHITE);
     for (int i = 0; i < 4; i++)
-        DrawText(mod[i], 300, 300 + i*50, 35, (i==x)?YELLOW:GREEN);
+        DrawText(mod[i], 100, 300 + i*50, 35, (i==x)?YELLOW:BLUE);
     
     EndDrawing();
 }
 
 void getName() {
+    BeginDrawing();
+    ClearBackground(BLACK);
 
-    Gs = 0;
+    DrawText("Your Name :", 300, 100, 30, WHITE);
+    if ((IsKeyPressed(KEY_ENTER) && nameSz) || nameSz == 8) {
+        Gs = 0;
+        playerName[nameSz] = '\0';
+        // while (IsKeyPressed(KEY_ENTER));
+        return;
+    }
+
+    if (IsKeyPressed(KEY_BACKSPACE) && nameSz > 0) {
+        nameSz--;
+    }
+
+    int key = GetCharPressed();
+    if (32 <= key && key <= 125)
+        playerName[nameSz++] = (char)key;
+    playerName[nameSz] = '\0';
+    DrawText(playerName, 300, 300, 30, GREEN);
+
+    EndDrawing();
 }

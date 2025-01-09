@@ -3,7 +3,8 @@
 
 // Gs: Name, Menu, Game, Difficulty, Records, Exit, Lose
 // Ms: Play, Difficulty, Records, Exit
-extern int Gs, Ms, Df, Ls;
+extern int Gs, Ms, Df, Ls, nameSz;
+extern char playerName[10];
 
 void getIn(int* G, int* x);
 void DrawM(int x);
