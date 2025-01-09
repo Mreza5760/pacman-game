@@ -49,6 +49,7 @@ int main() {
     }
     UnloadTexture(Pacman.tex);
     UnloadTexture(Heart);
+    UnloadTexture(Blinky.tex);
     CloseWindow();
     return 0;
 }

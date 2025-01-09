@@ -2,7 +2,7 @@
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/User/Desktop/pacman-game/out/install/GCC 14.1.0 x86_64-w64-mingw32 (ucrt64)")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/Pacman")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

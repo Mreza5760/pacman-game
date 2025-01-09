@@ -64,26 +64,6 @@ CMAKE_BINARY_DIR = C:\Users\User\Desktop\pacman-game\build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool..."
-	C:\msys64\ucrt64\bin\cpack.exe --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-.PHONY : package/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool for source..."
-	C:\msys64\ucrt64\bin\cpack.exe --config ./CPackSourceConfig.cmake C:/Users/User/Desktop/pacman-game/build/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-.PHONY : package_source/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
@@ -136,24 +116,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named pacman-game
+# Target rules for targets named Pacman
 
 # Build rule for target.
-pacman-game: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 pacman-game
-.PHONY : pacman-game
+Pacman: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Pacman
+.PHONY : Pacman
 
 # fast build rule for target.
-pacman-game/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/build
-.PHONY : pacman-game/fast
+Pacman/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/build
+.PHONY : Pacman/fast
 
 src/ghost.obj: src/ghost.c.obj
 .PHONY : src/ghost.obj
 
 # target to build an object file
 src/ghost.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/ghost.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/ghost.c.obj
 .PHONY : src/ghost.c.obj
 
 src/ghost.i: src/ghost.c.i
@@ -161,7 +141,7 @@ src/ghost.i: src/ghost.c.i
 
 # target to preprocess a source file
 src/ghost.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/ghost.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/ghost.c.i
 .PHONY : src/ghost.c.i
 
 src/ghost.s: src/ghost.c.s
@@ -169,7 +149,7 @@ src/ghost.s: src/ghost.c.s
 
 # target to generate assembly for a file
 src/ghost.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/ghost.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/ghost.c.s
 .PHONY : src/ghost.c.s
 
 src/main.obj: src/main.c.obj
@@ -177,7 +157,7 @@ src/main.obj: src/main.c.obj
 
 # target to build an object file
 src/main.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/main.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/main.c.obj
 .PHONY : src/main.c.obj
 
 src/main.i: src/main.c.i
@@ -185,7 +165,7 @@ src/main.i: src/main.c.i
 
 # target to preprocess a source file
 src/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/main.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/main.c.i
 .PHONY : src/main.c.i
 
 src/main.s: src/main.c.s
@@ -193,7 +173,7 @@ src/main.s: src/main.c.s
 
 # target to generate assembly for a file
 src/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/main.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/main.c.s
 .PHONY : src/main.c.s
 
 src/map.obj: src/map.c.obj
@@ -201,7 +181,7 @@ src/map.obj: src/map.c.obj
 
 # target to build an object file
 src/map.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/map.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/map.c.obj
 .PHONY : src/map.c.obj
 
 src/map.i: src/map.c.i
@@ -209,7 +189,7 @@ src/map.i: src/map.c.i
 
 # target to preprocess a source file
 src/map.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/map.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/map.c.i
 .PHONY : src/map.c.i
 
 src/map.s: src/map.c.s
@@ -217,7 +197,7 @@ src/map.s: src/map.c.s
 
 # target to generate assembly for a file
 src/map.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/map.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/map.c.s
 .PHONY : src/map.c.s
 
 src/menu.obj: src/menu.c.obj
@@ -225,7 +205,7 @@ src/menu.obj: src/menu.c.obj
 
 # target to build an object file
 src/menu.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/menu.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/menu.c.obj
 .PHONY : src/menu.c.obj
 
 src/menu.i: src/menu.c.i
@@ -233,7 +213,7 @@ src/menu.i: src/menu.c.i
 
 # target to preprocess a source file
 src/menu.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/menu.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/menu.c.i
 .PHONY : src/menu.c.i
 
 src/menu.s: src/menu.c.s
@@ -241,7 +221,7 @@ src/menu.s: src/menu.c.s
 
 # target to generate assembly for a file
 src/menu.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/menu.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/menu.c.s
 .PHONY : src/menu.c.s
 
 src/player.obj: src/player.c.obj
@@ -249,7 +229,7 @@ src/player.obj: src/player.c.obj
 
 # target to build an object file
 src/player.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/player.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/player.c.obj
 .PHONY : src/player.c.obj
 
 src/player.i: src/player.c.i
@@ -257,7 +237,7 @@ src/player.i: src/player.c.i
 
 # target to preprocess a source file
 src/player.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/player.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/player.c.i
 .PHONY : src/player.c.i
 
 src/player.s: src/player.c.s
@@ -265,7 +245,7 @@ src/player.s: src/player.c.s
 
 # target to generate assembly for a file
 src/player.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pacman-game.dir\build.make CMakeFiles/pacman-game.dir/src/player.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/player.c.s
 .PHONY : src/player.c.s
 
 # Help Target
@@ -275,10 +255,8 @@ help:
 	@echo ... clean
 	@echo ... depend
 	@echo ... edit_cache
-	@echo ... package
-	@echo ... package_source
 	@echo ... rebuild_cache
-	@echo ... pacman-game
+	@echo ... Pacman
 	@echo ... src/ghost.obj
 	@echo ... src/ghost.i
 	@echo ... src/ghost.s
