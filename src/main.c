@@ -1,7 +1,7 @@
-#include "raylib.h"
-#include "menu.h"
 #include "map.h"
+#include "menu.h"
 #include "ghost.h"
+#include "raylib.h"
 #include "player.h"
 
 int main() {
@@ -9,10 +9,13 @@ int main() {
     InitWindow(ScW, ScH, "Pacman");
     SetTargetFPS(60);
     
-    Gs = 0, Ms = 0, Df = 1;
+    Gs = -1, Ms = 0, Df = 1, Ls = 0;
     randomMap(); 
     while (!WindowShouldClose()) {
         switch (Gs) {
+            case -1:
+                getName();
+                break;
             case 0:
                 getIn(&Gs, &Ms);
                 DrawM(Ms);
@@ -41,6 +44,10 @@ int main() {
             case 4:
                 CloseWindow();
                 return 0;
+            case 5:
+                getInLose(&Gs, &Ls);
+                DrawLose(Ls);
+                break;
         }
     }
     UnloadTexture(Pacman.tex);
