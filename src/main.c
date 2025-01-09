@@ -27,15 +27,10 @@ int main() {
                     Ms = 0;  
                     break;
                 }
-
-                BeginDrawing();
-
                 pacUpd(&Pacman);
                 gosUpd(&Blinky, Pacman.pos, 3);
-                ClearBackground(BLACK);
+                
                 DrawMap();
-   
-                EndDrawing();
                 break;
             case 2:
                 getDf(&Gs, &Df);

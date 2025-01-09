@@ -1,5 +1,6 @@
-#include "ghost.h"
 #include "map.h"
+#include "ghost.h"
+#include "player.h"
 #include "raylib.h"
 
 Ghost Blinky;
@@ -66,5 +67,14 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
     } 
     Mstate[y][x] = gos->beh;
     gos->beh = Mstate[(int)gos->pos.y][(int)gos->pos.x];
+    if (gos->beh == 2) {
+        gos->pos = (Vector2){x, y};
+        gos->beh = Mstate[y][x];
+        Mstate[y][x] = type;
+        Pacman.heart--;
+        death();
+        Mstate[y][x] = gos->beh;
+        return;
+    }
     Mstate[(int)gos->pos.y][(int)gos->pos.x] = type;
 }

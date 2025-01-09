@@ -1,5 +1,7 @@
-#include "player.h"
 #include "map.h"
+#include "menu.h"
+#include <time.h>
+#include "player.h"
 #include "raylib.h"
 
 Player Pacman;
@@ -13,6 +15,20 @@ const char *pactex[5] = {
     "../assets/sprites/pac/pacWide2.png"
 };
 
+const char *deathtex[11] = {
+    "../assets/sprites/pac/deathAnim/death1.png",
+    "../assets/sprites/pac/deathAnim/death2.png",
+    "../assets/sprites/pac/deathAnim/death3.png",
+    "../assets/sprites/pac/deathAnim/death4.png",
+    "../assets/sprites/pac/deathAnim/death5.png",
+    "../assets/sprites/pac/deathAnim/death6.png",
+    "../assets/sprites/pac/deathAnim/death7.png",
+    "../assets/sprites/pac/deathAnim/death8.png",
+    "../assets/sprites/pac/deathAnim/death9.png",
+    "../assets/sprites/pac/deathAnim/death10.png",
+    "../assets/sprites/pac/deathAnim/death11.png"
+};
+
 void pacDef(Player *pac, Vector2 strpos) {
     pac->pos = strpos;
     pac->heart = 3;
@@ -23,13 +39,28 @@ void pacDef(Player *pac, Vector2 strpos) {
     pac->tex = LoadTexture(pactex[pac->frame]);
 }
 
+void death() {
+    Pacman.dir = 0;
+    for (int i = 0; i < 11; i++) {
+        UnloadTexture(Pacman.tex);
+        Pacman.tex = LoadTexture(deathtex[i]);
+
+        DrawMap();
+
+        double T = GetTime();
+        while (GetTime() - T < 0.2);
+    }
+    Gs = 0;
+}
+
 void pacUpd(Player *pac) {
     Player temp = *pac;
     
-    if (changeFrame % 15 == 0) {
+    if (changeFrame % 7 == 0) {
         UnloadTexture(pac->tex);
         pac->frame = (pac->frame+1)%5;
         pac->tex = LoadTexture(pactex[pac->frame]); 
+        changeFrame = 0;
     }
     changeFrame++;
     
@@ -50,10 +81,6 @@ void pacUpd(Player *pac) {
         case 1:
             *pac = temp;
             return;
-        case 3:
-            pac->heart--;
-            // if (!pac->heart)
-            break;
     }  
     Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 
     Mstate[(int)pac->pos.y][(int)pac->pos.x] = 2;

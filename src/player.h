@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "map.h"
 #include "raylib.h"
 
 #define Starp 5
@@ -12,11 +13,13 @@ typedef struct {
     double speed;
 } Player;
 
-extern int changeFrame;
 extern Player Pacman;
+extern int changeFrame;
 extern const char *pactex[5];
+extern const char *deathtex[11];
 
 void pacDef(Player *pac, Vector2 strpos);
+void death();
 void pacUpd(Player *pac);
 
 #endif

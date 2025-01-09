@@ -1,8 +1,9 @@
 #ifndef GHOST_H
 #define GHOST_H
 
-#include "raylib.h"
 #include "map.h"
+#include "raylib.h"
+#include "player.h"
 #include <stdbool.h>
 
 #define min(a, b) ((a)<(b)?(a):(b))

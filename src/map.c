@@ -103,6 +103,9 @@ void randomMap() {
 }
 
 void DrawMap() {
+    BeginDrawing(); 
+    ClearBackground(BLACK);
+
     DrawText("Points", 40, 20, 30, GREEN);
     DrawText(TextFormat("%d", Pacman.point), 150, 20, 30, RED);
     DrawText("Hearts", 400, 20, 30, GREEN);
@@ -134,4 +137,5 @@ void DrawMap() {
             }
         }
     }
+    EndDrawing();
 }
