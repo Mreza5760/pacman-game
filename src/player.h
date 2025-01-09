@@ -4,7 +4,7 @@
 #include "map.h"
 #include "raylib.h"
 
-#define Starp 5
+#define pointSt 5
 
 typedef struct {
     Vector2 pos;
@@ -15,10 +15,11 @@ typedef struct {
 
 extern Player Pacman;
 extern int changeFrame;
+extern Vector2 pacStartPos;
 extern const char *pactex[5];
 extern const char *deathtex[11];
 
-void pacDef(Player *pac, Vector2 strpos);
+void pacDef(Player *pac);
 void death();
 void pacUpd(Player *pac);
 

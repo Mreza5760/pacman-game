@@ -4,6 +4,7 @@
 #include "raylib.h"
 
 Ghost Blinky;
+Vector2 bliStartPos;
 int desTar[Row][Col];
 const char *gostex[5] = {
     "../assets/sprites/blinky.png",
@@ -13,11 +14,15 @@ const char *gostex[5] = {
     "../assets/sprites/blue_ghost.png"
 };
 
-void gosDef(Ghost *gos, Vector2 strpos, int type) {
-    gos->pos = strpos;
+void gosDef(Ghost *gos, int type) {
+    switch (type) {
+        case 3:
+            gos->pos = bliStartPos;
+            break;
+    }
     gos->speed = 0.1;
     gos->blue = 0;
-    gos->beh = -1;
+    gos->beh = 0;
     gos->tex = LoadTexture(gostex[type-3]);
 }
 
@@ -74,6 +79,7 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
         Pacman.heart--;
         death();
         Mstate[y][x] = gos->beh;
+        gos->beh = Mstate[(int)bliStartPos.y][(int)bliStartPos.x];
         return;
     }
     Mstate[(int)gos->pos.y][(int)gos->pos.x] = type;

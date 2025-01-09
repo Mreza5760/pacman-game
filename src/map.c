@@ -1,10 +1,10 @@
 #include "map.h"
-#include "player.h"
-#include "ghost.h"
 #include "menu.h"
+#include "ghost.h"
+#include <time.h>
+#include "player.h"
 #include "raylib.h"
 #include <stdlib.h>
-#include <time.h>
 
 Texture2D Heart;
 int Mstate[Row][Col];
@@ -87,11 +87,13 @@ void randomMap() {
                     res = 1;
                     break;
                 case 'P' :
-                    pacDef(&Pacman, temp);
+                    pacStartPos = temp;
+                    pacDef(&Pacman);
                     res = 2;
                     break; 
                 case 'B' :
-                    gosDef(&Blinky, temp, 3);
+                    bliStartPos = temp;
+                    gosDef(&Blinky, 3);
                     res = 3;
                     break;
 

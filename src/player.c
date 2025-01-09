@@ -1,10 +1,12 @@
 #include "map.h"
 #include "menu.h"
 #include <time.h>
+#include "ghost.h"
 #include "player.h"
 #include "raylib.h"
 
 Player Pacman;
+Vector2 pacStartPos;
 int changeFrame = 0;
 
 const char *pactex[5] = {
@@ -29,8 +31,8 @@ const char *deathtex[11] = {
     "../assets/sprites/pac/deathAnim/death11.png"
 };
 
-void pacDef(Player *pac, Vector2 strpos) {
-    pac->pos = strpos;
+void pacDef(Player *pac) {
+    pac->pos = pacStartPos;
     pac->heart = 3;
     pac->point = 0;
     pac->speed = 0.25;
@@ -50,7 +52,9 @@ void death() {
         double T = GetTime();
         while (GetTime() - T < 0.2);
     }
-    Gs = 0;
+    Mstate[(int)Pacman.pos.y][(int)Pacman.pos.x] = -1;
+    Pacman.pos = pacStartPos;
+    Blinky.pos = bliStartPos;
 }
 
 void pacUpd(Player *pac) {
@@ -75,7 +79,7 @@ void pacUpd(Player *pac) {
 
     switch (Mstate[(int)pac->pos.y][(int)pac->pos.x]){
         case 0:
-            pac->point += Starp;
+            pac->point += pointSt;
             Mstate[(int)pac->pos.y][(int)pac->pos.x] = -1;
             break;
         case 1:

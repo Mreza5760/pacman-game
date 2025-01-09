@@ -17,10 +17,11 @@ typedef struct {
 } Ghost;
 
 extern Ghost Blinky;
+extern Vector2 bliStartPos;
 extern const char *gostex[5];
 extern int desTar[Row][Col];
 
-void gosDef(Ghost *gos, Vector2 strpos, int type);
+void gosDef(Ghost *gos, int type);
 void updDes(int x, int y);
 void gosUpd(Ghost *gos, Vector2 tar, int type);
 
