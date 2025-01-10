@@ -51,3 +51,11 @@ void addRec(char name[12], int score) {
     if (!rankSz || !f) List[rankSz++] = temp;
     if (rankSz > 10) rankSz = 10;
 }
+
+void updRec() {
+    FILE *temp = fopen("../assets/rank.txt", "w");
+    fprintf(temp, "%d\n", rankSz);
+    for (int i = 0; i < rankSz; i++)
+        fprintf(temp, "%s\n%d\n", List[i].name, List[i].score);
+    fclose(temp);
+}

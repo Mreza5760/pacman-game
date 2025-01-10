@@ -60,6 +60,7 @@ int main() {
                 break;
         }
     }
+    updRec();
     UnloadTexture(los);
     UnloadTexture(wel);
     UnloadTexture(Heart);
