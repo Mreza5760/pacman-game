@@ -2,6 +2,7 @@
 #include "menu.h"
 #include <time.h>
 #include "ghost.h"
+#include "record.h"
 #include "player.h"
 #include "raylib.h"
 
@@ -56,6 +57,7 @@ void death() {
     if (!Pacman.heart) {
         Gs = 5;
         Ls = 0;
+        addRec(playerName, Pacman.point);
         return;
     }
 

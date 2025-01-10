@@ -12,4 +12,5 @@ CMakeFiles/Pacman.dir/src/main.c.obj: \
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/stdbool.h \
  C:\Users\User\Desktop\pacman-game\src\menu.h \
  C:\Users\User\Desktop\pacman-game\src\ghost.h \
- C:\Users\User\Desktop\pacman-game\src\player.h
+ C:\Users\User\Desktop\pacman-game\src\player.h \
+ C:\Users\User\Desktop\pacman-game\src\record.h

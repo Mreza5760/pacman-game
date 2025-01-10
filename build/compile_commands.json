@@ -28,5 +28,11 @@
   "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\player.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\player.c",
   "file": "C:/Users/User/Desktop/pacman-game/src/player.c",
   "output": "CMakeFiles/Pacman.dir/src/player.c.obj"
+},
+{
+  "directory": "C:/Users/User/Desktop/pacman-game/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\record.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\record.c",
+  "file": "C:/Users/User/Desktop/pacman-game/src/record.c",
+  "output": "CMakeFiles/Pacman.dir/src/record.c.obj"
 }
 ]

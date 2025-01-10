@@ -4,6 +4,8 @@
 #include "raylib.h"
 #include <stdbool.h>
 
+Texture2D los, wel;
+
 int Gs, Ms, Df, Ls, nameSz;
 char playerName[12];
 double Twel;
@@ -63,6 +65,7 @@ void getInLose(int *G, int* x) {
         *x = (*x+3)%4;   
     
     if (IsKeyPressed(KEY_ENTER)) {
+        randomMap();
         switch (*x) {
             case 0:
                 break;
@@ -71,7 +74,6 @@ void getInLose(int *G, int* x) {
                 break;
             case 2:
                 Df = 1;
-                randomMap();
                 *G = 0;
                 Ms = 0;
                 break;
@@ -93,6 +95,10 @@ void DrawLose(int x) {
     for (int i = 0; i < 4; i++)
         DrawText(mod[i], 100, 300 + i*50, 35, (i==x)?YELLOW:BLUE);
     
+    Rectangle dest = {550, 300, 150, 300},
+    sour = {0, 0, los.width, los.height};
+    DrawTexturePro(los, sour, dest, (Vector2){0, 0}, 0, WHITE);
+
     EndDrawing();
 }
 
@@ -129,7 +135,6 @@ void DrawWel(int *G) {
     BeginDrawing();
     ClearBackground(BLACK);
 
-    Texture2D wel = LoadTexture("../assets/gameState/pacmantext.png");
     Rectangle dest = {150, 200, 400, 100},
     sour = {0, 0, wel.width, wel.height};
     DrawTexturePro(wel, sour, dest, (Vector2){0, 0}, 0, WHITE);
@@ -140,5 +145,4 @@ void DrawWel(int *G) {
         *G = 0;
 
     EndDrawing();
-    UnloadTexture(wel);
 }

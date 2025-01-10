@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/User/Desktop/pacman-game/src/map.c" "CMakeFiles/Pacman.dir/src/map.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/map.c.obj.d"
   "C:/Users/User/Desktop/pacman-game/src/menu.c" "CMakeFiles/Pacman.dir/src/menu.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/menu.c.obj.d"
   "C:/Users/User/Desktop/pacman-game/src/player.c" "CMakeFiles/Pacman.dir/src/player.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/player.c.obj.d"
+  "C:/Users/User/Desktop/pacman-game/src/record.c" "CMakeFiles/Pacman.dir/src/record.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/record.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -248,6 +248,30 @@ src/player.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/player.c.s
 .PHONY : src/player.c.s
 
+src/record.obj: src/record.c.obj
+.PHONY : src/record.obj
+
+# target to build an object file
+src/record.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/record.c.obj
+.PHONY : src/record.c.obj
+
+src/record.i: src/record.c.i
+.PHONY : src/record.i
+
+# target to preprocess a source file
+src/record.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/record.c.i
+.PHONY : src/record.c.i
+
+src/record.s: src/record.c.s
+.PHONY : src/record.s
+
+# target to generate assembly for a file
+src/record.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/record.c.s
+.PHONY : src/record.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -272,6 +296,9 @@ help:
 	@echo ... src/player.obj
 	@echo ... src/player.i
 	@echo ... src/player.s
+	@echo ... src/record.obj
+	@echo ... src/record.i
+	@echo ... src/record.s
 .PHONY : help
 
 

@@ -1,11 +1,14 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include "raylib.h"
+
 // Gs: Name, Menu, Game, Difficulty, Records, Exit, Lose, Welcom
 // Ms: Play, Difficulty, Records, Exit
 extern int Gs, Ms, Df, Ls, nameSz;
 extern char playerName[12];
 extern double Twel;
+extern Texture2D los, wel;
 
 void getIn(int* G, int* x);
 void DrawM(int x);

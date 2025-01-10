@@ -30,7 +30,7 @@ void gosDef(Ghost *gos, int type) {
             break;
     }
     gos->dir = (Vector2){1, 0};
-    gos->speed = 0.05;
+    gos->speed = 0.1;
     gos->blue = 0;
     gos->beh = 0;
     gos->tex = LoadTexture(gostex[type-3]);
@@ -120,7 +120,7 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
 }
 
 void randCell() {
-    if (GetTime() - inkLastT < 4.0 || Rage)
+    if (GetTime() - inkLastT < 5 || Rage)
         return;
     srand(time(0));
     int x = 0, y = 0;

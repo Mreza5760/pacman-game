@@ -46,7 +46,8 @@ CMakeFiles/Pacman.dir/src/main.c.obj: C:/Users/User/Desktop/pacman-game/src/main
   C:/Users/User/Desktop/pacman-game/src/ghost.h \
   C:/Users/User/Desktop/pacman-game/src/map.h \
   C:/Users/User/Desktop/pacman-game/src/menu.h \
-  C:/Users/User/Desktop/pacman-game/src/player.h
+  C:/Users/User/Desktop/pacman-game/src/player.h \
+  C:/Users/User/Desktop/pacman-game/src/record.h
 
 CMakeFiles/Pacman.dir/src/map.c.obj: C:/Users/User/Desktop/pacman-game/src/map.c \
   C:/msys64/ucrt64/include/_mingw.h \
@@ -116,10 +117,41 @@ CMakeFiles/Pacman.dir/src/player.c.obj: C:/Users/User/Desktop/pacman-game/src/pl
   C:/Users/User/Desktop/pacman-game/src/ghost.h \
   C:/Users/User/Desktop/pacman-game/src/map.h \
   C:/Users/User/Desktop/pacman-game/src/menu.h \
-  C:/Users/User/Desktop/pacman-game/src/player.h
+  C:/Users/User/Desktop/pacman-game/src/player.h \
+  C:/Users/User/Desktop/pacman-game/src/record.h
 
+CMakeFiles/Pacman.dir/src/record.c.obj: C:/Users/User/Desktop/pacman-game/src/record.c \
+  C:/msys64/ucrt64/include/_mingw.h \
+  C:/msys64/ucrt64/include/_mingw_mac.h \
+  C:/msys64/ucrt64/include/_mingw_off_t.h \
+  C:/msys64/ucrt64/include/_mingw_secapi.h \
+  C:/msys64/ucrt64/include/_mingw_stdarg.h \
+  C:/msys64/ucrt64/include/corecrt.h \
+  C:/msys64/ucrt64/include/corecrt_stdio_config.h \
+  C:/msys64/ucrt64/include/crtdefs.h \
+  C:/msys64/ucrt64/include/raylib.h \
+  C:/msys64/ucrt64/include/sdks/_mingw_ddk.h \
+  C:/msys64/ucrt64/include/sec_api/stdio_s.h \
+  C:/msys64/ucrt64/include/sec_api/string_s.h \
+  C:/msys64/ucrt64/include/stdarg.h \
+  C:/msys64/ucrt64/include/stdio.h \
+  C:/msys64/ucrt64/include/string.h \
+  C:/msys64/ucrt64/include/swprintf.inl \
+  C:/msys64/ucrt64/include/vadefs.h \
+  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/stdarg.h \
+  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/stdbool.h \
+  C:/Users/User/Desktop/pacman-game/src/record.h
+
+
+C:/msys64/ucrt64/include/stdio.h:
+
+C:/msys64/ucrt64/include/sec_api/stdio_s.h:
+
+C:/msys64/ucrt64/include/corecrt_stdio_config.h:
 
 C:/Users/User/Desktop/pacman-game/src/player.c:
+
+C:/Users/User/Desktop/pacman-game/src/record.h:
 
 C:/Users/User/Desktop/pacman-game/src/main.c:
 
@@ -135,6 +167,8 @@ C:/msys64/ucrt64/include/crtdefs.h:
 
 C:/msys64/ucrt64/include/stdarg.h:
 
+C:/msys64/ucrt64/include/string.h:
+
 C:/msys64/ucrt64/include/corecrt.h:
 
 C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/limits.h:
@@ -144,6 +178,8 @@ C:/msys64/ucrt64/include/limits.h:
 C:/msys64/ucrt64/include/pthread_time.h:
 
 C:/msys64/ucrt64/include/_mingw.h:
+
+C:/msys64/ucrt64/include/swprintf.inl:
 
 C:/Users/User/Desktop/pacman-game/src/menu.c:
 
@@ -159,9 +195,15 @@ C:/Users/User/Desktop/pacman-game/src/map.c:
 
 C:/msys64/ucrt64/include/_timeval.h:
 
+C:/Users/User/Desktop/pacman-game/src/record.c:
+
 C:/msys64/ucrt64/include/_mingw_mac.h:
 
+C:/msys64/ucrt64/include/sec_api/string_s.h:
+
 C:/msys64/ucrt64/include/vadefs.h:
+
+C:/msys64/ucrt64/include/_mingw_off_t.h:
 
 C:/Users/User/Desktop/pacman-game/src/map.h:
 

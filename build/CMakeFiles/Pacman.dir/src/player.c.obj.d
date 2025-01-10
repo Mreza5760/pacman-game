@@ -17,4 +17,5 @@ CMakeFiles/Pacman.dir/src/player.c.obj: \
  C:/msys64/ucrt64/include/_timeval.h \
  C:/msys64/ucrt64/include/pthread_time.h \
  C:\Users\User\Desktop\pacman-game\src\ghost.h \
- C:\Users\User\Desktop\pacman-game\src\player.h
+ C:\Users\User\Desktop\pacman-game\src\player.h \
+ C:\Users\User\Desktop\pacman-game\src\record.h

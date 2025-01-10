@@ -3,6 +3,7 @@
 #include "ghost.h"
 #include "raylib.h"
 #include "player.h"
+#include "record.h"
 
 int main() {
     const int ScW = Col*Cellsz, ScH = Row*Cellsz+Offset;
@@ -10,7 +11,10 @@ int main() {
     SetTargetFPS(60);
     
     Gs = -1, Ms = 0, Df = 1, Ls = 0, nameSz = 0;
+    wel = LoadTexture("../assets/gameState/pacmantext.png");
+    los =  LoadTexture("../assets/gameState/gameover.png");
     randomMap(); 
+    readList();
     while (!WindowShouldClose()) {
         switch (Gs) {
             case -1:
@@ -40,6 +44,9 @@ int main() {
                 DrawDf(Df);
                 break;
             case 3:
+                drawRec();
+                if (IsKeyPressed(KEY_M))
+                    Gs = 0;
                 break;
             case 4:
                 CloseWindow();
@@ -53,10 +60,12 @@ int main() {
                 break;
         }
     }
+    UnloadTexture(los);
+    UnloadTexture(wel);
     UnloadTexture(Heart);
+    UnloadTexture(Inky.tex);
     UnloadTexture(Pacman.tex);
     UnloadTexture(Blinky.tex);
-    UnloadTexture(Inky.tex);
     CloseWindow();
     return 0;
 }

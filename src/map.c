@@ -125,7 +125,7 @@ void DrawMap() {
         for (int j = 0; j < Col; j++) {
             switch (Mstate[i][j]) {
                 case 0:
-                    DrawCircle(j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz/8, WHITE);
+                    DrawCircle(j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz/8, GOLD);
                     break;
                 case 1 :
                     DrawRectangle(j*Cellsz, i*Cellsz+Offset, Cellsz, Cellsz, DARKGRAY);

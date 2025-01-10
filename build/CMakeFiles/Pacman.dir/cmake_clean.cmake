@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Pacman.dir/src/menu.c.obj.d"
   "CMakeFiles/Pacman.dir/src/player.c.obj"
   "CMakeFiles/Pacman.dir/src/player.c.obj.d"
+  "CMakeFiles/Pacman.dir/src/record.c.obj"
+  "CMakeFiles/Pacman.dir/src/record.c.obj.d"
   "Pacman.exe"
   "Pacman.exe.manifest"
   "Pacman.pdb"
