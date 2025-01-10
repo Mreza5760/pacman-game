@@ -129,16 +129,16 @@ void DrawWel(int *G) {
     BeginDrawing();
     ClearBackground(BLACK);
 
-    // Texture2D wel = LoadTexture("../assets/gameState/pacmantext.png");
-    // Rectangle dest = {0, 0, 300, 300},
-    // sour = {0, 0, wel.width, wel.height};
-    // DrawTexturePro(wel, sour, dest, (Vector2){0, 0}, 0, WHITE);
+    Texture2D wel = LoadTexture("../assets/gameState/pacmantext.png");
+    Rectangle dest = {100, 200, 375, 98},
+    sour = {0, 0, wel.width, wel.height};
+    DrawTexturePro(wel, sour, dest, (Vector2){0, 0}, 0, WHITE);
 
-    DrawText("welcome", 0, 0, 60, RED);
+    DrawText(TextFormat("%s Welcome to Pacman", playerName), 100, 500, 50, WHITE);
 
-    if (GetTime() - Twel > 6.0);
+    if (GetTime() - Twel > 3.0)
         *G = 0;
 
     EndDrawing();
-    // UnloadT/exture(wel);
+    UnloadTexture(wel);
 }

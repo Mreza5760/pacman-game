@@ -90,6 +90,7 @@ void pacUpd(Player *pac) {
             Mstate[(int)pac->pos.y][(int)pac->pos.x] = -1;
             break;
         case 1:
+        case 3:
             *pac = temp;
             return;
     }  
