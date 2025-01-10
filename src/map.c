@@ -101,7 +101,7 @@ void randomMap() {
             Mstate[i][j] = res;
         }
     }
-    Heart = LoadTexture("../assets/sprites/heart.png");
+    Heart = LoadTexture("../assets/items/heart.png");
 }
 
 void DrawMap() {

@@ -14,7 +14,9 @@ int main() {
     while (!WindowShouldClose()) {
         switch (Gs) {
             case -1:
-                getName();
+                getName(&Gs);
+                if (Gs == 6)
+                    Twel = GetTime();
                 break;
             case 0:
                 getIn(&Gs, &Ms);
@@ -44,10 +46,13 @@ int main() {
                 getInLose(&Gs, &Ls);
                 DrawLose(Ls);
                 break;
+            case 6:
+                DrawWel(&Gs);
+                break;
         }
     }
-    UnloadTexture(Pacman.tex);
     UnloadTexture(Heart);
+    UnloadTexture(Pacman.tex);
     UnloadTexture(Blinky.tex);
     CloseWindow();
     return 0;

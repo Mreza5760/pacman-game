@@ -1,10 +1,11 @@
 #ifndef MENU_H
 #define MENU_H
 
-// Gs: Name, Menu, Game, Difficulty, Records, Exit, Lose
+// Gs: Name, Menu, Game, Difficulty, Records, Exit, Lose, Welcom
 // Ms: Play, Difficulty, Records, Exit
 extern int Gs, Ms, Df, Ls, nameSz;
-extern char playerName[10];
+extern char playerName[12];
+extern double Twel;
 
 void getIn(int* G, int* x);
 void DrawM(int x);
@@ -12,6 +13,7 @@ void getDf(int* G, int* x);
 void DrawDf(int x);
 void getInLose(int* G, int* x);
 void DrawLose(int x);
-void getName();
+void getName(int* G);
+void DrawWel(int* G);
 
 #endif

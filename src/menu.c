@@ -2,9 +2,11 @@
 #include "menu.h"
 #include "player.h"
 #include "raylib.h"
+#include <stdbool.h>
 
 int Gs, Ms, Df, Ls, nameSz;
-char playerName[10];
+char playerName[12];
+double Twel;
 
 void getIn(int *G, int* x) {
     if (IsKeyPressed(KEY_DOWN)) 
@@ -94,27 +96,49 @@ void DrawLose(int x) {
     EndDrawing();
 }
 
-void getName() {
+void getName(int *G) {
     BeginDrawing();
     ClearBackground(BLACK);
-
+    
     DrawText("Your Name :", 300, 100, 30, WHITE);
-    if ((IsKeyPressed(KEY_ENTER) && nameSz) || nameSz == 8) {
-        Gs = 0;
+    if (IsKeyPressed(KEY_ENTER) && nameSz) {
+        *G = 6;
         playerName[nameSz] = '\0';
-        // while (IsKeyPressed(KEY_ENTER));
+        EndDrawing();
         return;
     }
 
-    if (IsKeyPressed(KEY_BACKSPACE) && nameSz > 0) {
+    double tempT = GetTime();
+    static double baSp = 0; 
+    if (IsKeyDown(KEY_BACKSPACE) && nameSz && (tempT-baSp > 0.1)) {
         nameSz--;
-    }
+        baSp = tempT;
+    } else if (IsKeyReleased(KEY_BACKSPACE))
+        baSp = 0;
 
     int key = GetCharPressed();
-    if (32 <= key && key <= 125)
+    if (32 <= key && key <= 125 && nameSz < 10)
         playerName[nameSz++] = (char)key;
     playerName[nameSz] = '\0';
     DrawText(playerName, 300, 300, 30, GREEN);
 
     EndDrawing();
+}
+
+void DrawWel(int *G) {
+    BeginDrawing();
+    ClearBackground(BLACK);
+
+    // Texture2D wel = LoadTexture("../assets/gameState/pacmantext.png");
+    // Rectangle dest = {0, 0, 300, 300},
+    // sour = {0, 0, wel.width, wel.height};
+    // DrawTexturePro(wel, sour, dest, (Vector2){0, 0}, 0, WHITE);
+
+    DrawText("welcome", 0, 0, 60, RED);
+
+    if (GetTime() - Twel > 6.0);
+        *G = 0;
+
+    EndDrawing();
+    // UnloadT/exture(wel);
 }
