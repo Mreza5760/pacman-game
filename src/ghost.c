@@ -1,12 +1,16 @@
 #include "map.h"
+#include <time.h>
 #include "ghost.h"
 #include "player.h"
 #include "raylib.h"
+#include <stdlib.h>
+#include <stdbool.h>
 
-Ghost Blinky;
-Ghost Inky;
-Vector2 bliStartPos;
-Vector2 inkStartPos;
+bool Rage = 0;
+Vector2 randTar;
+Ghost Inky, Blinky;
+double inkLastT = 0;
+Vector2 bliStartPos, inkStartPos;
 int desTar[Row][Col];
 const char *gostex[5] = {
     "../assets/sprites/blinky.png",
@@ -25,6 +29,7 @@ void gosDef(Ghost *gos, int type) {
             gos->pos = inkStartPos;
             break;
     }
+    gos->dir = (Vector2){1, 0};
     gos->speed = 0.05;
     gos->blue = 0;
     gos->beh = 0;
@@ -39,7 +44,7 @@ void updDes(int x, int y) {
     for (int k = 0; k < 2*Row+Col; k++) {
         for (int i = 0; i < Row; i++)
             for (int j = 0; j < Col; j++) {
-                if (Mstate[i][j] == 1) continue;
+                if (Mstate[i][j] == 1 || Mstate[i][j] == 3 || Mstate[i][j] == 4) continue;
                 if (j < Col) desTar[i][j] = min(desTar[i][j], desTar[i][j+1]+1);
                 if (j) desTar[i][j] = min(desTar[i][j], desTar[i][j-1]+1);
                 if (i < Row) desTar[i][j] = min(desTar[i][j], desTar[i+1][j]+1);
@@ -50,8 +55,9 @@ void updDes(int x, int y) {
 
 void gosUpd(Ghost *gos, Vector2 tar, int type) {    
     updDes(tar.x, tar.y);
-    int dir = -1, mn = 100000, x = gos->pos.x, y =gos->pos.y;
-    
+    int dir = -1, x = gos->pos.x, y = gos->pos.y;
+    int mn = desTar[y][x];
+
     if (x < Col && desTar[y][x+1] < mn)
         dir = 0, mn = desTar[y][x+1];
     if (y < Row && desTar[y+1][x] < mn)
@@ -111,4 +117,17 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
         return;
     }
     Mstate[(int)gos->pos.y][(int)gos->pos.x] = type;
+}
+
+void randCell() {
+    if (GetTime() - inkLastT < 4.0 || Rage)
+        return;
+    srand(time(0));
+    int x = 0, y = 0;
+    while (Mstate[x][y] == 1) {
+        x = rand()%Row;
+        y = rand()%Col;
+    }
+    randTar = (Vector2){y, x};
+    inkLastT = GetTime();
 }

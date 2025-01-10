@@ -130,7 +130,7 @@ void DrawWel(int *G) {
     ClearBackground(BLACK);
 
     Texture2D wel = LoadTexture("../assets/gameState/pacmantext.png");
-    Rectangle dest = {100, 200, 375, 98},
+    Rectangle dest = {150, 200, 400, 100},
     sour = {0, 0, wel.width, wel.height};
     DrawTexturePro(wel, sour, dest, (Vector2){0, 0}, 0, WHITE);
 

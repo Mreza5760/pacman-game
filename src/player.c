@@ -52,7 +52,7 @@ void death() {
         double T = GetTime();
         while (GetTime() - T < 0.08);
     }
-
+    Rage = 0;
     if (!Pacman.heart) {
         Gs = 5;
         Ls = 0;
@@ -78,11 +78,11 @@ void pacUpd(Player *pac) {
     
     if (IsKeyDown(KEY_RIGHT)) 
         pac->pos.x += pac->speed, pac->dir = 0;
-    if (IsKeyDown(KEY_DOWN)) 
+    else if (IsKeyDown(KEY_DOWN)) 
         pac->pos.y += pac->speed, pac->dir = 1;
-    if (IsKeyDown(KEY_LEFT)) 
+    else if (IsKeyDown(KEY_LEFT)) 
         pac->pos.x -= pac->speed, pac->dir = 2;
-    if (IsKeyDown(KEY_UP)) 
+    else if (IsKeyDown(KEY_UP)) 
         pac->pos.y -= pac->speed, pac->dir = 3;
 
     switch (Mstate[(int)pac->pos.y][(int)pac->pos.x]){
@@ -92,8 +92,13 @@ void pacUpd(Player *pac) {
             break;
         case 1:
         case 3:
-        case 4:
             *pac = temp;
+            return;
+        case 4:
+            Rage = 1;
+            *pac = temp;
+            randTar = pac->pos;
+            gosUpd(&Inky, pac->pos, 4);
             return;
     }  
     Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 

@@ -30,7 +30,8 @@ int main() {
  
                 pacUpd(&Pacman);
                 gosUpd(&Blinky, Pacman.pos, 3);
-                gosUpd(&Inky, Pacman.pos, 4);
+                randCell();
+                gosUpd(&Inky, randTar, 4);
 
                 DrawMap();
                 break;
