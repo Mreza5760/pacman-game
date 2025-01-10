@@ -17,7 +17,9 @@ typedef struct {
 } Ghost;
 
 extern Ghost Blinky;
+extern Ghost Inky;
 extern Vector2 bliStartPos;
+extern Vector2 inkStartPos;
 extern const char *gostex[5];
 extern int desTar[Row][Col];
 

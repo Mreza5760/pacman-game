@@ -27,9 +27,11 @@ int main() {
                     Ms = 0;  
                     break;
                 }
+ 
                 pacUpd(&Pacman);
                 gosUpd(&Blinky, Pacman.pos, 3);
-                
+                gosUpd(&Inky, Pacman.pos, 4);
+
                 DrawMap();
                 break;
             case 2:
@@ -53,6 +55,7 @@ int main() {
     UnloadTexture(Heart);
     UnloadTexture(Pacman.tex);
     UnloadTexture(Blinky.tex);
+    UnloadTexture(Inky.tex);
     CloseWindow();
     return 0;
 }

@@ -50,7 +50,7 @@ void death() {
         DrawMap();
 
         double T = GetTime();
-        while (GetTime() - T < 0.05);
+        while (GetTime() - T < 0.08);
     }
 
     if (!Pacman.heart) {
@@ -62,6 +62,7 @@ void death() {
     Mstate[(int)Pacman.pos.y][(int)Pacman.pos.x] = -1;
     Pacman.pos = pacStartPos;
     Blinky.pos = bliStartPos;
+    Inky.pos = inkStartPos;
 }
 
 void pacUpd(Player *pac) {
@@ -91,6 +92,7 @@ void pacUpd(Player *pac) {
             break;
         case 1:
         case 3:
+        case 4:
             *pac = temp;
             return;
     }  

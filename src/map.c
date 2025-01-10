@@ -48,7 +48,7 @@ const char map[3][Row][Col] = {
         "#                ########",
         "# #####   ####          #",
         "#       #        ##   ###",
-        "#  ###   #####   #      #",
+        "#  ###   #####   #    I #",
         "#########################"
     },
     {
@@ -57,7 +57,7 @@ const char map[3][Row][Col] = {
         "#      #              # #",
         "#   #  #######     # ## #",
         "#   #        #     #    #",
-        "#   ###  ### #          #",
+        "#   ###  ### #    I     #",
         "#            #     #    #",
         "#   ##########     ## ###",
         "#                       #",
@@ -96,7 +96,11 @@ void randomMap() {
                     gosDef(&Blinky, 3);
                     res = 3;
                     break;
-
+                case 'I' :
+                    inkStartPos = temp;
+                    gosDef(&Inky, 4);
+                    res = 4;
+                    break;
             }
             Mstate[i][j] = res;
         }
@@ -109,8 +113,8 @@ void DrawMap() {
     ClearBackground(BLACK);
 
     DrawText("Points", 40, 20, 30, GREEN);
-    DrawText(TextFormat("%d", Pacman.point), 150, 20, 30, RED);
-    DrawText("Hearts", 400, 20, 30, GREEN);
+    DrawText(TextFormat("%d", Pacman.point), 150, 20, 30, ORANGE);
+    DrawText("Hearts", 400, 20, 30, DARKPURPLE);
     for (int i = 1; i <= Pacman.heart; i++) {
         Rectangle dest = {470+i*50, 10, 50, 50},
         sour = {0, 0, Heart.width, Heart.height};
@@ -124,7 +128,7 @@ void DrawMap() {
                     DrawCircle(j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz/8, WHITE);
                     break;
                 case 1 :
-                    DrawRectangle(j*Cellsz, i*Cellsz+Offset, Cellsz, Cellsz, DARKBLUE);
+                    DrawRectangle(j*Cellsz, i*Cellsz+Offset, Cellsz, Cellsz, DARKGRAY);
                     break;
                 case 2 :
                     Rectangle dest = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz, Cellsz},
@@ -135,6 +139,11 @@ void DrawMap() {
                     Rectangle dest2 = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz, Cellsz},
                     sour2 = {0, 0, Blinky.tex.width, Blinky.tex.height};
                     DrawTexturePro(Blinky.tex, sour2, dest2, (Vector2){16, 16}, 0, WHITE);
+                    break;
+                case 4:
+                    Rectangle dest3 = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz, Cellsz},
+                    sour3 = {0, 0, Inky.tex.width, Inky.tex.height};
+                    DrawTexturePro(Inky.tex, sour3, dest3, (Vector2){16, 16}, 0, WHITE);
                     break;
             }
         }
