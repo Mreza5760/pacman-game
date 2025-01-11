@@ -58,7 +58,7 @@ void death() {
     if (!Pacman.heart) {
         Gs = 5;
         Ls = 0;
-        addRec(playerName, Pacman.point);
+        addRec(playerName, Pacman.point * (Df+1));
         return;
     }
     Vector2 tempbli = Blinky.pos, tempink = Inky.pos;
@@ -94,7 +94,6 @@ void pacUpd(Player *pac) {
     switch (Mstate[(int)pac->pos.y][(int)pac->pos.x]){
         case 0:
             pac->point += pointSt;
-            Mstate[(int)pac->pos.y][(int)pac->pos.x] = -1;
             break;
         case 1:
         case 3:
@@ -106,13 +105,14 @@ void pacUpd(Player *pac) {
             randTar = pac->pos;
             gosUpd(&Inky, pac->pos, 4);
             return;
-        case 6:
-            pac->heart++;
-            Mstate[(int)pac->pos.y][(int)pac->pos.x] = -1;
-            break;
         case 7:
-            Mstate[(int)pac->pos.y][(int)pac->pos.x] = -1;
+            pac->heart++;
+            break;
+        case 8:
             death();
+            break;
+        case 9:
+            pac->speed += 0.08;
             break;
     }  
     Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 

@@ -6,9 +6,8 @@
 
 Texture2D los, wel;
 
-int Gs, Ms, Df, Ls, nameSz;
 char playerName[12];
-double Twel;
+int Gs, Ms, Df, Ls, nameSz;
 
 void getIn(int *G, int* x) {
     if (IsKeyPressed(KEY_DOWN)) 
@@ -91,7 +90,7 @@ void DrawLose(int x) {
 
     ClearBackground(BLACK);
     DrawText("Game Over", 100, 100, 50, RED);
-    DrawText(TextFormat("%s your score is : %d", playerName, Pacman.point), 100, 200, 40, WHITE);
+    DrawText(TextFormat("%s your score is : %d", playerName, Pacman.point*(Df+1)), 100, 200, 40, WHITE);
     for (int i = 0; i < 4; i++)
         DrawText(mod[i], 100, 300 + i*50, 35, (i==x)?YELLOW:BLUE);
     
@@ -114,11 +113,10 @@ void getName(int *G) {
         return;
     }
 
-    double tempT = GetTime();
     static double baSp = 0; 
-    if (IsKeyDown(KEY_BACKSPACE) && nameSz && (tempT-baSp > 0.1)) {
+    if (IsKeyDown(KEY_BACKSPACE) && nameSz && (GetTime()-baSp > 0.1)) {
         nameSz--;
-        baSp = tempT;
+        baSp = GetTime();
     } else if (IsKeyReleased(KEY_BACKSPACE))
         baSp = 0;
 
@@ -141,7 +139,7 @@ void DrawWel(int *G) {
 
     DrawText(TextFormat("%s Welcome to Pacman", playerName), 100, 500, 50, WHITE);
 
-    if (GetTime() - Twel > 3.0)
+    if (IsKeyPressed(KEY_SPACE))
         *G = 0;
 
     EndDrawing();

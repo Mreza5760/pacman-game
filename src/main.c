@@ -19,7 +19,6 @@ int main() {
         switch (Gs) {
             case -1:
                 getName(&Gs);
-                Twel = GetTime();
                 break;
             case 0:
                 getIn(&Gs, &Ms);

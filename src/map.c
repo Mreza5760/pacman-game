@@ -7,13 +7,13 @@
 #include <stdlib.h>
 
 int Mstate[Row][Col];
-Texture2D Heart, Apple, Mushroom;
+Texture2D Heart, Apple, Mushroom, Pepper;
 const char map[3][Row][Col] = {
    {
         "#########################",
         "#  A           B        #",
         "#  #######   #######    #",
-        "#  #   I #   #     #    #",
+        "#  #   IH#   #     #    #",
         "#  # ### ## ## ### #    #",
         "#  # #           # #    #",
         "#  # #########   # #    #",
@@ -27,14 +27,14 @@ const char map[3][Row][Col] = {
         "#   #####   P     ##### #",
         "#                       #",
         "######  ####    #########",
-        "#                     A #",
+        "# H                   A #",
         "#########################"
     },
     { 
         "#########################",
         "#   ####           #### #",
         "#   #                 # #",
-        "#   #  # # ###     # ## #",
+        "# H #  # # ###     # ## #",
         "#   #  B     #          #",
         "#   ######## #     #  A #",
         "#            #     #    #",
@@ -68,13 +68,13 @@ const char map[3][Row][Col] = {
         "#       P  #####        #",
         "#                ########",
         "# #####  #####          #",
-        "#  B    #        ### ####",
-        "#  ###      ##          #",
+        "#       #        ### ####",
+        "#  ###      ##        B #",
         "#########################",
     }
 };
 
-// -1:- 0:star 1:# 2:P 3:B 4:p 5:C 6:A 7:M
+// -1:- 0:star 1:# 2:P 3:B 4:I 5:S 5:C 7:A 8:M 9:H
 
 void randomMap() {
     int x = Df;
@@ -102,10 +102,13 @@ void randomMap() {
                     res = 4;
                     break;
                 case 'A' :
-                    res = 6;
+                    res = 7;
                     break;
                 case 'M' :
-                    res = 7;
+                    res = 8;
+                    break;
+                case 'H' :
+                    res = 9;
                     break;
             }
             Mstate[i][j] = res;
@@ -113,6 +116,7 @@ void randomMap() {
     }
     Apple = LoadTexture("../assets/items/apple.png");
     Heart = LoadTexture("../assets/items/heart.png");
+    Pepper = LoadTexture("../assets/items/pepper.png");
     Mushroom = LoadTexture("../assets/items/mushroom.png");
 }
 
@@ -122,9 +126,9 @@ void DrawMap() {
 
     DrawText("Points", 40, 20, 30, GREEN);
     DrawText(TextFormat("%d", Pacman.point), 150, 20, 30, ORANGE);
-    DrawText("Hearts", 400, 20, 30, DARKPURPLE);
+    DrawText("Hearts", 360, 20, 30, DARKPURPLE);
     for (int i = 1; i <= Pacman.heart; i++) {
-        Rectangle dest = {470+i*50, 10, 50, 50},
+        Rectangle dest = {430+i*50, 10, 50, 50},
         sour = {0, 0, Heart.width, Heart.height};
         DrawTexturePro(Heart, sour, dest, (Vector2){0, 0}, 0, WHITE);
     }
@@ -151,13 +155,17 @@ void DrawMap() {
                     Rectangle sour2 = {0, 0, Inky.tex.width, Inky.tex.height};
                     DrawTexturePro(Inky.tex, sour2, dest, (Vector2){16, 16}, 0, WHITE);
                     break;
-                case 6:
+                case 7:
                     Rectangle sour3 = {0, 0, Apple.width, Apple.height};
                     DrawTexturePro(Apple, sour3, dest, (Vector2){16, 16}, 0, WHITE);
                     break;
-                case 7:
+                case 8:
                     Rectangle sour4 = {0, 0, Mushroom.width, Mushroom.height};
                     DrawTexturePro(Mushroom, sour4, dest, (Vector2){16, 16}, 0, WHITE);
+                    break;
+                case 9:
+                    Rectangle sour5 = {0, 0, Pepper.width, Pepper.height};
+                    DrawTexturePro(Pepper, sour5, dest, (Vector2){16, 16}, 0, WHITE);
                     break;
             }
         }

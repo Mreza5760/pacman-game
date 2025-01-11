@@ -1,5 +1,6 @@
 #include "map.h"
 #include <time.h>
+#include "menu.h"
 #include "ghost.h"
 #include "player.h"
 #include "raylib.h"
@@ -30,7 +31,7 @@ void gosDef(Ghost *gos, int type) {
             break;
     }
     gos->dir = (Vector2){1, 0};
-    gos->speed = 0.1;
+    gos->speed = 0.1 + Df*0.025;
     gos->blue = 0;
     gos->beh = 0;
     gos->tex = LoadTexture(gostex[type-3]);

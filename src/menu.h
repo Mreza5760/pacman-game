@@ -7,7 +7,6 @@
 // Ms: Play, Difficulty, Records, Exit
 extern int Gs, Ms, Df, Ls, nameSz;
 extern char playerName[12];
-extern double Twel;
 extern Texture2D los, wel;
 
 void getIn(int* G, int* x);
