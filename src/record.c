@@ -59,3 +59,7 @@ void updRec() {
         fprintf(temp, "%s\n%d\n", List[i].name, List[i].score);
     fclose(temp);
 }
+
+void delRec() {
+    rankSz = 0;
+}

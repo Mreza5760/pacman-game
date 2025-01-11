@@ -6,18 +6,18 @@
 #include "raylib.h"
 #include <stdlib.h>
 
-Texture2D Heart;
 int Mstate[Row][Col];
+Texture2D Heart, Apple, Mushroom;
 const char map[3][Row][Col] = {
    {
         "#########################",
-        "#              B        #",
+        "#  A           B        #",
         "#  #######   #######    #",
         "#  #   I #   #     #    #",
         "#  # ### ## ## ### #    #",
         "#  # #           # #    #",
         "#  # #########   # #    #",
-        "#  #             # #    #",
+        "#  #            A# #    #",
         "#  ####### ##    # #    #",
         "#           #    #      #",
         "#   ####### #  ######   #",
@@ -27,7 +27,7 @@ const char map[3][Row][Col] = {
         "#   #####   P     ##### #",
         "#                       #",
         "######  ####    #########",
-        "#                       #",
+        "#                     A #",
         "#########################"
     },
     { 
@@ -36,7 +36,7 @@ const char map[3][Row][Col] = {
         "#   #                 # #",
         "#   #  # # ###     # ## #",
         "#   #  B     #          #",
-        "#   ######## #     #    #",
+        "#   ######## #     #  A #",
         "#            #     #    #",
         "#   ##########     ######",
         "#       P               #",
@@ -47,8 +47,8 @@ const char map[3][Row][Col] = {
         "#         #####  #      #",
         "#                ########",
         "# #####   ####          #",
-        "#       #        ##   ###",
-        "#  ###   #####   #    I #",
+        "#       M        ##   ###",
+        "#  ###   #####   # A  I #",
         "#########################"
     },
     {
@@ -56,14 +56,14 @@ const char map[3][Row][Col] = {
         "#   ####           #### #",
         "#      #              # #",
         "#   #  #######     # ## #",
-        "#   #        #     #    #",
+        "#   #      A #     #    #",
         "#   ###  ### #    I     #",
         "#            #     #    #",
         "#   ##########     ## ###",
         "#                       #",
-        "#####   #########     ###",
+        "#####   #########  M  ###",
         "#   ###                 #",
-        "#   #     ####   ####   #",
+        "#   #     #### M ####   #",
         "#   ##               # ##",
         "#       P  #####        #",
         "#                ########",
@@ -74,7 +74,7 @@ const char map[3][Row][Col] = {
     }
 };
 
-// -1:- 0:star 1:# 2:P 3:B  
+// -1:- 0:star 1:# 2:P 3:B 4:p 5:C 6:A 7:M
 
 void randomMap() {
     int x = Df;
@@ -101,11 +101,19 @@ void randomMap() {
                     gosDef(&Inky, 4);
                     res = 4;
                     break;
+                case 'A' :
+                    res = 6;
+                    break;
+                case 'M' :
+                    res = 7;
+                    break;
             }
             Mstate[i][j] = res;
         }
     }
+    Apple = LoadTexture("../assets/items/apple.png");
     Heart = LoadTexture("../assets/items/heart.png");
+    Mushroom = LoadTexture("../assets/items/mushroom.png");
 }
 
 void DrawMap() {
@@ -123,6 +131,7 @@ void DrawMap() {
 
     for (int i = 0; i < Row; i++) {
         for (int j = 0; j < Col; j++) {
+            Rectangle dest = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz, Cellsz};
             switch (Mstate[i][j]) {
                 case 0:
                     DrawCircle(j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz/8, GOLD);
@@ -131,19 +140,24 @@ void DrawMap() {
                     DrawRectangle(j*Cellsz, i*Cellsz+Offset, Cellsz, Cellsz, DARKGRAY);
                     break;
                 case 2 :
-                    Rectangle dest = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz, Cellsz},
-                    sour = {0, 0, Pacman.tex.width, Pacman.tex.height};
+                    Rectangle sour = {0, 0, Pacman.tex.width, Pacman.tex.height};
                     DrawTexturePro(Pacman.tex, sour, dest, (Vector2){16, 16}, Pacman.dir*90, WHITE);
                     break; 
                 case 3 :
-                    Rectangle dest2 = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz, Cellsz},
-                    sour2 = {0, 0, Blinky.tex.width, Blinky.tex.height};
-                    DrawTexturePro(Blinky.tex, sour2, dest2, (Vector2){16, 16}, 0, WHITE);
+                    Rectangle sour1 = {0, 0, Blinky.tex.width, Blinky.tex.height};
+                    DrawTexturePro(Blinky.tex, sour1, dest, (Vector2){16, 16}, 0, WHITE);
                     break;
                 case 4:
-                    Rectangle dest3 = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz, Cellsz},
-                    sour3 = {0, 0, Inky.tex.width, Inky.tex.height};
-                    DrawTexturePro(Inky.tex, sour3, dest3, (Vector2){16, 16}, 0, WHITE);
+                    Rectangle sour2 = {0, 0, Inky.tex.width, Inky.tex.height};
+                    DrawTexturePro(Inky.tex, sour2, dest, (Vector2){16, 16}, 0, WHITE);
+                    break;
+                case 6:
+                    Rectangle sour3 = {0, 0, Apple.width, Apple.height};
+                    DrawTexturePro(Apple, sour3, dest, (Vector2){16, 16}, 0, WHITE);
+                    break;
+                case 7:
+                    Rectangle sour4 = {0, 0, Mushroom.width, Mushroom.height};
+                    DrawTexturePro(Mushroom, sour4, dest, (Vector2){16, 16}, 0, WHITE);
                     break;
             }
         }

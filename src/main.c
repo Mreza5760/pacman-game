@@ -45,8 +45,8 @@ int main() {
                 break;
             case 3:
                 drawRec();
-                if (IsKeyPressed(KEY_M))
-                    Gs = 0;
+                if (IsKeyPressed(KEY_DELETE)) delRec();
+                if (IsKeyPressed(KEY_M)) Gs = 0;
                 break;
             case 4:
                 CloseWindow();

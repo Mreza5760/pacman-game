@@ -8,9 +8,9 @@
 #define Cellsz 32
 #define Offset 64
 
-extern Texture2D Heart;
 extern int Mstate[Row][Col];
 extern const char map[3][Row][Col];
+extern Texture2D Heart, Apple, Mushroom;
 
 void DrawMap();
 void randomMap();

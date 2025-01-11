@@ -95,16 +95,9 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
     if (gos->beh == 2) {
         gos->pos = (Vector2){x, y};
         gos->beh = Mstate[y][x];
-        Mstate[y][x] = type;
-        Pacman.heart--;
-        
-        Vector2 tempbli = Blinky.pos, tempink = Inky.pos; 
+        Mstate[y][x] = type; 
 
         death();
-        
-        Mstate[(int)tempbli.y][(int)tempbli.x] = Blinky.beh;
-        Mstate[(int)tempink.y][(int)tempink.x] = Inky.beh;
-
 
         switch (type) {
             case 3:

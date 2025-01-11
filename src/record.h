@@ -13,5 +13,6 @@ void readList();
 void drawRec();
 void addRec(char name[12], int score);
 void updRec();
+void delRec();
 
 #endif

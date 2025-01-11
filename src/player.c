@@ -43,6 +43,7 @@ void pacDef(Player *pac) {
 }
 
 void death() {
+    Pacman.heart--;
     Pacman.dir = 0;
     for (int i = 0; i < 11; i++) {
         UnloadTexture(Pacman.tex);
@@ -60,6 +61,9 @@ void death() {
         addRec(playerName, Pacman.point);
         return;
     }
+    Vector2 tempbli = Blinky.pos, tempink = Inky.pos;
+    Mstate[(int)tempbli.y][(int)tempbli.x] = Blinky.beh;
+    Mstate[(int)tempink.y][(int)tempink.x] = Inky.beh;
 
     Mstate[(int)Pacman.pos.y][(int)Pacman.pos.x] = -1;
     Pacman.pos = pacStartPos;
@@ -102,6 +106,14 @@ void pacUpd(Player *pac) {
             randTar = pac->pos;
             gosUpd(&Inky, pac->pos, 4);
             return;
+        case 6:
+            pac->heart++;
+            Mstate[(int)pac->pos.y][(int)pac->pos.x] = -1;
+            break;
+        case 7:
+            Mstate[(int)pac->pos.y][(int)pac->pos.x] = -1;
+            death();
+            break;
     }  
     Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 
     Mstate[(int)pac->pos.y][(int)pac->pos.x] = 2;
