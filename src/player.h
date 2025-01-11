@@ -7,20 +7,19 @@
 #define pointSt 5
 
 typedef struct {
-    Vector2 pos;
-    Texture2D tex;
-    int heart, point, frame, dir;
     double speed;
+    Texture2D tex;
+    Vector2 pos, startPos;
+    int heart, point, frame, dir;
 } Player;
 
 extern Player Pacman;
 extern int changeFrame;
-extern Vector2 pacStartPos;
 extern const char *pactex[5];
 extern const char *deathtex[11];
 
-void pacDef(Player *pac);
 void death();
+void pacDef(Player *pac);
 void pacUpd(Player *pac);
 
 #endif

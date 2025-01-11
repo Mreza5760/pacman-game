@@ -25,20 +25,20 @@ void DrawMap() {
                 case 0:
                     DrawCircle(j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz/8, GOLD);
                     break;
-                case 1 :
+                case 1:
                     DrawRectangle(j*Cellsz, i*Cellsz+Offset, Cellsz, Cellsz, DARKGRAY);
                     break;
-                case 2 :
+                case 2:
                     Rectangle sour = {0, 0, Pacman.tex.width, Pacman.tex.height};
                     DrawTexturePro(Pacman.tex, sour, dest, (Vector2){16, 16}, Pacman.dir*90, WHITE);
                     break; 
-                case 3 :
-                    Rectangle sour1 = {0, 0, ghost[3].tex.width, ghost[3].tex.height};
-                    DrawTexturePro(ghost[3].tex, sour1, dest, (Vector2){16, 16}, 0, WHITE);
-                    break;
+                case 3:
                 case 4:
-                    Rectangle sour2 = {0, 0, ghost[4].tex.width, ghost[4].tex.height};
-                    DrawTexturePro(ghost[4].tex, sour2, dest, (Vector2){16, 16}, 0, WHITE);
+                case 5:
+                case 6:
+                    int x = Mstate[i][j]-3;
+                    Rectangle sour1 = {0, 0, ghost[x].tex.width, ghost[x].tex.height};
+                    DrawTexturePro(ghost[x].tex, sour1, dest, (Vector2){16, 16}, 0, WHITE);
                     break;
                 case 10:
                     Rectangle sour3 = {0, 0, Apple.width, Apple.height};

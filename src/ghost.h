@@ -17,11 +17,11 @@ typedef struct {
 } Ghost;
 
 extern bool Rage;
-extern Ghost ghost[10];
-extern double inkLastT;
-extern Vector2 randTar[10];
-extern int desTar[Row][Col];
+extern Ghost ghost[7];
+extern double LastT[7];
+extern Vector2 randTar[7];
 extern const char *gostex[5];
+extern int desTar[Row][Col], gosSz;
 
 void updDes(int x, int y);
 void gosDef(Ghost *gos, int type);

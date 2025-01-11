@@ -8,7 +8,6 @@
 #include "raylib.h"
 
 Player Pacman;
-Vector2 pacStartPos;
 int changeFrame = 0;
 
 const char *pactex[5] = {
@@ -39,7 +38,7 @@ void pacDef(Player *pac) {
     pac->heart = 3;
     pac->point = 0;
     pac->speed = 0.25;
-    pac->pos = pacStartPos;
+    pac->pos = pac->startPos;
     pac->tex = LoadTexture(pactex[pac->frame]);
 }
 
@@ -62,14 +61,14 @@ void death() {
         addRec(playerName, Pacman.point * (Df+1));
         return;
     }
-    Vector2 tempbli = ghost[3].pos, tempink = ghost[4].pos;
-    Mstate[(int)tempbli.y][(int)tempbli.x] = ghost[3].beh;
-    Mstate[(int)tempink.y][(int)tempink.x] = ghost[4].beh;
+
+    for (int i = 0; i < gosSz; i++)
+        Mstate[(int)ghost[i].pos.y][(int)ghost[i].pos.x] = ghost[i].beh;
 
     Mstate[(int)Pacman.pos.y][(int)Pacman.pos.x] = -1;
-    Pacman.pos = pacStartPos;
-    ghost[3].pos = ghost[3].startPos;
-    ghost[4].pos = ghost[4].startPos;
+    Pacman.pos = Pacman.startPos;
+    for (int i = 0; i < gosSz; i++)
+        ghost[i].pos = ghost[i].startPos;
 }
 
 void pacUpd(Player *pac) {
@@ -97,14 +96,14 @@ void pacUpd(Player *pac) {
             pac->point += pointSt;
             break;
         case 1:
-        case 3:
             *pac = temp;
             return;
+        case 3:
         case 4:
             Rage = 1;
             *pac = temp;
-            randTar[4] = pac->pos;
-            gosUpd(&ghost[4], pac->pos, 4);
+            randTar[1] = pac->pos;
+            gosUpd(&ghost[1], pac->pos, 4);
             return;
         case 10:
             pac->heart++;

@@ -13,5 +13,6 @@ extern const char map[3][Row][Col];
 extern Texture2D Heart, Apple, Mushroom, Pepper;
 
 void randomMap();
+Vector2 newCell();
 
 #endif

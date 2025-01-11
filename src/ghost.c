@@ -8,23 +8,23 @@
 #include <stdbool.h>
 
 bool Rage = 0;
-Ghost ghost[10];
-Vector2 randTar[10];
-double inkLastT = 0;
-int desTar[Row][Col];
+Ghost ghost[7];
+Vector2 randTar[7];
+double LastT[7] = {0};
+int desTar[Row][Col], gosSz = 4;
 const char *gostex[5] = {
     "../assets/sprites/ghosts/blinky/blinky.png",
     "../assets/sprites/ghosts/clyde/clyde.png",
-    "../assets/sprites/clyde.png",
-    "../assets/sprites/pinky.png",
+    "../assets/sprites/ghosts/pinky/pinky.png",
+    "../assets/sprites/ghosts/inky/inky.png",
     "../assets/sprites/blue_ghost.png"
 };
 
 void gosDef(Ghost *gos, int type) {
-    gos->beh = 0;
+    gos->beh = -1;
     gos->blue = 0;
     gos->speed = 0.1 + Df*0.025;
-    gos->pos = ghost[type].startPos;
+    gos->pos = ghost[type-3].startPos;
     gos->tex = LoadTexture(gostex[type-3]);
 }
 
@@ -77,7 +77,7 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
     Mstate[y][x] = gos->beh;
     gos->beh = Mstate[(int)gos->pos.y][(int)gos->pos.x];
     
-    if (gos->beh == 3 || gos->beh == 4) {
+    if (3 <= gos->beh && gos->beh < 3+gosSz) {
         gos->pos = (Vector2){x, y};
         gos->beh = Mstate[y][x];
         Mstate[y][x] = type;
@@ -91,14 +91,14 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
 
         death();
 
-        gos->beh = Mstate[(int)ghost[type].startPos.y][(int)ghost[type].startPos.x];
+        gos->beh = Mstate[(int)ghost[type-3].startPos.y][(int)ghost[type-3].startPos.x];
         return;
     }
     Mstate[(int)gos->pos.y][(int)gos->pos.x] = type;
 }
 
 void randCell(int type) {
-    if (GetTime() - inkLastT < 5 || Rage)
+    if (GetTime() - LastT[type-3] < 4 || Rage)
         return;
     srand(time(0));
     int x = 0, y = 0;
@@ -106,6 +106,6 @@ void randCell(int type) {
         x = rand()%Row;
         y = rand()%Col;
     }
-    randTar[type] = (Vector2){y, x};
-    inkLastT = GetTime();
+    LastT[type-3] = GetTime();
+    randTar[type-3] = (Vector2){y, x};
 }

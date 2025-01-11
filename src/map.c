@@ -77,44 +77,54 @@ const char map[3][Row][Col] = {
 // -1:- 0:star 1:# 2:P          10:A 11:M 12:H
 // 3:B 4:I 5:F 6:Q 7:V 8:G 9:O
 
+Vector2 newCell() {
+    int i = 0, j = 0;
+    while (Mstate[i][j] != -1)
+        i = rand()%Row, j= rand()%Col;
+    return (Vector2){j, i};
+}
+
 void randomMap() {
-    int x = Df;
-    for (int i = 0; i < Row; i++) {
-        for (int j = 0; j < Col; j++) {
-            int res = 0;
-            Vector2 temp = {j, i};
-            switch (map[x][i][j]) {
-                case '#' :
-                    res = 1;
-                    break;
-                case 'P' :
-                    pacStartPos = temp;
-                    pacDef(&Pacman);
-                    res = 2;
-                    break; 
-                case 'B' :
-                    ghost[3].startPos = temp;
-                    gosDef(&ghost[3], 3);
-                    res = 3;
-                    break;
-                case 'I' :
-                    ghost[4].startPos = temp;
-                    gosDef(&ghost[4], 4);
-                    res = 4;
-                    break;
-                case 'A' :
-                    res = 10;
-                    break;
-                case 'M' :
-                    res = 11;
-                    break;
-                case 'H' :
-                    res = 12;
-                    break;
-            }
-            Mstate[i][j] = res;
-        }
+    int sn = 30, an = 3-Df, pn = 4-Df, mn = 1+Df;
+
+    for (int i = 0; i < Row; i++)
+        for (int j = 0; j < Col; j++)
+                Mstate[i][j] = -1;
+
+    for (int i = 0; i < Row; i++)
+        for (int j = 0; j < Col; j++)
+            if (map[Df][i][j] == '#')
+                Mstate[i][j] = 1;
+
+    Vector2 temp = newCell();
+    Pacman.startPos = temp;
+    pacDef(&Pacman);
+    Mstate[(int)temp.y][(int)temp.x] = 2;
+
+    for (int i = 0; i < gosSz; i++) {
+        temp = newCell();
+        ghost[i].startPos = temp;
+        gosDef(&ghost[i], 3+i);
+        Mstate[(int)temp.y][(int)temp.x] = 3+i;
     }
+
+    for (int i = 0; i < an; i++) {
+        temp = newCell();
+        Mstate[(int)temp.y][(int)temp.x] = 10;
+    }
+    for (int i = 0; i < mn; i++) {
+        temp = newCell();
+        Mstate[(int)temp.y][(int)temp.x] = 11;
+    }
+    for (int i = 0; i < pn; i++) {
+        temp = newCell();
+        Mstate[(int)temp.y][(int)temp.x] = 12;
+    }
+    for (int i = 0; i < sn; i++) {
+        temp = newCell();
+        Mstate[(int)temp.y][(int)temp.x] = 0;
+    }
+
     Apple = LoadTexture("../assets/items/apple.png");
     Heart = LoadTexture("../assets/items/heart.png");
     Pepper = LoadTexture("../assets/items/pepper.png");
