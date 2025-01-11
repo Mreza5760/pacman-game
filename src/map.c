@@ -92,13 +92,13 @@ void randomMap() {
                     res = 2;
                     break; 
                 case 'B' :
-                    bliStartPos = temp;
-                    gosDef(&Blinky, 3);
+                    ghost[3].startPos = temp;
+                    gosDef(&ghost[3], 3);
                     res = 3;
                     break;
                 case 'I' :
-                    inkStartPos = temp;
-                    gosDef(&Inky, 4);
+                    ghost[4].startPos = temp;
+                    gosDef(&ghost[4], 4);
                     res = 4;
                     break;
                 case 'A' :
@@ -148,12 +148,12 @@ void DrawMap() {
                     DrawTexturePro(Pacman.tex, sour, dest, (Vector2){16, 16}, Pacman.dir*90, WHITE);
                     break; 
                 case 3 :
-                    Rectangle sour1 = {0, 0, Blinky.tex.width, Blinky.tex.height};
-                    DrawTexturePro(Blinky.tex, sour1, dest, (Vector2){16, 16}, 0, WHITE);
+                    Rectangle sour1 = {0, 0, ghost[3].tex.width, ghost[3].tex.height};
+                    DrawTexturePro(ghost[3].tex, sour1, dest, (Vector2){16, 16}, 0, WHITE);
                     break;
                 case 4:
-                    Rectangle sour2 = {0, 0, Inky.tex.width, Inky.tex.height};
-                    DrawTexturePro(Inky.tex, sour2, dest, (Vector2){16, 16}, 0, WHITE);
+                    Rectangle sour2 = {0, 0, ghost[4].tex.width, ghost[4].tex.height};
+                    DrawTexturePro(ghost[4].tex, sour2, dest, (Vector2){16, 16}, 0, WHITE);
                     break;
                 case 7:
                     Rectangle sour3 = {0, 0, Apple.width, Apple.height};

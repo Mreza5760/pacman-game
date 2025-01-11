@@ -32,9 +32,9 @@ int main() {
                 }
  
                 pacUpd(&Pacman);
-                gosUpd(&Blinky, Pacman.pos, 3);
+                gosUpd(&ghost[3], Pacman.pos, 3);
                 randCell();
-                gosUpd(&Inky, randTar, 4);
+                gosUpd(&ghost[4], randTar, 4);
 
                 DrawMap();
                 break;
@@ -63,9 +63,9 @@ int main() {
     UnloadTexture(los);
     UnloadTexture(wel);
     UnloadTexture(Heart);
-    UnloadTexture(Inky.tex);
     UnloadTexture(Pacman.tex);
-    UnloadTexture(Blinky.tex);
+    UnloadTexture(ghost[3].tex);
+    UnloadTexture(ghost[4].tex);
     CloseWindow();
     return 0;
 }

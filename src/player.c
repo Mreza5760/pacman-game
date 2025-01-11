@@ -33,12 +33,12 @@ const char *deathtex[11] = {
 };
 
 void pacDef(Player *pac) {
-    pac->pos = pacStartPos;
+    pac->dir = 0;
+    pac->frame = 0;
     pac->heart = 3;
     pac->point = 0;
     pac->speed = 0.25;
-    pac->dir = 0;
-    pac->frame = 0;
+    pac->pos = pacStartPos;
     pac->tex = LoadTexture(pactex[pac->frame]);
 }
 
@@ -61,14 +61,14 @@ void death() {
         addRec(playerName, Pacman.point * (Df+1));
         return;
     }
-    Vector2 tempbli = Blinky.pos, tempink = Inky.pos;
-    Mstate[(int)tempbli.y][(int)tempbli.x] = Blinky.beh;
-    Mstate[(int)tempink.y][(int)tempink.x] = Inky.beh;
+    Vector2 tempbli = ghost[3].pos, tempink = ghost[4].pos;
+    Mstate[(int)tempbli.y][(int)tempbli.x] = ghost[3].beh;
+    Mstate[(int)tempink.y][(int)tempink.x] = ghost[4].beh;
 
     Mstate[(int)Pacman.pos.y][(int)Pacman.pos.x] = -1;
     Pacman.pos = pacStartPos;
-    Blinky.pos = bliStartPos;
-    Inky.pos = inkStartPos;
+    ghost[3].pos = ghost[3].startPos;
+    ghost[4].pos = ghost[4].startPos;
 }
 
 void pacUpd(Player *pac) {
@@ -103,7 +103,7 @@ void pacUpd(Player *pac) {
             Rage = 1;
             *pac = temp;
             randTar = pac->pos;
-            gosUpd(&Inky, pac->pos, 4);
+            gosUpd(&ghost[4], pac->pos, 4);
             return;
         case 7:
             pac->heart++;

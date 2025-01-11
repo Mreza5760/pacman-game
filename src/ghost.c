@@ -8,32 +8,23 @@
 #include <stdbool.h>
 
 bool Rage = 0;
+Ghost ghost[8];
 Vector2 randTar;
-Ghost Inky, Blinky;
 double inkLastT = 0;
-Vector2 bliStartPos, inkStartPos;
 int desTar[Row][Col];
 const char *gostex[5] = {
-    "../assets/sprites/blinky.png",
-    "../assets/sprites/inky.png",
+    "../assets/sprites/ghosts/blinky/blinky.png",
+    "../assets/sprites/ghosts/clyde/clyde.png",
     "../assets/sprites/clyde.png",
     "../assets/sprites/pinky.png",
     "../assets/sprites/blue_ghost.png"
 };
 
 void gosDef(Ghost *gos, int type) {
-    switch (type) {
-        case 3:
-            gos->pos = bliStartPos;
-            break;
-        case 4:
-            gos->pos = inkStartPos;
-            break;
-    }
-    gos->dir = (Vector2){1, 0};
-    gos->speed = 0.1 + Df*0.025;
-    gos->blue = 0;
     gos->beh = 0;
+    gos->blue = 0;
+    gos->speed = 0.1 + Df*0.025;
+    gos->pos = ghost[type].startPos;
     gos->tex = LoadTexture(gostex[type-3]);
 }
 
@@ -100,14 +91,7 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
 
         death();
 
-        switch (type) {
-            case 3:
-                gos->beh = Mstate[(int)bliStartPos.y][(int)bliStartPos.x];
-                break;
-            case 4:
-                gos->beh = Mstate[(int)inkStartPos.y][(int)inkStartPos.x];
-                break;
-        }
+        gos->beh = Mstate[(int)ghost[type].startPos.y][(int)ghost[type].startPos.x];
         return;
     }
     Mstate[(int)gos->pos.y][(int)gos->pos.x] = type;
