@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Pacman.dir/src/draw.c.obj"
+  "CMakeFiles/Pacman.dir/src/draw.c.obj.d"
   "CMakeFiles/Pacman.dir/src/ghost.c.obj"
   "CMakeFiles/Pacman.dir/src/ghost.c.obj.d"
   "CMakeFiles/Pacman.dir/src/main.c.obj"

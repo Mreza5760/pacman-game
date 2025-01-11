@@ -1,4 +1,5 @@
 #include "map.h"
+#include "draw.h"
 #include "menu.h"
 #include <time.h>
 #include "ghost.h"
@@ -102,16 +103,16 @@ void pacUpd(Player *pac) {
         case 4:
             Rage = 1;
             *pac = temp;
-            randTar = pac->pos;
+            randTar[4] = pac->pos;
             gosUpd(&ghost[4], pac->pos, 4);
             return;
-        case 7:
+        case 10:
             pac->heart++;
             break;
-        case 8:
+        case 11:
             death();
             break;
-        case 9:
+        case 12:
             pac->speed += 0.08;
             break;
     }  

@@ -1,5 +1,5 @@
-CMakeFiles/Pacman.dir/src/player.c.obj: \
- C:\Users\User\Desktop\pacman-game\src\player.c \
+CMakeFiles/Pacman.dir/src/draw.c.obj: \
+ C:\Users\User\Desktop\pacman-game\src\draw.c \
  C:\Users\User\Desktop\pacman-game\src\map.h \
  C:/msys64/ucrt64/include/raylib.h \
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/stdarg.h \
@@ -10,13 +10,7 @@ CMakeFiles/Pacman.dir/src/player.c.obj: \
  C:/msys64/ucrt64/include/_mingw_secapi.h \
  C:/msys64/ucrt64/include/sdks/_mingw_ddk.h \
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/stdbool.h \
- C:\Users\User\Desktop\pacman-game\src\draw.h \
  C:\Users\User\Desktop\pacman-game\src\menu.h \
- C:/msys64/ucrt64/include/time.h C:/msys64/ucrt64/include/crtdefs.h \
- C:/msys64/ucrt64/include/corecrt.h C:/msys64/ucrt64/include/sys/timeb.h \
- C:/msys64/ucrt64/include/sec_api/sys/timeb_s.h \
- C:/msys64/ucrt64/include/_timeval.h \
- C:/msys64/ucrt64/include/pthread_time.h \
+ C:\Users\User\Desktop\pacman-game\src\draw.h \
  C:\Users\User\Desktop\pacman-game\src\ghost.h \
- C:\Users\User\Desktop\pacman-game\src\player.h \
- C:\Users\User\Desktop\pacman-game\src\record.h
+ C:\Users\User\Desktop\pacman-game\src\player.h

@@ -128,6 +128,30 @@ Pacman/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/build
 .PHONY : Pacman/fast
 
+src/draw.obj: src/draw.c.obj
+.PHONY : src/draw.obj
+
+# target to build an object file
+src/draw.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/draw.c.obj
+.PHONY : src/draw.c.obj
+
+src/draw.i: src/draw.c.i
+.PHONY : src/draw.i
+
+# target to preprocess a source file
+src/draw.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/draw.c.i
+.PHONY : src/draw.c.i
+
+src/draw.s: src/draw.c.s
+.PHONY : src/draw.s
+
+# target to generate assembly for a file
+src/draw.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Pacman.dir\build.make CMakeFiles/Pacman.dir/src/draw.c.s
+.PHONY : src/draw.c.s
+
 src/ghost.obj: src/ghost.c.obj
 .PHONY : src/ghost.obj
 
@@ -281,6 +305,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Pacman
+	@echo ... src/draw.obj
+	@echo ... src/draw.i
+	@echo ... src/draw.s
 	@echo ... src/ghost.obj
 	@echo ... src/ghost.i
 	@echo ... src/ghost.s

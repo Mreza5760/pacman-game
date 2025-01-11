@@ -8,8 +8,8 @@
 #include <stdbool.h>
 
 bool Rage = 0;
-Ghost ghost[8];
-Vector2 randTar;
+Ghost ghost[10];
+Vector2 randTar[10];
 double inkLastT = 0;
 int desTar[Row][Col];
 const char *gostex[5] = {
@@ -97,7 +97,7 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
     Mstate[(int)gos->pos.y][(int)gos->pos.x] = type;
 }
 
-void randCell() {
+void randCell(int type) {
     if (GetTime() - inkLastT < 5 || Rage)
         return;
     srand(time(0));
@@ -106,6 +106,6 @@ void randCell() {
         x = rand()%Row;
         y = rand()%Col;
     }
-    randTar = (Vector2){y, x};
+    randTar[type] = (Vector2){y, x};
     inkLastT = GetTime();
 }

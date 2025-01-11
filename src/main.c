@@ -1,5 +1,6 @@
 #include "map.h"
 #include "menu.h"
+#include "draw.h"
 #include "ghost.h"
 #include "raylib.h"
 #include "player.h"
@@ -33,8 +34,8 @@ int main() {
  
                 pacUpd(&Pacman);
                 gosUpd(&ghost[3], Pacman.pos, 3);
-                randCell();
-                gosUpd(&ghost[4], randTar, 4);
+                randCell(4);
+                gosUpd(&ghost[4], randTar[4], 4);
 
                 DrawMap();
                 break;

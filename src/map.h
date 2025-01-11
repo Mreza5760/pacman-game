@@ -12,7 +12,6 @@ extern int Mstate[Row][Col];
 extern const char map[3][Row][Col];
 extern Texture2D Heart, Apple, Mushroom, Pepper;
 
-void DrawMap();
 void randomMap();
 
 #endif
