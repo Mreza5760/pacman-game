@@ -122,7 +122,8 @@ void pacUpd(Player *pac) {
             pepperT = GetTime();
             break;
         case 13:
-
+            for (int i = 0; i < gosSz; i++)
+                ghost[i].blue = 1;
             break;
     }  
     Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 

@@ -14,8 +14,10 @@ int main() {
     Gs = -1, Ms = 0, Df = 1, Ls = 0, nameSz = 0;
     wel = LoadTexture("../assets/gameState/pacmantext.png");
     los =  LoadTexture("../assets/gameState/gameover.png");
+    texIn();
     randomMap(); 
     readList();
+
     while (!WindowShouldClose()) {
         switch (Gs) {
             case -1:
@@ -34,8 +36,8 @@ int main() {
  
                 pacUpd(&Pacman);
                 gosUpd(&ghost[0], Pacman.pos, 3);
-                gosUpd(&ghost[2], Pacman.pos, 5);
-                gosUpd(&ghost[3], Pacman.pos, 6);
+                // gosUpd(&ghost[2], Pacman.pos, 5);
+                // gosUpd(&ghost[3], Pacman.pos, 6);
                 randCell(4);
                 gosUpd(&ghost[1], randTar[1], 4);
 
@@ -74,7 +76,7 @@ int main() {
     UnloadTexture(Pacman.tex);
     for (int i = 0; i < 7; i++)
         UnloadTexture(ghost[i].tex);
-        
+
     CloseWindow();
     return 0;
 }

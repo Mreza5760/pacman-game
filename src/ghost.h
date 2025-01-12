@@ -20,9 +20,10 @@ extern bool Rage;
 extern Ghost ghost[7];
 extern double LastT[7];
 extern Vector2 randTar[7];
-extern const char *gostex[5];
+extern char gostex[7][9][50];
 extern int desTar[Row][Col], gosSz;
 
+void texIn();
 void updDes(int x, int y);
 void gosDef(Ghost *gos, int type);
 void gosUpd(Ghost *gos, Vector2 tar, int type);

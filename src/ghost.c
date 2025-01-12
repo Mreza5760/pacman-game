@@ -5,27 +5,29 @@
 #include "player.h"
 #include "raylib.h"
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 
 bool Rage = 0;
 Ghost ghost[7];
 Vector2 randTar[7];
 double LastT[7] = {0};
-int desTar[Row][Col], gosSz = 1;
-const char *gostex[5] = {
-    "../assets/sprites/ghosts/blinky/blinky.png",
-    "../assets/sprites/ghosts/clyde/clyde.png",
-    "../assets/sprites/ghosts/pinky/pinky.png",
-    "../assets/sprites/ghosts/inky/inky.png",
-    "../assets/sprites/blue_ghost.png"
-};
+int desTar[Row][Col], gosSz = 2;
+char gostex[7][9][50];
+
+void texIn() {
+    for (int i = 0; i < 9; i++)
+        strcpy(gostex[0][i], TextFormat("../assets/sprites/ghosts/blinky/blinky%d.png", i));
+    for (int i = 0; i < 9; i++)
+        strcpy(gostex[1][i], TextFormat("../assets/sprites/ghosts/clyde/clyde%d.png", i));
+}
 
 void gosDef(Ghost *gos, int type) {
     gos->beh = -1;
     gos->blue = 0;
     gos->speed = 0.1 + Df*0.025;
     gos->pos = ghost[type-3].startPos;
-    gos->tex = LoadTexture(gostex[type-3]);
+    gos->tex = LoadTexture(gostex[type-3][8]);
 }
 
 void updDes(int x, int y) {

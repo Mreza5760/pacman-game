@@ -36,9 +36,11 @@ CMakeFiles/Pacman.dir/src/ghost.c.obj
  C:/msys64/ucrt64/include/raylib.h
  C:/msys64/ucrt64/include/sdks/_mingw_ddk.h
  C:/msys64/ucrt64/include/sec_api/stdlib_s.h
+ C:/msys64/ucrt64/include/sec_api/string_s.h
  C:/msys64/ucrt64/include/sec_api/sys/timeb_s.h
  C:/msys64/ucrt64/include/stdarg.h
  C:/msys64/ucrt64/include/stdlib.h
+ C:/msys64/ucrt64/include/string.h
  C:/msys64/ucrt64/include/sys/timeb.h
  C:/msys64/ucrt64/include/time.h
  C:/msys64/ucrt64/include/vadefs.h

@@ -34,9 +34,11 @@ CMakeFiles/Pacman.dir/src/ghost.c.obj: C:/Users/User/Desktop/pacman-game/src/gho
   C:/msys64/ucrt64/include/raylib.h \
   C:/msys64/ucrt64/include/sdks/_mingw_ddk.h \
   C:/msys64/ucrt64/include/sec_api/stdlib_s.h \
+  C:/msys64/ucrt64/include/sec_api/string_s.h \
   C:/msys64/ucrt64/include/sec_api/sys/timeb_s.h \
   C:/msys64/ucrt64/include/stdarg.h \
   C:/msys64/ucrt64/include/stdlib.h \
+  C:/msys64/ucrt64/include/string.h \
   C:/msys64/ucrt64/include/sys/timeb.h \
   C:/msys64/ucrt64/include/time.h \
   C:/msys64/ucrt64/include/vadefs.h \
@@ -181,13 +183,11 @@ C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/limits.h:
 
 C:/msys64/ucrt64/include/time.h:
 
+C:/msys64/ucrt64/include/sys/timeb.h:
+
 C:/msys64/ucrt64/include/corecrt_stdio_config.h:
 
 C:/Users/User/Desktop/pacman-game/src/draw.h:
-
-C:/msys64/ucrt64/include/sec_api/string_s.h:
-
-C:/msys64/ucrt64/include/vadefs.h:
 
 C:/Users/User/Desktop/pacman-game/src/record.c:
 
@@ -249,8 +249,10 @@ C:/msys64/ucrt64/include/malloc.h:
 
 C:/msys64/ucrt64/include/sec_api/stdlib_s.h:
 
+C:/msys64/ucrt64/include/vadefs.h:
+
+C:/msys64/ucrt64/include/sec_api/string_s.h:
+
 C:/Users/User/Desktop/pacman-game/src/ghost.h:
 
 C:/msys64/ucrt64/include/sec_api/sys/timeb_s.h:
-
-C:/msys64/ucrt64/include/sys/timeb.h:
