@@ -40,7 +40,7 @@ void updDes(int x, int y, int mode) {
         for (int j = 0; j < Col; j++)
             desTar[i][j] = 100000;
     desTar[y][x] = 0;
-    for (int k = 0; k < 2*Row+Col; k++) {
+    for (int k = 0; k <= Row+Col; k++) {
         for (int i = 0; i < Row; i++)
             for (int j = 0; j < Col; j++) {
                 if (1 <= Mstate[i][j] && Mstate[i][j] <= 9 && Mstate[i][j] != 2) 
@@ -138,8 +138,8 @@ void randCell(int type) {
         randTar[type-3] = ghost[type-3].startPos;
         return;
     }
-    if (type == 3 && !ghost[0].mode) {
-        randTar[0] = Pacman.pos;
+    if (!ghost[type-3].mode && (type == 3)) {
+        randTar[type-3] = Pacman.pos;
         return;
     }
     if (GetTime() - LastT[type-3] < 1.5 || Rage)

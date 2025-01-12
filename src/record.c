@@ -10,13 +10,17 @@ person List[12];
 void readList() {
     FILE *temp = fopen("../assets/rank.txt", "r");
 
+    if (temp == NULL) {
+        rankSz = 0;
+        return;
+    }
+
     fscanf(temp, "%d\n", &rankSz);
     for (int i = 0; i < rankSz; i++) {
         fgets(List[i].name, sizeof(List[i].name), temp);
         List[i].name[strcspn(List[i].name, "\n")] = '\0';
         fscanf(temp, "%d\n", &List[i].score);
     } 
-
     fclose(temp);
 }
 

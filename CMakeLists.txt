@@ -23,7 +23,7 @@ function(include_dependency libName gitURL gitTag)
     FetchContent_MakeAvailable(${libName})
 endfunction()
 
-# Add Raylib dependency
+# Add Raylib dependency (static linking)
 set(LIB1 raylib)
 find_package(${LIB1} QUIET)
 if (NOT ${LIB1}_FOUND)
@@ -39,6 +39,13 @@ file(GLOB SOURCES src/*.c)
 # Define the executable and link Raylib
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${raylib_INCLUDE_DIRS})
+
+# Static linking for Windows
+if (WIN32)
+    set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
+endif()
+
+# Link Raylib statically and other necessary libraries
 target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB1})
 
 # Optional debug information

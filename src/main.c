@@ -7,7 +7,6 @@
 #include "record.h"
 
 int main() {
-    const int ScW = Col*Cellsz, ScH = Row*Cellsz+Offset;
     InitWindow(ScW, ScH, "Pacman");
     SetTargetFPS(60);
     
