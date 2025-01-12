@@ -62,13 +62,19 @@ int main() {
                 break;
         }
     }
+
     updRec();
     UnloadTexture(los);
     UnloadTexture(wel);
     UnloadTexture(Heart);
+    UnloadTexture(Apple);
+    UnloadTexture(Cherry);
+    UnloadTexture(Pepper);
+    UnloadTexture(Mushroom);
     UnloadTexture(Pacman.tex);
-    UnloadTexture(ghost[3].tex);
-    UnloadTexture(ghost[4].tex);
+    for (int i = 0; i < 7; i++)
+        UnloadTexture(ghost[i].tex);
+        
     CloseWindow();
     return 0;
 }

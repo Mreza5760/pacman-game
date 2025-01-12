@@ -8,6 +8,7 @@
 #include "raylib.h"
 
 Player Pacman;
+double pepperT;
 int changeFrame = 0;
 
 const char *pactex[5] = {
@@ -74,6 +75,9 @@ void death() {
 void pacUpd(Player *pac) {
     Player temp = *pac;
     
+    if (GetTime() - pepperT > 7.0)
+        pac->speed = 0.25;
+
     if (changeFrame % 7 == 0) {
         UnloadTexture(pac->tex);
         pac->frame = (pac->frame+1)%5;
@@ -109,10 +113,16 @@ void pacUpd(Player *pac) {
             pac->heart++;
             break;
         case 11:
+            Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 
+            Mstate[(int)pac->pos.y][(int)pac->pos.x] = 2;
             death();
             break;
         case 12:
             pac->speed += 0.08;
+            pepperT = GetTime();
+            break;
+        case 13:
+
             break;
     }  
     Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 

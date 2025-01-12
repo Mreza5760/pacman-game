@@ -14,6 +14,7 @@ typedef struct {
 } Player;
 
 extern Player Pacman;
+extern double pepperT;
 extern int changeFrame;
 extern const char *pactex[5];
 extern const char *deathtex[11];

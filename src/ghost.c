@@ -11,7 +11,7 @@ bool Rage = 0;
 Ghost ghost[7];
 Vector2 randTar[7];
 double LastT[7] = {0};
-int desTar[Row][Col], gosSz = 4;
+int desTar[Row][Col], gosSz = 1;
 const char *gostex[5] = {
     "../assets/sprites/ghosts/blinky/blinky.png",
     "../assets/sprites/ghosts/clyde/clyde.png",

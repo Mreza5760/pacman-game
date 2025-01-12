@@ -52,6 +52,10 @@ void DrawMap() {
                     Rectangle sour5 = {0, 0, Pepper.width, Pepper.height};
                     DrawTexturePro(Pepper, sour5, dest, (Vector2){16, 16}, 0, WHITE);
                     break;
+                case 13:
+                    Rectangle sour6 = {0, 0, Cherry.width, Cherry.height};
+                    DrawTexturePro(Cherry, sour6, dest, (Vector2){16, 16}, 0, WHITE);
+                    break;
             }
         }
     }
