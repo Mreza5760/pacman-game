@@ -39,8 +39,8 @@ int main() {
                 // gosUpd(&ghost[3], Pacman.pos, 6);
                 randCell(3);
                 randCell(4);
-                gosUpd(&ghost[0], randTar[0], 3);
-                gosUpd(&ghost[1], randTar[1], 4);
+                gosUpd(&ghost[0], 3);
+                gosUpd(&ghost[1], 4);
 
                 DrawMap();
                 break;

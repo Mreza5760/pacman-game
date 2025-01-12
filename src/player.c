@@ -110,7 +110,7 @@ void pacUpd(Player *pac) {
             if (!ghost[ty].mode) {
                 Rage = 1;
                 randTar[1] = pac->pos;
-                gosUpd(&ghost[1], Pacman.pos, 4);
+                gosUpd(&ghost[1], 4);
             } else if (ghost[ty].mode == 1) {
                 ghost[ty].mode = 2;
                 pac->point += 25;
@@ -129,8 +129,10 @@ void pacUpd(Player *pac) {
             pepperT = GetTime();
             break;
         case 13:
-            for (int i = 0; i < gosSz; i++)
+            for (int i = 0; i < gosSz; i++) {
                 ghost[i].mode = 1;
+                blueT[i] = GetTime();
+            }
             break;
     }  
     Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 

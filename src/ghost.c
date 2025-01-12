@@ -11,8 +11,8 @@
 bool Rage = 0;
 Ghost ghost[7];
 Vector2 randTar[7];
-double LastT[7] = {0};
 Texture2D gostex[9][9];
+double LastT[7] = {0}, blueT[7];
 int desTar[Row][Col], gosSz = 2;
 
 void texIn() {
@@ -55,9 +55,8 @@ void updDes(int x, int y, int mode) {
     }
 }
 
-void gosUpd(Ghost *gos, Vector2 tar, int type) {  
-    // randCell(type);
-    updDes(tar.x, tar.y, gos->mode);
+void gosUpd(Ghost *gos, int type) {  
+    updDes(randTar[type-3].x, randTar[type-3].y, gos->mode);
     int dir = -1, x = gos->pos.x, y = gos->pos.y;
     int mn = desTar[y][x];
 
@@ -73,8 +72,16 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
     if (dir == -1 && !gos->mode)
         gos->tex = gostex[type-3][8];
     else {
-        if (gos->mode == 1)
-            gos->tex = gostex[7][gos->frame%2];
+        if (gos->mode == 1) {
+            if (GetTime() - blueT[type-3] > 15.0)
+                gos->mode = 0;
+            int white = 0;
+            if ((GetTime() - blueT[type-3] > 6.0) && (GetTime() - blueT[type-3] < 9.0))
+                white = 2;
+            if ((GetTime() - blueT[type-3] > 12.0) && (GetTime() - blueT[type-3] < 14.0))
+                white = 2;
+            gos->tex = gostex[7][(gos->frame%2)+white];
+        }
         else if (gos->mode == 2)
             gos->tex = gostex[8][dir];
         else if (!gos->mode)
@@ -135,7 +142,7 @@ void randCell(int type) {
         randTar[0] = Pacman.pos;
         return;
     }
-    if (GetTime() - LastT[type-3] < 1 || Rage)
+    if (GetTime() - LastT[type-3] < 1.5 || Rage)
         return;
     srand(time(0));
     int x = 0, y = 0;

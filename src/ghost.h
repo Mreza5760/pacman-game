@@ -17,15 +17,15 @@ typedef struct {
 
 extern bool Rage;
 extern Ghost ghost[7];
-extern double LastT[7];
 extern Vector2 randTar[7];
 extern Texture2D gostex[9][9];
+extern double LastT[7], blueT[7];
 extern int desTar[Row][Col], gosSz;
 
 void texIn();
 void randCell(int type);
+void gosUpd(Ghost *gos, int type);
 void gosDef(Ghost *gos, int type);
 void updDes(int x, int y, int mode);
-void gosUpd(Ghost *gos, Vector2 tar, int type);
 
 #endif
