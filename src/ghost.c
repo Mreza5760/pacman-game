@@ -13,21 +13,22 @@ Ghost ghost[7];
 Vector2 randTar[7];
 double LastT[7] = {0};
 int desTar[Row][Col], gosSz = 2;
-char gostex[7][9][50];
+Texture2D gostex[7][9];
 
 void texIn() {
     for (int i = 0; i < 9; i++)
-        strcpy(gostex[0][i], TextFormat("../assets/sprites/ghosts/blinky/blinky%d.png", i));
+        gostex[0][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/blinky/blinky%d.png", i));
     for (int i = 0; i < 9; i++)
-        strcpy(gostex[1][i], TextFormat("../assets/sprites/ghosts/clyde/clyde%d.png", i));
+        gostex[1][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/clyde/clyde%d.png", i));
 }
 
 void gosDef(Ghost *gos, int type) {
     gos->beh = -1;
     gos->blue = 0;
+    gos->frame = 0;
     gos->speed = 0.1 + Df*0.025;
     gos->pos = ghost[type-3].startPos;
-    gos->tex = LoadTexture(gostex[type-3][8]);
+    gos->tex = gostex[type-3][8];
 }
 
 void updDes(int x, int y) {
@@ -60,6 +61,14 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
         dir = 2, mn = desTar[y][x-1];
     if (y && desTar[y-1][x] < mn)
         dir = 3, mn = desTar[y-1][x];
+    
+    if (dir == -1)
+        gos->tex = gostex[type-3][8];
+    else {
+        gos->tex = gostex[type-3][2*dir+(gos->frame%2)];
+        if (gos->frame > 10) gos->frame = (gos->frame+1)%2;
+        gos->frame += 2;
+    }
 
     switch (dir) {
         case 0:

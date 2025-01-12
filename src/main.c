@@ -74,8 +74,11 @@ int main() {
     UnloadTexture(Pepper);
     UnloadTexture(Mushroom);
     UnloadTexture(Pacman.tex);
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 7; i++) {
         UnloadTexture(ghost[i].tex);
+        for (int j = 0; j < 9; j++)
+            UnloadTexture(gostex[i][j]);
+    }
 
     CloseWindow();
     return 0;

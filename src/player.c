@@ -78,7 +78,7 @@ void pacUpd(Player *pac) {
     if (GetTime() - pepperT > 7.0)
         pac->speed = 0.25;
 
-    if (changeFrame % 7 == 0) {
+    if (changeFrame % 8 == 0) {
         UnloadTexture(pac->tex);
         pac->frame = (pac->frame+1)%5;
         pac->tex = LoadTexture(pactex[pac->frame]); 
