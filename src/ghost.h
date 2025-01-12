@@ -9,24 +9,23 @@
 #define min(a, b) ((a)<(b)?(a):(b))
 
 typedef struct {
-    bool blue;
     double speed;
     Texture2D tex;
-    int beh, frame;
-    Vector2 pos, tar, startPos;
+    int beh, frame, mode;
+    Vector2 pos, startPos;
 } Ghost;
 
 extern bool Rage;
 extern Ghost ghost[7];
 extern double LastT[7];
 extern Vector2 randTar[7];
-extern Texture2D gostex[7][9];
+extern Texture2D gostex[9][9];
 extern int desTar[Row][Col], gosSz;
 
 void texIn();
-void updDes(int x, int y);
-void gosDef(Ghost *gos, int type);
-void gosUpd(Ghost *gos, Vector2 tar, int type);
 void randCell(int type);
+void gosDef(Ghost *gos, int type);
+void updDes(int x, int y, int mode);
+void gosUpd(Ghost *gos, Vector2 tar, int type);
 
 #endif

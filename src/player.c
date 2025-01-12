@@ -63,13 +63,14 @@ void death() {
         return;
     }
 
-    for (int i = 0; i < gosSz; i++)
-        Mstate[(int)ghost[i].pos.y][(int)ghost[i].pos.x] = ghost[i].beh;
-
     Mstate[(int)Pacman.pos.y][(int)Pacman.pos.x] = -1;
     Pacman.pos = Pacman.startPos;
-    for (int i = 0; i < gosSz; i++)
+    for (int i = 0; i < gosSz; i++) {
+        ghost[i].beh = Mstate[(int)ghost[i].startPos.y][(int)ghost[i].startPos.x];
+        Mstate[(int)ghost[i].pos.y][(int)ghost[i].pos.x] = ghost[i].beh;
+        ghost[i].mode = 0;
         ghost[i].pos = ghost[i].startPos;
+    }
 }
 
 void pacUpd(Player *pac) {
@@ -95,6 +96,7 @@ void pacUpd(Player *pac) {
     else if (IsKeyDown(KEY_UP)) 
         pac->pos.y -= pac->speed, pac->dir = 3;
 
+    int ty = Mstate[(int)pac->pos.y][(int)pac->pos.x]-3;
     switch (Mstate[(int)pac->pos.y][(int)pac->pos.x]){
         case 0:
             pac->point += pointSt;
@@ -104,10 +106,15 @@ void pacUpd(Player *pac) {
             return;
         case 3:
         case 4:
-            Rage = 1;
             *pac = temp;
-            randTar[1] = pac->pos;
-            gosUpd(&ghost[1], pac->pos, 4);
+            if (!ghost[ty].mode) {
+                Rage = 1;
+                randTar[1] = pac->pos;
+                gosUpd(&ghost[1], Pacman.pos, 4);
+            } else if (ghost[ty].mode == 1) {
+                ghost[ty].mode = 2;
+                pac->point += 25;
+            }
             return;
         case 10:
             pac->heart++;
@@ -123,7 +130,7 @@ void pacUpd(Player *pac) {
             break;
         case 13:
             for (int i = 0; i < gosSz; i++)
-                ghost[i].blue = 1;
+                ghost[i].mode = 1;
             break;
     }  
     Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 

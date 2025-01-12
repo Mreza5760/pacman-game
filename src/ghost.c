@@ -12,26 +12,30 @@ bool Rage = 0;
 Ghost ghost[7];
 Vector2 randTar[7];
 double LastT[7] = {0};
+Texture2D gostex[9][9];
 int desTar[Row][Col], gosSz = 2;
-Texture2D gostex[7][9];
 
 void texIn() {
     for (int i = 0; i < 9; i++)
         gostex[0][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/blinky/blinky%d.png", i));
     for (int i = 0; i < 9; i++)
         gostex[1][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/clyde/clyde%d.png", i));
+    for (int i = 0; i < 4; i++)
+        gostex[7][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/blue/blue%d.png", i));
+    for (int i = 0; i < 4; i++)
+        gostex[8][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/eyes/Eye%d.png", i));
 }
 
 void gosDef(Ghost *gos, int type) {
     gos->beh = -1;
-    gos->blue = 0;
+    gos->mode = 0;
     gos->frame = 0;
     gos->speed = 0.1 + Df*0.025;
     gos->pos = ghost[type-3].startPos;
     gos->tex = gostex[type-3][8];
 }
 
-void updDes(int x, int y) {
+void updDes(int x, int y, int mode) {
     for (int i = 0; i < Row; i++)
         for (int j = 0; j < Col; j++)
             desTar[i][j] = 100000;
@@ -39,7 +43,10 @@ void updDes(int x, int y) {
     for (int k = 0; k < 2*Row+Col; k++) {
         for (int i = 0; i < Row; i++)
             for (int j = 0; j < Col; j++) {
-                if (Mstate[i][j] == 1 || Mstate[i][j] == 3 || Mstate[i][j] == 4) continue;
+                if (1 <= Mstate[i][j] && Mstate[i][j] <= 9 && Mstate[i][j] != 2) 
+                    continue;
+                if (mode && Mstate[i][j] == 2)
+                    continue;
                 if (j < Col) desTar[i][j] = min(desTar[i][j], desTar[i][j+1]+1);
                 if (j) desTar[i][j] = min(desTar[i][j], desTar[i][j-1]+1);
                 if (i < Row) desTar[i][j] = min(desTar[i][j], desTar[i+1][j]+1);
@@ -48,8 +55,9 @@ void updDes(int x, int y) {
     }
 }
 
-void gosUpd(Ghost *gos, Vector2 tar, int type) {    
-    updDes(tar.x, tar.y);
+void gosUpd(Ghost *gos, Vector2 tar, int type) {  
+    // randCell(type);
+    updDes(tar.x, tar.y, gos->mode);
     int dir = -1, x = gos->pos.x, y = gos->pos.y;
     int mn = desTar[y][x];
 
@@ -62,10 +70,15 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
     if (y && desTar[y-1][x] < mn)
         dir = 3, mn = desTar[y-1][x];
     
-    if (dir == -1)
+    if (dir == -1 && !gos->mode)
         gos->tex = gostex[type-3][8];
     else {
-        gos->tex = gostex[type-3][2*dir+(gos->frame%2)];
+        if (gos->mode == 1)
+            gos->tex = gostex[7][gos->frame%2];
+        else if (gos->mode == 2)
+            gos->tex = gostex[8][dir];
+        else if (!gos->mode)
+            gos->tex = gostex[type-3][2*dir+(gos->frame%2)];
         if (gos->frame > 10) gos->frame = (gos->frame+1)%2;
         gos->frame += 2;
     }
@@ -88,7 +101,7 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
     Mstate[y][x] = gos->beh;
     gos->beh = Mstate[(int)gos->pos.y][(int)gos->pos.x];
     
-    if (3 <= gos->beh && gos->beh < 3+gosSz) {
+    if (gos->beh == 1 || (3 <= gos->beh && gos->beh <= 9)) {
         gos->pos = (Vector2){x, y};
         gos->beh = Mstate[y][x];
         Mstate[y][x] = type;
@@ -99,17 +112,30 @@ void gosUpd(Ghost *gos, Vector2 tar, int type) {
         gos->pos = (Vector2){x, y};
         gos->beh = Mstate[y][x];
         Mstate[y][x] = type; 
-
-        death();
-
-        gos->beh = Mstate[(int)ghost[type-3].startPos.y][(int)ghost[type-3].startPos.x];
+        if (!gos->mode) 
+            death();
+        else if (gos->mode == 1) {
+            gos->mode = 2;
+            Pacman.point += 25;
+        }
         return;
     }
+
     Mstate[(int)gos->pos.y][(int)gos->pos.x] = type;
 }
 
 void randCell(int type) {
-    if (GetTime() - LastT[type-3] < 4 || Rage)
+    if (ghost[type-3].mode == 2) {
+        if ((int)ghost[type-3].pos.x == (int)ghost[type-3].startPos.x && (int)ghost[type-3].pos.y == (int)ghost[type-3].startPos.y)
+            ghost[type-3].mode = 0;
+        randTar[type-3] = ghost[type-3].startPos;
+        return;
+    }
+    if (type == 3 && !ghost[0].mode) {
+        randTar[0] = Pacman.pos;
+        return;
+    }
+    if (GetTime() - LastT[type-3] < 1 || Rage)
         return;
     srand(time(0));
     int x = 0, y = 0;

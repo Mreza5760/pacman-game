@@ -35,10 +35,11 @@ int main() {
                 }
  
                 pacUpd(&Pacman);
-                gosUpd(&ghost[0], Pacman.pos, 3);
                 // gosUpd(&ghost[2], Pacman.pos, 5);
                 // gosUpd(&ghost[3], Pacman.pos, 6);
+                randCell(3);
                 randCell(4);
+                gosUpd(&ghost[0], randTar[0], 3);
                 gosUpd(&ghost[1], randTar[1], 4);
 
                 DrawMap();
@@ -74,7 +75,7 @@ int main() {
     UnloadTexture(Pepper);
     UnloadTexture(Mushroom);
     UnloadTexture(Pacman.tex);
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 9; i++) {
         UnloadTexture(ghost[i].tex);
         for (int j = 0; j < 9; j++)
             UnloadTexture(gostex[i][j]);
