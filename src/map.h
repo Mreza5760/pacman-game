@@ -17,6 +17,7 @@ extern Texture2D Heart, Apple, Mushroom, Pepper, Cherry;
 
 void addItem();
 void randomMap();
+void afterDeath();
 Vector2 newCell();
 
 #endif

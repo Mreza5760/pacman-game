@@ -63,6 +63,8 @@ void death() {
         return;
     }
 
+    // afterDeath();
+
     Mstate[(int)Pacman.pos.y][(int)Pacman.pos.x] = -1;
     Pacman.pos = Pacman.startPos;
     for (int i = 0; i < gosSz; i++) {

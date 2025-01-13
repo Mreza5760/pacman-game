@@ -132,6 +132,19 @@ void randomMap() {
     Mushroom = LoadTexture("../assets/items/mushroom.png");
 }
 
+void afterDeath() {
+    Vector2 temp = newCell();
+    Pacman.startPos = temp;
+
+    updDes((int)temp.x, (int)temp.y, 0);
+    for (int i = 0; i < gosSz; i++) {
+        temp = newCell();
+        while (desTar[(int)temp.y][(int)temp.x] < 13) 
+            temp = newCell();
+        ghost[i].startPos = temp;
+    }
+}
+
 void addItem() {
     Vector2 temp = newCell();
     if(!sCn) {

@@ -14,8 +14,8 @@ int main() {
     wel = LoadTexture("../assets/gameState/pacmantext.png");
     los =  LoadTexture("../assets/gameState/gameover.png");
     texIn();
-    randomMap(); 
     readList();
+    randomMap(); 
 
     while (!WindowShouldClose()) {
         switch (Gs) {
