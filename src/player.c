@@ -66,8 +66,8 @@ void death() {
     Mstate[(int)Pacman.pos.y][(int)Pacman.pos.x] = -1;
     Pacman.pos = Pacman.startPos;
     for (int i = 0; i < gosSz; i++) {
-        ghost[i].beh = Mstate[(int)ghost[i].startPos.y][(int)ghost[i].startPos.x];
         Mstate[(int)ghost[i].pos.y][(int)ghost[i].pos.x] = ghost[i].beh;
+        ghost[i].beh = Mstate[(int)ghost[i].startPos.y][(int)ghost[i].startPos.x];
         ghost[i].mode = 0;
         ghost[i].pos = ghost[i].startPos;
     }

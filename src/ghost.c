@@ -24,6 +24,8 @@ void texIn() {
         gostex[2][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/inky/inky%d.png", i));
     for (int i = 0; i < 9; i++)
         gostex[3][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/pinky/pinky%d.png", i));
+    for (int i = 0; i < 9; i++)
+        gostex[4][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/berrypie/berrypie%d.png", i));
     for (int i = 0; i < 4; i++)
         gostex[7][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/blue/blue%d.png", i));
     for (int i = 0; i < 4; i++)
@@ -111,8 +113,8 @@ void gosUpd(Ghost *gos, int type) {
 
     Mstate[y][x] = gos->beh;
     gos->beh = Mstate[(int)gos->pos.y][(int)gos->pos.x];
-    
-    if (gos->beh == 1 || (3 <= gos->beh && gos->beh <= 9)) {
+
+    if (gos->beh == 1 || (3 <= gos->beh && gos->beh <= 9 && gos->beh != 2)) {
         gos->pos = (Vector2){x, y};
         gos->beh = Mstate[y][x];
         Mstate[y][x] = type;
