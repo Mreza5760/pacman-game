@@ -82,7 +82,7 @@ const char map[3][Row][Col] = {
 };
 
 // -1:- 0:star 1:# 2:P          10:A 11:M 12:H 13:C
-// 3:B 4:I 5:F 6:Q 7:V 8:G 9:O
+// 3:B 4:C 5:I 6:P 7:B 8:G 9:O
 
 Vector2 newCell() {
     int i = 0, j = 0;
