@@ -7,6 +7,8 @@
 #include <stdlib.h>
 
 int Mstate[Row][Col];
+int aCn, pCn, mCn, cCn, sCn;
+int aMx, pMx, mMx, cMx, sMx;
 int ScW = Col*Cellsz, ScH = Row*Cellsz+Offset;
 Texture2D Heart, Apple, Mushroom, Pepper, Cherry;
 const char map[3][Row][Col] = {
@@ -92,7 +94,8 @@ Vector2 newCell() {
 }
 
 void randomMap() {
-    int sn = 30, an = 3-Df, pn = 4-Df, mn = 1+Df, cn = 2-Df;
+    sMx = 65, pMx = 3-Df, cMx = 3-Df, mMx = 1+Df, aMx = 3-Df;
+    sCn = 0, pCn = 0, cCn = 0, mCn = 0, aCn = 0;
 
     srand(time(0));
     int x = rand()%3;
@@ -118,30 +121,48 @@ void randomMap() {
         Mstate[(int)temp.y][(int)temp.x] = 3+i;
     }
 
-    for (int i = 0; i < an; i++) {
-        temp = newCell();
-        Mstate[(int)temp.y][(int)temp.x] = 10;
-    }
-    for (int i = 0; i < mn; i++) {
-        temp = newCell();
-        Mstate[(int)temp.y][(int)temp.x] = 11;
-    }
-    for (int i = 0; i < pn; i++) {
-        temp = newCell();
-        Mstate[(int)temp.y][(int)temp.x] = 12;
-    }
-    for (int i = 0; i < cn; i++) {
-        temp = newCell();
-        Mstate[(int)temp.y][(int)temp.x] = 13;
-    }
-    for (int i = 0; i < sn; i++) {
-        temp = newCell();
-        Mstate[(int)temp.y][(int)temp.x] = 0;
-    }
-
     Apple = LoadTexture("../assets/items/apple.png");
     Heart = LoadTexture("../assets/items/heart.png");
     Cherry = LoadTexture("../assets/items/cherry.png");
     Pepper = LoadTexture("../assets/items/pepper.png");
     Mushroom = LoadTexture("../assets/items/mushroom.png");
+}
+
+void addItem() {
+    Vector2 temp = newCell();
+    if(!aCn) {
+        for (int i = 0; i < aMx; i++) {
+            temp = newCell();
+            Mstate[(int)temp.y][(int)temp.x] = 10;
+        }
+        aCn = aMx;
+    }
+    if(!mCn) {
+        for (int i = 0; i < mMx; i++) {
+            temp = newCell();
+            Mstate[(int)temp.y][(int)temp.x] = 11;
+        }
+        mCn = mMx;
+    }
+    if(!pCn) {
+        for (int i = 0; i < pMx; i++) {
+            temp = newCell();
+            Mstate[(int)temp.y][(int)temp.x] = 12;
+        }
+        pCn = pMx;
+    }
+    if(!cCn) {
+        for (int i = 0; i < cMx; i++) {
+            temp = newCell();
+            Mstate[(int)temp.y][(int)temp.x] = 13;
+        }
+        cCn = cMx;
+    }
+    if(!sCn) {
+        for (int i = 0; i < sMx; i++) {
+            temp = newCell();
+            Mstate[(int)temp.y][(int)temp.x] = 0;
+        }
+        sCn = sMx;
+    }
 }

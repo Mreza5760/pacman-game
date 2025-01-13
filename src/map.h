@@ -9,9 +9,12 @@
 #define Offset 64
 
 extern const char map[3][Row][Col];
+extern int aCn, pCn, mCn, cCn, sCn;
+extern int aMx, pMx, mMx, cMx, sMx;
 extern int Mstate[Row][Col], ScW, ScH;
 extern Texture2D Heart, Apple, Mushroom, Pepper, Cherry;
 
+void addItem();
 void randomMap();
 Vector2 newCell();
 

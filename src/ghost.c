@@ -34,7 +34,7 @@ void gosDef(Ghost *gos, int type) {
     gos->beh = -1;
     gos->mode = 0;
     gos->frame = 0;
-    gos->speed = 0.1 + Df*0.025;
+    gos->speed = 0.05 + Df*0.025;
     gos->pos = ghost[type-3].startPos;
     gos->tex = gostex[type-3][8];
 }

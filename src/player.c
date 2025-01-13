@@ -38,7 +38,7 @@ void pacDef(Player *pac) {
     pac->frame = 0;
     pac->heart = 3;
     pac->point = 0;
-    pac->speed = 0.25;
+    pac->speed = 0.15;
     pac->pos = pac->startPos;
     pac->tex = LoadTexture(pactex[pac->frame]);
 }
@@ -77,7 +77,7 @@ void pacUpd(Player *pac) {
     Player temp = *pac;
     
     if (GetTime() - pepperT > 7.0)
-        pac->speed = 0.25;
+        pac->speed = 0.15;
 
     if (changeFrame % 8 == 0) {
         UnloadTexture(pac->tex);
@@ -99,6 +99,7 @@ void pacUpd(Player *pac) {
     int ty = Mstate[(int)pac->pos.y][(int)pac->pos.x]-3;
     switch (Mstate[(int)pac->pos.y][(int)pac->pos.x]){
         case 0:
+            sCn--;
             pac->point += pointSt;
             break;
         case 1:
@@ -106,6 +107,10 @@ void pacUpd(Player *pac) {
             return;
         case 3:
         case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
             *pac = temp;
             if (!ghost[ty].mode) {
                 Rage = 1;
@@ -117,18 +122,23 @@ void pacUpd(Player *pac) {
             }
             return;
         case 10:
-            pac->heart++;
+            aCn--;
+            if (pac->heart < 5)
+                pac->heart++;
             break;
         case 11:
+            mCn--;
             Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 
             Mstate[(int)pac->pos.y][(int)pac->pos.x] = 2;
             death();
             break;
         case 12:
+            pCn--;
             pac->speed += 0.08;
             pepperT = GetTime();
             break;
         case 13:
+            cCn--;
             for (int i = 0; i < gosSz; i++) {
                 ghost[i].mode = 1;
                 blueT[i] = GetTime();

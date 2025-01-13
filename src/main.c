@@ -32,7 +32,8 @@ int main() {
                     Ms = 0;  
                     break;
                 }
- 
+
+                addItem();
                 pacUpd(&Pacman);
                 randCell(3);
                 randCell(4);
