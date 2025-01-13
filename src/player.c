@@ -109,15 +109,17 @@ void pacUpd(Player *pac) {
         case 4:
         case 5:
         case 6:
-        case 7:
-        case 8:
             *pac = temp;
             if (!ghost[ty].mode) {
                 Rage = 1;
-                randTar[1] = pac->pos;
-                gosUpd(&ghost[1], 4);
+                for (int i = 4; i < 7; i++) {
+                    randTar[i-3] = pac->pos;
+                    gosUpd(&ghost[i-3], i);
+                }
             } else if (ghost[ty].mode == 1) {
                 ghost[ty].mode = 2;
+                randCell(ty+3);
+                gosUpd(&ghost[ty], ty+3);
                 pac->point += 25;
             }
             return;

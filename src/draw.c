@@ -26,7 +26,7 @@ void DrawMap() {
                     DrawCircle(j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz/8, GOLD);
                     break;
                 case 1:
-                    DrawRectangle(j*Cellsz, i*Cellsz+Offset, Cellsz, Cellsz, DARKGRAY);
+                    DrawRectangle(j*Cellsz, i*Cellsz+Offset, Cellsz, Cellsz, DARKBLUE);
                     break;
                 case 2:
                     Rectangle sour = {0, 0, Pacman.tex.width, Pacman.tex.height};

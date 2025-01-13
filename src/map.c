@@ -16,7 +16,7 @@ const char map[3][Row][Col] = {
         "###################################",
         "#    ##       ##        #         #",
         "#  # #  ####       ####   #####   #",
-        "# #      ###      ##  ####      ###",
+        "# #      ###      ##  ###       ###",
         "#    #  #########        ######   #",
         "#  #   ##           ####     #    #",
         "#  ##     #  ##  ####    ###   ## #",
@@ -130,6 +130,13 @@ void randomMap() {
 
 void addItem() {
     Vector2 temp = newCell();
+    if(!sCn) {
+        for (int i = 0; i < sMx; i++) {
+            temp = newCell();
+            Mstate[(int)temp.y][(int)temp.x] = 0;
+        }
+        sCn = sMx;
+    }
     if(!aCn) {
         for (int i = 0; i < aMx; i++) {
             temp = newCell();
@@ -157,12 +164,5 @@ void addItem() {
             Mstate[(int)temp.y][(int)temp.x] = 13;
         }
         cCn = cMx;
-    }
-    if(!sCn) {
-        for (int i = 0; i < sMx; i++) {
-            temp = newCell();
-            Mstate[(int)temp.y][(int)temp.x] = 0;
-        }
-        sCn = sMx;
     }
 }
