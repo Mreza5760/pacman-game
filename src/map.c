@@ -85,7 +85,6 @@ const char map[3][Row][Col] = {
 // 3:B 4:I 5:F 6:Q 7:V 8:G 9:O
 
 Vector2 newCell() {
-    srand(time(0));
     int i = 0, j = 0;
     while (Mstate[i][j] != -1) {
         i = rand()%Row;
@@ -130,19 +129,6 @@ void randomMap() {
     Cherry = LoadTexture("../assets/items/cherry.png");
     Pepper = LoadTexture("../assets/items/pepper.png");
     Mushroom = LoadTexture("../assets/items/mushroom.png");
-}
-
-void afterDeath() {
-    Vector2 temp = newCell();
-    Pacman.startPos = temp;
-
-    updDes((int)temp.x, (int)temp.y, 0);
-    for (int i = 0; i < gosSz; i++) {
-        temp = newCell();
-        while (desTar[(int)temp.y][(int)temp.x] < 13) 
-            temp = newCell();
-        ghost[i].startPos = temp;
-    }
 }
 
 void addItem() {

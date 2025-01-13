@@ -63,15 +63,24 @@ void death() {
         return;
     }
 
-    // afterDeath();
-
+    Vector2 temp = newCell();
+    Pacman.startPos = temp;
     Mstate[(int)Pacman.pos.y][(int)Pacman.pos.x] = -1;
     Pacman.pos = Pacman.startPos;
+    updDes((int)temp.x, (int)temp.y, 0);
+
     for (int i = 0; i < gosSz; i++) {
         Mstate[(int)ghost[i].pos.y][(int)ghost[i].pos.x] = ghost[i].beh;
+        
+        temp = newCell();
+        while (desTar[(int)temp.y][(int)temp.x] < 13) 
+            temp = newCell();
+        ghost[i].startPos = temp;
+
         ghost[i].beh = Mstate[(int)ghost[i].startPos.y][(int)ghost[i].startPos.x];
-        ghost[i].mode = 0;
+        Mstate[(int)ghost[i].startPos.y][(int)ghost[i].startPos.x] = i+3;
         ghost[i].pos = ghost[i].startPos;
+        ghost[i].mode = 0;
     }
 }
 
@@ -111,6 +120,7 @@ void pacUpd(Player *pac) {
         case 4:
         case 5:
         case 6:
+        case 7:
             *pac = temp;
             if (!ghost[ty].mode) {
                 Rage = 1;

@@ -13,7 +13,7 @@ Ghost ghost[7];
 Vector2 randTar[7];
 Texture2D gostex[9][9];
 double LastT[7] = {0}, blueT[7];
-int desTar[Row][Col], gosSz = 4;
+int desTar[Row][Col], gosSz = 5;
 
 void texIn() {
     for (int i = 0; i < 9; i++)
@@ -151,9 +151,9 @@ void randCell(int type) {
         randTar[type-3] = Pacman.pos;
         return;
     }
-    if (GetTime() - LastT[type-3] < 1.5 || Rage)
+    if (GetTime() - LastT[type-3] < 2.5 || Rage)
         return;
-    srand(time(0));
+ 
     int x = 0, y = 0;
     while (Mstate[x][y] == 1) {
         x = rand()%Row;

@@ -35,14 +35,17 @@ int main() {
 
                 addItem();
                 pacUpd(&Pacman);
+
                 randCell(3);
-                randCell(4);
-                randCell(5);
-                randCell(6);
                 gosUpd(&ghost[0], 3);
+                randCell(4);
                 gosUpd(&ghost[1], 4);
+                randCell(5);
                 gosUpd(&ghost[2], 5);
+                randCell(6);
                 gosUpd(&ghost[3], 6);
+                randCell(7);
+                gosUpd(&ghost[4], 7);
 
                 DrawMap();
                 break;

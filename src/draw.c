@@ -36,6 +36,7 @@ void DrawMap() {
                 case 4:
                 case 5:
                 case 6:
+                case 7:
                     int x = Mstate[i][j]-3;
                     Rectangle sour1 = {0, 0, ghost[x].tex.width, ghost[x].tex.height};
                     DrawTexturePro(ghost[x].tex, sour1, dest, (Vector2){16, 16}, 0, WHITE);
