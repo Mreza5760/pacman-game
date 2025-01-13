@@ -117,10 +117,11 @@ void pacUpd(Player *pac) {
                     gosUpd(&ghost[i-3], i);
                 }
             } else if (ghost[ty].mode == 1) {
+                pac->point += 25;
                 ghost[ty].mode = 2;
+                ghost[ty].speed = 0.3;
                 randCell(ty+3);
                 gosUpd(&ghost[ty], ty+3);
-                pac->point += 25;
             }
             return;
         case 10:

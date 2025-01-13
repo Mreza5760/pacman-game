@@ -129,6 +129,7 @@ void gosUpd(Ghost *gos, int type) {
             death();
         else if (gos->mode == 1) {
             gos->mode = 2;
+            gos->speed = 0.3;
             Pacman.point += 25;
         }
         return;
@@ -139,8 +140,10 @@ void gosUpd(Ghost *gos, int type) {
 
 void randCell(int type) {
     if (ghost[type-3].mode == 2) {
-        if ((int)ghost[type-3].pos.x == (int)ghost[type-3].startPos.x && (int)ghost[type-3].pos.y == (int)ghost[type-3].startPos.y)
+        if ((int)ghost[type-3].pos.x == (int)ghost[type-3].startPos.x && (int)ghost[type-3].pos.y == (int)ghost[type-3].startPos.y) {
             ghost[type-3].mode = 0;
+            ghost[type-3].speed = 0.05 + Df*0.025; 
+        }
         randTar[type-3] = ghost[type-3].startPos;
         return;
     }
