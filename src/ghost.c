@@ -13,13 +13,17 @@ Ghost ghost[7];
 Vector2 randTar[7];
 Texture2D gostex[9][9];
 double LastT[7] = {0}, blueT[7];
-int desTar[Row][Col], gosSz = 2;
+int desTar[Row][Col], gosSz = 4;
 
 void texIn() {
     for (int i = 0; i < 9; i++)
         gostex[0][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/blinky/blinky%d.png", i));
     for (int i = 0; i < 9; i++)
         gostex[1][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/clyde/clyde%d.png", i));
+    for (int i = 0; i < 9; i++)
+        gostex[2][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/inky/inky%d.png", i));
+    for (int i = 0; i < 9; i++)
+        gostex[3][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/pinky/pinky%d.png", i));
     for (int i = 0; i < 4; i++)
         gostex[7][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/blue/blue%d.png", i));
     for (int i = 0; i < 4; i++)

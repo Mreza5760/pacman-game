@@ -34,12 +34,14 @@ int main() {
                 }
  
                 pacUpd(&Pacman);
-                // gosUpd(&ghost[2], Pacman.pos, 5);
-                // gosUpd(&ghost[3], Pacman.pos, 6);
                 randCell(3);
                 randCell(4);
+                randCell(5);
+                randCell(6);
                 gosUpd(&ghost[0], 3);
                 gosUpd(&ghost[1], 4);
+                gosUpd(&ghost[2], 5);
+                gosUpd(&ghost[3], 6);
 
                 DrawMap();
                 break;
