@@ -13,7 +13,7 @@ bool Rage[7] = {0};
 Vector2 randTar[7];
 Texture2D gostex[9][9];
 double LastT[7] = {0}, blueT[7];
-int desTar[Row][Col], gosSz = 6;
+int desTar[Row][Col], gosSz = 7;
 
 void texIn() {
     for (int i = 0; i < 9; i++)
@@ -28,7 +28,9 @@ void texIn() {
         gostex[4][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/berrypie/berrypie%d.png", i));
     for (int i = 0; i < 9; i++)
         gostex[5][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/rocky/rocky%d.png", i));
-    
+    for (int i = 0; i < 9; i++)
+        gostex[6][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/snowwhite/snowwhite%d.png", i)); 
+
     for (int i = 0; i < 4; i++)
         gostex[7][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/blue/blue%d.png", i));
     for (int i = 0; i < 4; i++)
@@ -79,13 +81,13 @@ void gosUpd(Ghost *gos, int type) {
     int dir = -1, x = gos->pos.x, y = gos->pos.y;
     int mn = desTar[y][x];
 
-    if (x < Col && desTar[y][x+1] < mn)
+    if (x < Col && desTar[y][x+1] < mn && (Mstate[y][x+1] < 3 || Mstate[y][x+1] > 9))
         dir = 0, mn = desTar[y][x+1];
-    if (y < Row && desTar[y+1][x] < mn)
+    if (y < Row && desTar[y+1][x] < mn && (Mstate[y+1][x] < 3 || Mstate[y+1][x] > 9))
         dir = 1, mn = desTar[y+1][x];
-    if (x && desTar[y][x-1] < mn)
+    if (x && desTar[y][x-1] < mn && (Mstate[y][x-1] < 3 || Mstate[y][x-1] > 9))
         dir = 2, mn = desTar[y][x-1];
-    if (y && desTar[y-1][x] < mn)
+    if (y && desTar[y-1][x] < mn && (Mstate[y-1][x] < 3 || Mstate[y-1][x] > 9))
         dir = 3, mn = desTar[y-1][x];
     
     if (dir == -1 && !gos->mode)
@@ -161,7 +163,8 @@ void randCell(int type) {
         return;
     }
     updDes(Pacman.pos.x, Pacman.pos.y, 0);
-    if (!ghost[type-3].mode && (type == 3 || (type == 7 && desTar[(int)ghost[4].pos.y][(int)ghost[4].pos.x] > 13))) {
+    if (!ghost[type-3].mode && (type == 3 || type == 8 || (type == 7 && desTar[(int)ghost[4].pos.y][(int)ghost[4].pos.x] > 13) 
+    || (type == 9 && desTar[(int)ghost[6].pos.y][(int)ghost[6].pos.x] > 13))) {
         randTar[type-3] = Pacman.pos;
         return;
     }
