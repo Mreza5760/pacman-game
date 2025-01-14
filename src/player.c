@@ -43,47 +43,6 @@ void pacDef(Player *pac) {
     pac->tex = LoadTexture(pactex[pac->frame]);
 }
 
-void death() {
-    Pacman.heart--;
-    Pacman.dir = 0;
-    for (int i = 0; i < 11; i++) {
-        UnloadTexture(Pacman.tex);
-        Pacman.tex = LoadTexture(deathtex[i]);
-
-        DrawMap();
-
-        double T = GetTime();
-        while (GetTime() - T < 0.08);
-    }
-    Rage = 0;
-    if (!Pacman.heart) {
-        Gs = 5;
-        Ls = 0;
-        addRec(playerName, Pacman.point * (Df+1));
-        return;
-    }
-
-    Vector2 temp = newCell();
-    Pacman.startPos = temp;
-    Mstate[(int)Pacman.pos.y][(int)Pacman.pos.x] = -1;
-    Pacman.pos = Pacman.startPos;
-    updDes((int)temp.x, (int)temp.y, 0);
-
-    for (int i = 0; i < gosSz; i++) {
-        Mstate[(int)ghost[i].pos.y][(int)ghost[i].pos.x] = ghost[i].beh;
-        
-        temp = newCell();
-        while (desTar[(int)temp.y][(int)temp.x] < 13) 
-            temp = newCell();
-        ghost[i].startPos = temp;
-
-        ghost[i].beh = Mstate[(int)ghost[i].startPos.y][(int)ghost[i].startPos.x];
-        Mstate[(int)ghost[i].startPos.y][(int)ghost[i].startPos.x] = i+3;
-        ghost[i].pos = ghost[i].startPos;
-        ghost[i].mode = 0;
-    }
-}
-
 void pacUpd(Player *pac) {
     Player temp = *pac;
     
@@ -125,11 +84,9 @@ void pacUpd(Player *pac) {
         case 9:
             *pac = temp;
             if (!ghost[ty].mode) {
-                Rage = 1;
-                for (int i = 0; i < gosSz; i++) {
-                    randTar[i] = pac->pos;
-                    gosUpd(&ghost[i], i+3);
-                }
+                Rage[ty] = 1;
+                randTar[ty] = pac->pos;
+                gosUpd(&ghost[ty], ty+3);
             } else if (ghost[ty].mode == 1) {
                 pac->point += 25;
                 ghost[ty].mode = 2;
@@ -164,4 +121,45 @@ void pacUpd(Player *pac) {
     }  
     Mstate[(int)temp.pos.y][(int)temp.pos.x] = -1; 
     Mstate[(int)pac->pos.y][(int)pac->pos.x] = 2;
+}
+
+void death() {
+    Pacman.dir = 0;
+    for (int i = 0; i < 11; i++) {
+        UnloadTexture(Pacman.tex);
+        Pacman.tex = LoadTexture(deathtex[i]);
+
+        DrawMap();
+
+        double T = GetTime();
+        while (GetTime() - T < 0.08);
+    }
+    Pacman.heart--;
+    if (!Pacman.heart) {
+        Gs = 5;
+        Ls = 0;
+        addRec(playerName, Pacman.point * (Df+1));
+        return;
+    }
+
+    Vector2 temp = newCell();
+    Pacman.startPos = temp;
+    Mstate[(int)Pacman.pos.y][(int)Pacman.pos.x] = -1;
+    Pacman.pos = Pacman.startPos;
+    updDes((int)temp.x, (int)temp.y, 0);
+
+    for (int i = 0; i < gosSz; i++) {
+        Rage[i] = 0;
+        Mstate[(int)ghost[i].pos.y][(int)ghost[i].pos.x] = ghost[i].beh;
+        
+        temp = newCell();
+        while (desTar[(int)temp.y][(int)temp.x] < 13) 
+            temp = newCell();
+        ghost[i].startPos = temp;
+
+        ghost[i].beh = Mstate[(int)ghost[i].startPos.y][(int)ghost[i].startPos.x];
+        Mstate[(int)ghost[i].startPos.y][(int)ghost[i].startPos.x] = i+3;
+        ghost[i].pos = ghost[i].startPos;
+        ghost[i].mode = 0;
+    }
 }

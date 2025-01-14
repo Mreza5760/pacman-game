@@ -8,8 +8,8 @@
 #include <string.h>
 #include <stdbool.h>
 
-bool Rage = 0;
 Ghost ghost[7];
+bool Rage[7] = {0};
 Vector2 randTar[7];
 Texture2D gostex[9][9];
 double LastT[7] = {0}, blueT[7];
@@ -147,11 +147,12 @@ void randCell(int type) {
         randTar[type-3] = ghost[type-3].startPos;
         return;
     }
-    if (!ghost[type-3].mode && (type == 3)) {
+    updDes(Pacman.pos.x, Pacman.pos.y, 0);
+    if (!ghost[type-3].mode && (type == 3 || (type == 7 && desTar[(int)ghost[4].pos.y][(int)ghost[4].pos.x] > 4))) {
         randTar[type-3] = Pacman.pos;
         return;
     }
-    if (GetTime() - LastT[type-3] < 2.5 || Rage)
+    if (GetTime() - LastT[type-3] < 2.5 || Rage[type-3])
         return;
  
     int x = 0, y = 0;

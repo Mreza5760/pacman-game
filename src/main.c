@@ -27,11 +27,7 @@ int main() {
                 DrawM(Ms);
                 break;
             case 1:
-                if (IsKeyPressed(KEY_M)) {
-                    Gs = 0;
-                    Ms = 0;  
-                    break;
-                }
+                if (IsKeyPressed(KEY_M)) Gs = 0;
 
                 addItem();
                 pacUpd(&Pacman);
@@ -50,6 +46,7 @@ int main() {
                 DrawMap();
                 break;
             case 2:
+                if (IsKeyPressed(KEY_M)) Gs = 0;
                 getDf(&Gs, &Df);
                 DrawDf(Df);
                 break;

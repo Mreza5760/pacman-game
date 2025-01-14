@@ -15,7 +15,7 @@ typedef struct {
     Vector2 pos, startPos;
 } Ghost;
 
-extern bool Rage;
+extern bool Rage[7];
 extern Ghost ghost[7];
 extern Vector2 randTar[7];
 extern Texture2D gostex[9][9];
