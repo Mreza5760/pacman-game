@@ -92,6 +92,13 @@ void pacUpd(Player *pac) {
                 pac->point += 25;
                 ghost[ty].mode = 2;
                 ghost[ty].speed = 0.3;
+
+                updDes((int)Pacman.pos.x, (int)Pacman.pos.y, 0);
+                Vector2 temp = newCell();
+                while (desTar[(int)temp.y][(int)temp.x] < 13) 
+                    temp = newCell();
+                ghost[ty].startPos = temp;
+
                 randCell(ty+3);
                 gosUpd(&ghost[ty], ty+3);
             }

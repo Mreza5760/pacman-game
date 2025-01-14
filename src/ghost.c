@@ -146,6 +146,12 @@ void gosUpd(Ghost *gos, int type) {
             gos->mode = 2;
             gos->speed = 0.3;
             Pacman.point += 25;
+            
+            updDes((int)Pacman.pos.x, (int)Pacman.pos.y, 0);
+            Vector2 temp = newCell();
+            while (desTar[(int)temp.y][(int)temp.x] < 13) 
+                temp = newCell();
+            gos->startPos = temp;
         }
         return;
     }
@@ -168,7 +174,8 @@ void randCell(int type) {
         randTar[type-3] = Pacman.pos;
         return;
     }
-    if (GetTime() - LastT[type-3] < 2.5 || Rage[type-3])
+    updDes(randTar[type-3].x, randTar[type-3].y, 0);
+    if (desTar[(int)ghost[type-3].pos.y][(int)ghost[type-3].pos.x] && (GetTime() - LastT[type-3] < 3 || Rage[type-3]))
         return;
  
     int x = 0, y = 0;
