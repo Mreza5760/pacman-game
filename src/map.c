@@ -97,6 +97,8 @@ void randomMap() {
     sMx = 65, pMx = 3-Df, cMx = 3-Df, mMx = 1+Df, aMx = 3-Df;
     sCn = 0, pCn = 0, cCn = 0, mCn = 0, aCn = 0;
 
+    gosSz = 5+Df;
+
     srand(time(0));
     int x = rand()%3;
 

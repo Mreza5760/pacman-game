@@ -12,8 +12,8 @@ Ghost ghost[7];
 bool Rage[7] = {0};
 Vector2 randTar[7];
 Texture2D gostex[9][9];
+int desTar[Row][Col], gosSz;
 double LastT[7] = {0}, blueT[7];
-int desTar[Row][Col], gosSz = 7;
 
 void texIn() {
     for (int i = 0; i < 9; i++)
