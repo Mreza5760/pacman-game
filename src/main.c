@@ -42,6 +42,8 @@ int main() {
                 gosUpd(&ghost[3], 6);
                 randCell(7);
                 gosUpd(&ghost[4], 7);
+                randCell(8);
+                gosUpd(&ghost[5], 8);
 
                 DrawMap();
                 break;

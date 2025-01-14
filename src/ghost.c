@@ -13,7 +13,7 @@ bool Rage[7] = {0};
 Vector2 randTar[7];
 Texture2D gostex[9][9];
 double LastT[7] = {0}, blueT[7];
-int desTar[Row][Col], gosSz = 5;
+int desTar[Row][Col], gosSz = 6;
 
 void texIn() {
     for (int i = 0; i < 9; i++)
@@ -26,6 +26,9 @@ void texIn() {
         gostex[3][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/pinky/pinky%d.png", i));
     for (int i = 0; i < 9; i++)
         gostex[4][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/berrypie/berrypie%d.png", i));
+    for (int i = 0; i < 9; i++)
+        gostex[5][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/rocky/rocky%d.png", i));
+    
     for (int i = 0; i < 4; i++)
         gostex[7][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/blue/blue%d.png", i));
     for (int i = 0; i < 4; i++)
@@ -36,7 +39,7 @@ void gosDef(Ghost *gos, int type) {
     gos->beh = -1;
     gos->mode = 0;
     gos->frame = 0;
-    gos->speed = 0.05 + Df*0.025;
+    gos->speed = 0.08 + Df*0.025;
     gos->pos = ghost[type-3].startPos;
     gos->tex = gostex[type-3][8];
 }
@@ -59,6 +62,16 @@ void updDes(int x, int y, int mode) {
                 if (i) desTar[i][j] = min(desTar[i][j], desTar[i-1][j]+1);
             }
     }
+
+    for (int i = 0; i < Row; i++)
+            for (int j = 0; j < Col; j++) {
+                if (Mstate[i][j] < 3 || Mstate[i][j] > 9) 
+                    continue;
+                if (j < Col) desTar[i][j] = min(desTar[i][j], desTar[i][j+1]+1);
+                if (j) desTar[i][j] = min(desTar[i][j], desTar[i][j-1]+1);
+                if (i < Row) desTar[i][j] = min(desTar[i][j], desTar[i+1][j]+1);
+                if (i) desTar[i][j] = min(desTar[i][j], desTar[i-1][j]+1);
+            }
 }
 
 void gosUpd(Ghost *gos, int type) {  
@@ -142,13 +155,13 @@ void randCell(int type) {
     if (ghost[type-3].mode == 2) {
         if ((int)ghost[type-3].pos.x == (int)ghost[type-3].startPos.x && (int)ghost[type-3].pos.y == (int)ghost[type-3].startPos.y) {
             ghost[type-3].mode = 0;
-            ghost[type-3].speed = 0.05 + Df*0.025; 
+            ghost[type-3].speed = 0.08 + Df*0.025; 
         }
         randTar[type-3] = ghost[type-3].startPos;
         return;
     }
     updDes(Pacman.pos.x, Pacman.pos.y, 0);
-    if (!ghost[type-3].mode && (type == 3 || (type == 7 && desTar[(int)ghost[4].pos.y][(int)ghost[4].pos.x] > 4))) {
+    if (!ghost[type-3].mode && (type == 3 || (type == 7 && desTar[(int)ghost[4].pos.y][(int)ghost[4].pos.x] > 13))) {
         randTar[type-3] = Pacman.pos;
         return;
     }

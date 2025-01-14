@@ -6,7 +6,7 @@
 #include "raylib.h"
 #include <stdlib.h>
 
-// int DEBUG = 0;
+int DEBUG = 0;
 int Mstate[Row][Col];
 int aCn, pCn, mCn, cCn, sCn;
 int aMx, pMx, mMx, cMx, sMx;

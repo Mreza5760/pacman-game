@@ -9,7 +9,7 @@
 
 Player Pacman;
 double pepperT;
-int changeFrame = 0;
+int changeFrame = 0, pepperE;
 
 const char *pactex[5] = {
     "../assets/sprites/pac/pacClosed.png",
@@ -34,11 +34,12 @@ const char *deathtex[11] = {
 };
 
 void pacDef(Player *pac) {
+    pepperE = 0;
     pac->dir = 0;
     pac->frame = 0;
     pac->heart = 3;
     pac->point = 0;
-    pac->speed = 0.15;
+    pac->speed = 0.25;
     pac->pos = pac->startPos;
     pac->tex = LoadTexture(pactex[pac->frame]);
 }
@@ -46,8 +47,8 @@ void pacDef(Player *pac) {
 void pacUpd(Player *pac) {
     Player temp = *pac;
     
-    if (GetTime() - pepperT > 7.0)
-        pac->speed = 0.15;
+    if (GetTime() - pepperT > 7.0 && pepperE)
+        pac->speed -= 0.08, pepperE--;
 
     if (changeFrame % 8 == 0) {
         UnloadTexture(pac->tex);
@@ -108,6 +109,7 @@ void pacUpd(Player *pac) {
             break;
         case 12:
             pCn--;
+            pepperE++;
             pac->speed += 0.08;
             pepperT = GetTime();
             break;
@@ -161,5 +163,6 @@ void death() {
         Mstate[(int)ghost[i].startPos.y][(int)ghost[i].startPos.x] = i+3;
         ghost[i].pos = ghost[i].startPos;
         ghost[i].mode = 0;
+        ghost[i].speed = 0.08 + Df*0.025;
     }
 }
