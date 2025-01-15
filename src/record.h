@@ -6,13 +6,13 @@ typedef struct {
     int score;
 } person;
 
-extern int rankSz;
-extern person List[12];
+extern int rankSz[3];
+extern person List[3][12];
 
 void readList();
 void drawRec();
-void addRec(char name[12], int score);
 void updRec();
 void delRec();
+void addRec(char name[12], int score, int def);
 
 #endif

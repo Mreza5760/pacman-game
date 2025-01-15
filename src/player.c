@@ -147,7 +147,7 @@ void death() {
     if (!Pacman.heart) {
         Gs = 5;
         Ls = 0;
-        addRec(playerName, Pacman.point * (Df+1));
+        addRec(playerName, Pacman.point, Df);
         return;
     }
 
