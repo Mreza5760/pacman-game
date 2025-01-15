@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Pacman::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Pacman-Debug-6253b3d738329df294d7.json",
+					"jsonFile" : "target-Pacman-Debug-c55b2bac087fa718a8a5.json",
 					"name" : "Pacman",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/User/Desktop/pacman-game/build",
-		"source" : "C:/Users/User/Desktop/pacman-game"
+		"build" : "D:/pacman-game/build",
+		"source" : "D:/pacman-game"
 	},
 	"version" : 
 	{

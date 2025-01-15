@@ -1,44 +1,44 @@
 [
 {
-  "directory": "C:/Users/User/Desktop/pacman-game/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\draw.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\draw.c",
-  "file": "C:/Users/User/Desktop/pacman-game/src/draw.c",
+  "directory": "D:/pacman-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/mingw64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\draw.c.obj -c D:\\pacman-game\\src\\draw.c",
+  "file": "D:/pacman-game/src/draw.c",
   "output": "CMakeFiles/Pacman.dir/src/draw.c.obj"
 },
 {
-  "directory": "C:/Users/User/Desktop/pacman-game/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\ghost.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\ghost.c",
-  "file": "C:/Users/User/Desktop/pacman-game/src/ghost.c",
+  "directory": "D:/pacman-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/mingw64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\ghost.c.obj -c D:\\pacman-game\\src\\ghost.c",
+  "file": "D:/pacman-game/src/ghost.c",
   "output": "CMakeFiles/Pacman.dir/src/ghost.c.obj"
 },
 {
-  "directory": "C:/Users/User/Desktop/pacman-game/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\main.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\main.c",
-  "file": "C:/Users/User/Desktop/pacman-game/src/main.c",
+  "directory": "D:/pacman-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/mingw64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\main.c.obj -c D:\\pacman-game\\src\\main.c",
+  "file": "D:/pacman-game/src/main.c",
   "output": "CMakeFiles/Pacman.dir/src/main.c.obj"
 },
 {
-  "directory": "C:/Users/User/Desktop/pacman-game/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\map.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\map.c",
-  "file": "C:/Users/User/Desktop/pacman-game/src/map.c",
+  "directory": "D:/pacman-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/mingw64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\map.c.obj -c D:\\pacman-game\\src\\map.c",
+  "file": "D:/pacman-game/src/map.c",
   "output": "CMakeFiles/Pacman.dir/src/map.c.obj"
 },
 {
-  "directory": "C:/Users/User/Desktop/pacman-game/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\menu.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\menu.c",
-  "file": "C:/Users/User/Desktop/pacman-game/src/menu.c",
+  "directory": "D:/pacman-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/mingw64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\menu.c.obj -c D:\\pacman-game\\src\\menu.c",
+  "file": "D:/pacman-game/src/menu.c",
   "output": "CMakeFiles/Pacman.dir/src/menu.c.obj"
 },
 {
-  "directory": "C:/Users/User/Desktop/pacman-game/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\player.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\player.c",
-  "file": "C:/Users/User/Desktop/pacman-game/src/player.c",
+  "directory": "D:/pacman-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/mingw64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\player.c.obj -c D:\\pacman-game\\src\\player.c",
+  "file": "D:/pacman-game/src/player.c",
   "output": "CMakeFiles/Pacman.dir/src/player.c.obj"
 },
 {
-  "directory": "C:/Users/User/Desktop/pacman-game/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/ucrt64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\record.c.obj -c C:\\Users\\User\\Desktop\\pacman-game\\src\\record.c",
-  "file": "C:/Users/User/Desktop/pacman-game/src/record.c",
+  "directory": "D:/pacman-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu2x -IC:/msys64/mingw64/bin/../include -o CMakeFiles\\Pacman.dir\\src\\record.c.obj -c D:\\pacman-game\\src\\record.c",
+  "file": "D:/pacman-game/src/record.c",
   "output": "CMakeFiles/Pacman.dir/src/record.c.obj"
 }
 ]

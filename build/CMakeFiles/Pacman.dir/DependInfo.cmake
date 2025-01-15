@@ -8,13 +8,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/User/Desktop/pacman-game/src/draw.c" "CMakeFiles/Pacman.dir/src/draw.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/draw.c.obj.d"
-  "C:/Users/User/Desktop/pacman-game/src/ghost.c" "CMakeFiles/Pacman.dir/src/ghost.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/ghost.c.obj.d"
-  "C:/Users/User/Desktop/pacman-game/src/main.c" "CMakeFiles/Pacman.dir/src/main.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/main.c.obj.d"
-  "C:/Users/User/Desktop/pacman-game/src/map.c" "CMakeFiles/Pacman.dir/src/map.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/map.c.obj.d"
-  "C:/Users/User/Desktop/pacman-game/src/menu.c" "CMakeFiles/Pacman.dir/src/menu.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/menu.c.obj.d"
-  "C:/Users/User/Desktop/pacman-game/src/player.c" "CMakeFiles/Pacman.dir/src/player.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/player.c.obj.d"
-  "C:/Users/User/Desktop/pacman-game/src/record.c" "CMakeFiles/Pacman.dir/src/record.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/record.c.obj.d"
+  "D:/pacman-game/src/draw.c" "CMakeFiles/Pacman.dir/src/draw.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/draw.c.obj.d"
+  "D:/pacman-game/src/ghost.c" "CMakeFiles/Pacman.dir/src/ghost.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/ghost.c.obj.d"
+  "D:/pacman-game/src/main.c" "CMakeFiles/Pacman.dir/src/main.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/main.c.obj.d"
+  "D:/pacman-game/src/map.c" "CMakeFiles/Pacman.dir/src/map.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/map.c.obj.d"
+  "D:/pacman-game/src/menu.c" "CMakeFiles/Pacman.dir/src/menu.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/menu.c.obj.d"
+  "D:/pacman-game/src/player.c" "CMakeFiles/Pacman.dir/src/player.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/player.c.obj.d"
+  "D:/pacman-game/src/record.c" "CMakeFiles/Pacman.dir/src/record.c.obj" "gcc" "CMakeFiles/Pacman.dir/src/record.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
