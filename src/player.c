@@ -36,7 +36,7 @@ const char *deathtex[11] = {
 void pacDef(Player *pac) {
     pepperE = 0;
     pac->dir = 0;
-    pac->frame = 0;
+   pac->frame = 0; 
     pac->heart = 3;
     pac->point = 0;
     pac->speed = 0.15;
@@ -123,8 +123,10 @@ void pacUpd(Player *pac) {
         case 13:
             cCn--;
             for (int i = 0; i < gosSz; i++) {
-                ghost[i].mode = 1;
-                blueT[i] = GetTime();
+                if (!ghost[i].mode) {
+                    ghost[i].mode = 1;
+                    blueT[i] = GetTime();
+                }
             }
             break;
     }  

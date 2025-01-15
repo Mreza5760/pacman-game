@@ -4,8 +4,8 @@
 #include "raylib.h"
 #include <stdbool.h>
 
-Texture2D los, wel;
 Font fontM;
+Texture2D los, wel;
 char playerName[12];
 int Gs, Ms, Df, Ls, nameSz;
 
@@ -91,7 +91,7 @@ void getInLose(int *G, int* x) {
 
 void DrawLose(int x) {
     char* mod[] = {"Replay", "Records", "Play agian", "Exit"};
-     char* def[] = {"Easy", "Normal", "Hard"};
+    char* def[] = {"Easy", "Normal", "Hard"};
 
     BeginDrawing();
     ClearBackground(BLACK);
@@ -99,14 +99,22 @@ void DrawLose(int x) {
     int tempSz = MeasureTextEx(fontM, "Game Over", 70, 2).x;
     DrawTextEx(fontM, "Game Over", (Vector2){(ScW-tempSz)/2, 50}, 70, 2, RED);
     tempSz = MeasureTextEx(fontM, TextFormat("%s your score is %d in %s", playerName, Pacman.point*(Df+1), def[Df]), 40, 2).x; 
-    DrawTextEx(fontM, TextFormat("%s your score is %d in %s", playerName, Pacman.point*(Df+1), def[Df]), (Vector2){(ScW-tempSz)/2, 170}, 40, 2, WHITE);
+    DrawTextEx(fontM, TextFormat("%s your score is %d in %s", playerName, Pacman.point*(Df+1), def[Df]), (Vector2){(ScW-tempSz)/2, 190}, 40, 2, WHITE);
     
-    for (int i = 0; i < 4; i++)
-        DrawText(mod[i], 100, 300 + i*50, 35, (i==x)?YELLOW:BLUE);
+    for (int i = 0; i < 4; i++) {
+        tempSz = MeasureTextEx(fontM, mod[i], 45, 2).x;
+        DrawTextEx(fontM, mod[i], (Vector2){(ScW-tempSz)/2, 300+i*70}, 45, 2, (i==x)?YELLOW:BLUE);
+    }
     
-    Rectangle dest = {550, 300, 150, 300},
+    Rectangle dest = {120, 300, 180, 360}, dest2 = {800, 300, 180, 360},
     sour = {0, 0, los.width, los.height};
-    DrawTexturePro(los, sour, dest, (Vector2){0, 0}, 0, WHITE);
+    
+    static double fade = 0.0;
+    fade += 0.005;
+    if (fade > 1.0) fade = 1.0;
+    Color tint = {255, 255, 255, fade*255};
+    DrawTexturePro(los, sour, dest, (Vector2){0, 0}, 0, tint);
+    DrawTexturePro(los, sour, dest2, (Vector2){0, 0}, 0, tint);
 
     EndDrawing();
 }
