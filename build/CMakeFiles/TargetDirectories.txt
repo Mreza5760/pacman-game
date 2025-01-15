@@ -1,3 +1,0 @@
-D:/pacman-game/build/CMakeFiles/Pacman.dir
-D:/pacman-game/build/CMakeFiles/edit_cache.dir
-D:/pacman-game/build/CMakeFiles/rebuild_cache.dir
