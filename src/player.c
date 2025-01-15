@@ -39,7 +39,7 @@ void pacDef(Player *pac) {
     pac->frame = 0;
     pac->heart = 3;
     pac->point = 0;
-    pac->speed = 0.25;
+    pac->speed = 0.15;
     pac->pos = pac->startPos;
     pac->tex = LoadTexture(pactex[pac->frame]);
 }
@@ -48,7 +48,7 @@ void pacUpd(Player *pac) {
     Player temp = *pac;
     
     if (GetTime() - pepperT > 7.0 && pepperE)
-        pac->speed -= 0.08, pepperE--;
+        pac->speed -= 0.05, pepperE--;
 
     if (changeFrame % 8 == 0) {
         UnloadTexture(pac->tex);
@@ -91,7 +91,7 @@ void pacUpd(Player *pac) {
             } else if (ghost[ty].mode == 1) {
                 pac->point += 25;
                 ghost[ty].mode = 2;
-                ghost[ty].speed = 0.3;
+                ghost[ty].speed = 0.2;
 
                 updDes((int)Pacman.pos.x, (int)Pacman.pos.y, 0);
                 Vector2 temp = newCell();
@@ -117,7 +117,7 @@ void pacUpd(Player *pac) {
         case 12:
             pCn--;
             pepperE++;
-            pac->speed += 0.08;
+            pac->speed += 0.05;
             pepperT = GetTime();
             break;
         case 13:
@@ -170,6 +170,6 @@ void death() {
         Mstate[(int)ghost[i].startPos.y][(int)ghost[i].startPos.x] = i+3;
         ghost[i].pos = ghost[i].startPos;
         ghost[i].mode = 0;
-        ghost[i].speed = 0.08 + Df*0.025;
+        ghost[i].speed = 0.05 + Df*0.025;
     }
 }
