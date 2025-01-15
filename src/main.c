@@ -11,7 +11,7 @@ int main() {
     InitWindow(ScW, ScH, "Pacman");
     SetTargetFPS(60);
     
-    Gs = 5, Ms = 0, Df = 1, Ls = 0, nameSz = 0;
+    Gs = -1, Ms = 0, Df = 1, Ls = 0, nameSz = 0;
     fontM = LoadFontEx("../assets/fonts/setbackt.ttf", 128, NULL, 0);
     wel = LoadTexture("../assets/gameState/pacmantext.png");
     los =  LoadTexture("../assets/gameState/gameover.png");

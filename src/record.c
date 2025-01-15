@@ -1,3 +1,5 @@
+#include "map.h"
+#include "menu.h"
 #include <stdio.h>
 #include "record.h"
 #include "raylib.h"
@@ -32,11 +34,18 @@ void readList() {
 void drawRec() {
     BeginDrawing();
     ClearBackground(BLACK);
+    char* mod[] = {"Easy", "Normal", "Hard"};
 
-    for (int j = 0; j < 3; j++) {
-        DrawText("Scoreboard", 200+j*400, 50, 50, GOLD);  
-        for (int i = 0; i < rankSz[j]; i++) 
-            DrawText(TextFormat("%d. %s %d", i+1, List[j][i].name, List[j][i].score), 100+j*400, 150+i*40, 40, GRAY);
+    int x = MeasureTextEx(fontM, "Scoreboards", 60, 2).x;
+    DrawTextEx(fontM, "Scoreboards", (Vector2){(ScW-x)/2, 30}, 60, 2, GOLD);  
+    for (int j = 0; j < 3; j++) { // 370
+        x = MeasureTextEx(fontM, mod[j], 50, 2).x;
+        DrawTextEx(fontM, mod[j], (Vector2){(370*j)+((370-x)/2)+5, 130}, 50, 2, PURPLE); 
+        for (int i = 0; i < rankSz[j]; i++)  {
+            const char *str = TextFormat("%s %d", List[j][i].name, List[j][i].score);
+            x = MeasureTextEx(fontM, str, 32, 2).x;
+            DrawTextEx(fontM, str, (Vector2){(370*j)+((370-x)/2)+5, 220+i*45}, 32, 2, DARKGRAY);
+        }
     }
 
     EndDrawing();
