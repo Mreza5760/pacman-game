@@ -175,7 +175,7 @@ void randCell(int type) {
         return;
     }
     updDes(randTar[type-3].x, randTar[type-3].y, 0);
-    if (desTar[(int)ghost[type-3].pos.y][(int)ghost[type-3].pos.x] && (GetTime() - LastT[type-3] < 3 || Rage[type-3]))
+    if (desTar[(int)ghost[type-3].pos.y][(int)ghost[type-3].pos.x] && (GetTime() - LastT[type-3] < 5 || Rage[type-3]))
         return;
  
     int x = 0, y = 0;

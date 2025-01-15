@@ -159,12 +159,12 @@ void DrawWel(int *G) {
     DrawTexturePro(wel, sour, dest, (Vector2){0, 0}, 0, WHITE);
 
     int x = MeasureTextEx(fontM, TextFormat("%s Welcome to Pacman", playerName), 50, 2).x;
-    DrawTextEx(fontM, TextFormat("%s Welcome to Pacman", playerName), (Vector2){(ScW-x)/2, 550}, 50, 2, RED);
+    DrawTextEx(fontM, TextFormat("%s Welcome to Pacman", playerName), (Vector2){(ScW-x)/2, 580}, 50, 2, RED);
 
     char *pr[4]= {"M for Menu", "ESC for Exit", "Press Space to start", "Made by Mreza5760"};
     for (int i = 0; i < 4; i++) {
         x = MeasureTextEx(fontM, pr[i], 50, 2).x;
-        DrawTextEx(fontM, pr[i], (Vector2){(ScW-x)/2, 250+i*50}, 50, 2, (i==3)?DARKBLUE:DARKGREEN);
+        DrawTextEx(fontM, pr[i], (Vector2){(ScW-x)/2, 250+i*70}, 50, 2, (i==3)?DARKBLUE:DARKGREEN);
     }
 
     if (IsKeyPressed(KEY_SPACE)) *G = 0;
