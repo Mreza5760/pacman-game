@@ -90,13 +90,17 @@ void getInLose(int *G, int* x) {
 }
 
 void DrawLose(int x) {
-    char* mod[] = {"Game screen record", "Records", "Play agian", "Exit"};
-    
-    BeginDrawing();
+    char* mod[] = {"Replay", "Records", "Play agian", "Exit"};
+     char* def[] = {"Easy", "Normal", "Hard"};
 
+    BeginDrawing();
     ClearBackground(BLACK);
-    DrawText("Game Over", 100, 100, 50, RED);
-    DrawText(TextFormat("%s your score is : %d", playerName, Pacman.point*(Df+1)), 100, 200, 40, WHITE);
+
+    int tempSz = MeasureTextEx(fontM, "Game Over", 70, 2).x;
+    DrawTextEx(fontM, "Game Over", (Vector2){(ScW-tempSz)/2, 50}, 70, 2, RED);
+    tempSz = MeasureTextEx(fontM, TextFormat("%s your score is %d in %s", playerName, Pacman.point*(Df+1), def[Df]), 40, 2).x; 
+    DrawTextEx(fontM, TextFormat("%s your score is %d in %s", playerName, Pacman.point*(Df+1), def[Df]), (Vector2){(ScW-tempSz)/2, 170}, 40, 2, WHITE);
+    
     for (int i = 0; i < 4; i++)
         DrawText(mod[i], 100, 300 + i*50, 35, (i==x)?YELLOW:BLUE);
     
