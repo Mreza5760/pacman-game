@@ -98,15 +98,15 @@ void DrawLose(int x) {
 
     int tempSz = MeasureTextEx(fontM, "Game Over", 70, 2).x;
     DrawTextEx(fontM, "Game Over", (Vector2){(ScW-tempSz)/2, 50}, 70, 2, RED);
-    tempSz = MeasureTextEx(fontM, TextFormat("%s your score is %d in %s", playerName, Pacman.point*(Df+1), def[Df]), 40, 2).x; 
-    DrawTextEx(fontM, TextFormat("%s your score is %d in %s", playerName, Pacman.point*(Df+1), def[Df]), (Vector2){(ScW-tempSz)/2, 190}, 40, 2, WHITE);
+    tempSz = MeasureTextEx(fontM, TextFormat("%s your score is %d in %s", playerName, Pacman.point, def[Df]), 40, 2).x; 
+    DrawTextEx(fontM, TextFormat("%s your score is %d in %s", playerName, Pacman.point, def[Df]), (Vector2){(ScW-tempSz)/2, 190}, 40, 2, WHITE);
     
     for (int i = 0; i < 4; i++) {
         tempSz = MeasureTextEx(fontM, mod[i], 45, 2).x;
-        DrawTextEx(fontM, mod[i], (Vector2){(ScW-tempSz)/2, 300+i*70}, 45, 2, (i==x)?YELLOW:BLUE);
+        DrawTextEx(fontM, mod[i], (Vector2){(ScW-tempSz)/2, 325+i*70}, 45, 2, (i==x)?YELLOW:BLUE);
     }
     
-    Rectangle dest = {120, 300, 180, 360}, dest2 = {800, 300, 180, 360},
+    Rectangle dest = {120, 275, 180, 360}, dest2 = {800, 275, 180, 360},
     sour = {0, 0, los.width, los.height};
     
     static double fade = 0.0;

@@ -169,13 +169,13 @@ void randCell(int type) {
         return;
     }
     updDes(Pacman.pos.x, Pacman.pos.y, 0);
-    if (!ghost[type-3].mode && (type == 3 || type == 8 || (type == 7 && desTar[(int)ghost[4].pos.y][(int)ghost[4].pos.x] > 13) 
-    || (type == 9 && desTar[(int)ghost[6].pos.y][(int)ghost[6].pos.x] > 13))) {
+    if (!ghost[type-3].mode && (type == 3 || type == 9 || (type == 7 && desTar[(int)ghost[4].pos.y][(int)ghost[4].pos.x] > 13) 
+    || (type == 8 && desTar[(int)ghost[5].pos.y][(int)ghost[5].pos.x] > 13) || Rage[type-3])) {
         randTar[type-3] = Pacman.pos;
         return;
     }
     updDes(randTar[type-3].x, randTar[type-3].y, 0);
-    if (desTar[(int)ghost[type-3].pos.y][(int)ghost[type-3].pos.x] && (GetTime() - LastT[type-3] < 5 || Rage[type-3]))
+    if (desTar[(int)ghost[type-3].pos.y][(int)ghost[type-3].pos.x] && GetTime() - LastT[type-3] < 4.5)
         return;
  
     int x = 0, y = 0;
