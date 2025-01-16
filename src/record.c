@@ -1,5 +1,6 @@
 #include "map.h"
 #include "menu.h"
+#include <time.h>
 #include <stdio.h>
 #include "record.h"
 #include "raylib.h"
@@ -24,7 +25,7 @@ void readList() {
         for (int i = 0; i < rankSz[j]; i++) {
             fgets(List[j][i].name, sizeof(List[j][i].name), temp);
             List[j][i].name[strcspn(List[j][i].name, "\n")] = '\0';
-            fscanf(temp, "%d\n", &List[j][i].score);
+            fscanf(temp, "%d\n%lld\n", &List[j][i].score, &List[j][i].timeP);
         } 
     }
 
@@ -40,11 +41,19 @@ void drawRec() {
     DrawTextEx(fontM, "Scoreboards", (Vector2){(ScW-x)/2, 30}, 60, 2, GOLD);  
     for (int j = 0; j < 3; j++) { // 370
         x = MeasureTextEx(fontM, mod[j], 50, 2).x;
-        DrawTextEx(fontM, mod[j], (Vector2){(370*j)+((370-x)/2)+5, 130}, 50, 2, PURPLE); 
+        DrawTextEx(fontM, mod[j], (Vector2){(370*j)+((370-x)/2)+5, 110}, 50, 2, PURPLE); 
         for (int i = 0; i < rankSz[j]; i++)  {
             const char *str = TextFormat("%s %d", List[j][i].name, List[j][i].score);
-            x = MeasureTextEx(fontM, str, 32, 2).x;
-            DrawTextEx(fontM, str, (Vector2){(370*j)+((370-x)/2)+5, 220+i*45}, 32, 2, DARKGRAY);
+            x = MeasureTextEx(fontM, str, 25, 2).x;
+            DrawTextEx(fontM, str, (Vector2){(370*j)+((370-x)/2)+5, 180+i*50}, 25, 2, DARKBLUE);
+
+            struct tm *Time = localtime(&List[j][i].timeP);
+            Time->tm_mon++;
+            Time->tm_hour += 1900;
+
+            str = TextFormat("%d/%02d/%02d %02d:%02d", Time->tm_year%100, Time->tm_mon, Time->tm_mday, Time->tm_hour, Time->tm_min);
+            x = MeasureTextEx(fontM, str, 14, 2).x;
+            DrawTextEx(fontM, str, (Vector2){(370*j)+((370-x)/2)+5, 210+i*50}, 14, 2, DARKGRAY);
         }
     }
 
@@ -55,6 +64,7 @@ void addRec(char name[12], int score, int def) {
     person temp;
     strcpy(temp.name, name);
     temp.score = score;
+    temp.timeP = time(0);
     
     bool f = 0;
     for (int i = 0; i < rankSz[def]; i++) {
@@ -78,7 +88,7 @@ void updRec() {
     for (int j = 0; j < 3; j++) {
         fprintf(temp, "%d\n", rankSz[j]);
         for (int i = 0; i < rankSz[j]; i++)
-            fprintf(temp, "%s\n%d\n", List[j][i].name, List[j][i].score);
+            fprintf(temp, "%s\n%d\n%d\n", List[j][i].name, List[j][i].score, List[j][i].timeP);
     }
     fclose(temp);
 }

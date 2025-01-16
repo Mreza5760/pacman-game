@@ -1,9 +1,12 @@
 #ifndef RECORD_H
 #define RECORD_H
 
+#include <time.h>
+
 typedef struct {
-    char name[12];
     int score;
+    char name[12];
+    long long int timeP;
 } person;
 
 extern int rankSz[3];
