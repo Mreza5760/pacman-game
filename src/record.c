@@ -38,22 +38,21 @@ void drawRec() {
     char* mod[] = {"Easy", "Normal", "Hard"};
 
     int x = MeasureTextEx(fontM, "Scoreboards", 60, 2).x;
-    DrawTextEx(fontM, "Scoreboards", (Vector2){(ScW-x)/2, 30}, 60, 2, GOLD);  
+    DrawTextEx(fontM, "Scoreboards", (Vector2){((ScW-x)/2)+5, 10}, 60, 2, GOLD);  
     for (int j = 0; j < 3; j++) { // 370
         x = MeasureTextEx(fontM, mod[j], 50, 2).x;
-        DrawTextEx(fontM, mod[j], (Vector2){(370*j)+((370-x)/2)+5, 110}, 50, 2, PURPLE); 
+        DrawTextEx(fontM, mod[j], (Vector2){(370*j)+((370-x)/2)+5, 80}, 50, 2, PURPLE); 
         for (int i = 0; i < rankSz[j]; i++)  {
             const char *str = TextFormat("%s %d", List[j][i].name, List[j][i].score);
-            x = MeasureTextEx(fontM, str, 25, 2).x;
-            DrawTextEx(fontM, str, (Vector2){(370*j)+((370-x)/2)+5, 180+i*50}, 25, 2, DARKBLUE);
+            x = MeasureTextEx(fontM, str, 30, 2).x;
+            DrawTextEx(fontM, str, (Vector2){(370*j)+((370-x)/2)+5, 150+i*55}, 30, 2, DARKBLUE);
 
             struct tm *Time = localtime(&List[j][i].timeP);
             Time->tm_mon++;
-            Time->tm_hour += 1900;
 
             str = TextFormat("%d/%02d/%02d %02d:%02d", Time->tm_year%100, Time->tm_mon, Time->tm_mday, Time->tm_hour, Time->tm_min);
-            x = MeasureTextEx(fontM, str, 14, 2).x;
-            DrawTextEx(fontM, str, (Vector2){(370*j)+((370-x)/2)+5, 210+i*50}, 14, 2, DARKGRAY);
+            x = MeasureTextEx(fontM, str, 15, 2).x;
+            DrawTextEx(fontM, str, (Vector2){(370*j)+((370-x)/2)+5,  185+i*55}, 15, 2, DARKGRAY);
         }
     }
 
