@@ -9,6 +9,7 @@
 #define Offset 64
 
 extern int DEBUG;
+extern double aT, pT, mT, cT, sT;
 extern const char map[3][Row][Col];
 extern int aCn, pCn, mCn, cCn, sCn;
 extern int aMx, pMx, mMx, cMx, sMx;

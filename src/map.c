@@ -8,6 +8,7 @@
 
 int DEBUG = 0;
 int Mstate[Row][Col];
+double aT, pT, mT, cT, sT;
 int aCn, pCn, mCn, cCn, sCn;
 int aMx, pMx, mMx, cMx, sMx;
 int ScW = Col*Cellsz, ScH = Row*Cellsz+Offset;
@@ -96,6 +97,7 @@ Vector2 newCell() {
 void randomMap() {
     sMx = 65, pMx = 3-Df, cMx = 3-Df, mMx = 1+Df, aMx = 3-Df;
     sCn = 0, pCn = 0, cCn = 0, mCn = 0, aCn = 0;
+    sT = 0, pT = 0, cT = 0, mT = 0; aT = 0;
 
     gosSz = 5+Df;
 
@@ -141,6 +143,7 @@ void addItem() {
             Mstate[(int)temp.y][(int)temp.x] = 0;
         }
         sCn = sMx;
+        sT = 0;
     }
     if(!aCn) {
         for (int i = 0; i < aMx; i++) {
@@ -148,6 +151,7 @@ void addItem() {
             Mstate[(int)temp.y][(int)temp.x] = 10;
         }
         aCn = aMx;
+        aT = 0;
     }
     if(!mCn) {
         for (int i = 0; i < mMx; i++) {
@@ -155,6 +159,7 @@ void addItem() {
             Mstate[(int)temp.y][(int)temp.x] = 11;
         }
         mCn = mMx;
+        mT = 0;
     }
     if(!pCn) {
         for (int i = 0; i < pMx; i++) {
@@ -162,6 +167,7 @@ void addItem() {
             Mstate[(int)temp.y][(int)temp.x] = 12;
         }
         pCn = pMx;
+        pT = 0;
     }
     if(!cCn) {
         for (int i = 0; i < cMx; i++) {
@@ -169,5 +175,6 @@ void addItem() {
             Mstate[(int)temp.y][(int)temp.x] = 13;
         }
         cCn = cMx;
+        cT = 0;
     }
 }
