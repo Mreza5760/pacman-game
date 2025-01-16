@@ -4,12 +4,13 @@
 #include "ghost.h"
 #include "player.h"
 #include "raylib.h"
+#include <stdlib.h>
 
 void DrawMap() {
     BeginDrawing(); 
     ClearBackground(BLACK);
 
-    aT += 0.07, pT += 0.07, mT += 0.07, cT += 0.07, sT += 0.07;
+    aT += 0.05, pT += 0.05, mT += 0.05, cT += 0.05, sT += 0.05;
     if (aT > 1) aT = 1;
     if (pT > 1) pT = 1;
     if (mT > 1) mT = 1;
@@ -18,9 +19,9 @@ void DrawMap() {
 
     DrawText("Points", 40, 20, 30, GREEN);
     DrawText(TextFormat("%d", Pacman.point), 150, 20, 30, ORANGE);
-    DrawText("Hearts", 360, 20, 30, DARKPURPLE);
+    DrawText("Hearts", 400, 20, 30, DARKPURPLE);
     for (int i = 1; i <= Pacman.heart; i++) {
-        Rectangle dest = {430+i*50, 10, 50, 50},
+        Rectangle dest = {470+i*50, 10, 50, 50},
         sour = {0, 0, Heart.width, Heart.height};
         DrawTexturePro(Heart, sour, dest, (Vector2){0, 0}, 0, WHITE);
     }
@@ -30,7 +31,7 @@ void DrawMap() {
             Rectangle dest = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz, Cellsz};
             switch (Mstate[i][j]) {
                 case 0:
-                    Color tint = {255, 255, 255, sT*255};
+                    Color tint = {255, GetTime()*255, GetTime()*2*255, sT*255};
                     DrawCircle(j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz/8, tint);
                     break;
                 case 1:
