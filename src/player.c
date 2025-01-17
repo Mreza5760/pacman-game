@@ -122,7 +122,7 @@ void pacUpd(Player *pac) {
         case 13:
             cCn--;
             for (int i = 0; i < gosSz; i++) {
-                if (!ghost[i].mode) {
+                if (ghost[i].mode != 2) {
                     ghost[i].mode = 1;
                     blueT[i] = GetTime();
                 }
@@ -134,6 +134,8 @@ void pacUpd(Player *pac) {
 }
 
 void death() {
+    UpdateMusicStream(difSongs[Df]);
+    
     Pacman.dir = 0;
     for (int i = 0; i < 11; i++) {
         UnloadTexture(Pacman.tex);
