@@ -33,7 +33,7 @@ int main() {
                 ResumeMusicStream(musicM);
                 getIn(&Gs, &Ms);
                 DrawM(Ms);
-                if (Gs && Gs != 2 && Gs != 3) PauseMusicStream(musicM);
+                if (Gs && Gs != 2 && Gs != 3 && Gs != 5) PauseMusicStream(musicM);
                 break;
             case 1:
                 if (IsKeyPressed(KEY_M)) Gs = 0;
@@ -47,7 +47,11 @@ int main() {
                 }
 
                 DrawMap();
-                if (Gs != 1) PauseMusicStream(difSongs[Df]);
+                if (Gs != 1) {
+                    PauseMusicStream(difSongs[Df]);
+                    StopMusicStream(musicM);
+                    PlayMusicStream(musicM);
+                }
                 break;
             case 2:
                 if (IsKeyPressed(KEY_M)) Gs = 0;

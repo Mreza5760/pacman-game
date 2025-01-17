@@ -134,9 +134,13 @@ void randomMap() {
     Cherry = LoadTexture("../assets/items/cherry.png");
     Pepper = LoadTexture("../assets/items/pepper.png");
     Mushroom = LoadTexture("../assets/items/mushroom.png");
+    difSongs[0] = LoadMusicStream("../assets/sounds/Mai Sakurajima(CV Asami Seto) - hukashiginokarute.mp3");
+    difSongs[1] = LoadMusicStream("../assets/sounds/Yasuha - Fly-day Chinatown.mp3");
     difSongs[2] = LoadMusicStream("../assets/sounds/Young Girl A.mp3");
-    PlayMusicStream(difSongs[2]);
-    PauseMusicStream(difSongs[2]);
+    for (int i = 0; i < 3; i++) {
+        PlayMusicStream(difSongs[i]);
+        PauseMusicStream(difSongs[i]);
+    }
 }
 
 void addItem() {
