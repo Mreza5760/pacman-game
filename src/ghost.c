@@ -144,7 +144,7 @@ void gosUpd(Ghost *gos, int type) {
             death();
         else if (gos->mode == 1) {
             gos->mode = 2;
-            gos->speed = 0.2;
+            gos->speed = 0.18;
             Pacman.point += 25;
             
             updDes((int)Pacman.pos.x, (int)Pacman.pos.y, 0);

@@ -26,7 +26,7 @@ void pacDef(Player *pac) {
     pac->frame = 0; 
     pac->heart = 3;
     pac->point = 0;
-    pac->speed = 0.15;
+    pac->speed = 0.135;
     pac->pos = pac->startPos;
     pac->tex = pactex[pac->frame];
 }
@@ -35,7 +35,7 @@ void pacUpd(Player *pac) {
     Player temp = *pac;
     
     if (GetTime() - pepperT > 7.0 && pepperE)
-        pac->speed -= 0.05, pepperE--;
+        pac->speed -= 0.04, pepperE--;
 
     if (changeFrame % 8 == 0) {
         pac->frame = (pac->frame+1)%5;
@@ -76,7 +76,7 @@ void pacUpd(Player *pac) {
             } else if (ghost[ty].mode == 1) {
                 pac->point += 25;
                 ghost[ty].mode = 2;
-                ghost[ty].speed = 0.2;
+                ghost[ty].speed = 0.18;
 
                 updDes((int)Pacman.pos.x, (int)Pacman.pos.y, 0);
                 Vector2 temp = newCell();
@@ -102,7 +102,7 @@ void pacUpd(Player *pac) {
         case 12:
             pCn--;
             pepperE++;
-            pac->speed += 0.05;
+            pac->speed += 0.04;
             pepperT = GetTime();
             break;
         case 13:
