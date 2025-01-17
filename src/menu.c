@@ -66,24 +66,22 @@ void DrawDf(int x) {
 
 void getInLose(int *G, int* x) {
     if (IsKeyPressed(KEY_DOWN)) 
-        *x = (*x+1)%4;
+        *x = (*x+1)%3;
     if (IsKeyPressed(KEY_UP)) 
-        *x = (*x+3)%4;   
+        *x = (*x+2)%3;   
     
     if (IsKeyPressed(KEY_ENTER)) {
         randomMap();
         switch (*x) {
             case 0:
-                break;
-            case 1:
                 *G = 3;
                 break;
-            case 2:
+            case 1:
                 Df = 1;
                 *G = 0;
                 Ms = 0;
                 break;
-            case 3:
+            case 2:
                 *G = 4;
                 break;
         }
@@ -91,7 +89,7 @@ void getInLose(int *G, int* x) {
 }
 
 void DrawLose(int x) {
-    char* mod[] = {"Instant Replay", "Records", "Menu", "Exit"};
+    char* mod[] = {"Records", "Menu", "Exit"};
     char* def[] = {"Easy", "Normal", "Hard"};
 
     BeginDrawing();
@@ -102,7 +100,7 @@ void DrawLose(int x) {
     tempSz = MeasureTextEx(fontM, TextFormat("%s your score is %d in %s", playerName, Pacman.point, def[Df]), 40, 2).x; 
     DrawTextEx(fontM, TextFormat("%s your score is %d in %s", playerName, Pacman.point, def[Df]), (Vector2){(ScW-tempSz)/2, 190}, 40, 2, WHITE);
     
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 3; i++) {
         tempSz = MeasureTextEx(fontM, mod[i], 45, 2).x;
         DrawTextEx(fontM, mod[i], (Vector2){(ScW-tempSz)/2, 325+i*70}, 45, 2, (i==x)?YELLOW:BLUE);
     }
