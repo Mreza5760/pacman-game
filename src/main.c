@@ -16,16 +16,13 @@ int main() {
     los =  LoadTexture("../assets/gameState/gameover.png");
     wel = LoadTexture("../assets/gameState/pacmantext.png");
     fontM = LoadFontEx("../assets/fonts/setbackt.ttf", 64, NULL, 0);
-    musicM = LoadMusicStream("../assets/sounds/Motoi Sakuraba - Gwyn, Lord of Cinder.mp3");
+    musicM = LoadMusicStream("../assets/sounds/Tsukasa Saitoh - Elden Ring.mp3");
     texIn();
     readList();
     randomMap(); 
     PlayMusicStream(musicM);
-    PlayMusicStream(musicR);
-    PauseMusicStream(musicR);
     while (!WindowShouldClose()) {
         UpdateMusicStream(musicM);
-        UpdateMusicStream(musicR);
         for (int i = 0; i < 3; i++) UpdateMusicStream(difSongs[i]);
 
         switch (Gs) {
@@ -36,7 +33,7 @@ int main() {
                 ResumeMusicStream(musicM);
                 getIn(&Gs, &Ms);
                 DrawM(Ms);
-                if (Gs && Gs != 2) PauseMusicStream(musicM);
+                if (Gs && Gs != 2 && Gs != 3) PauseMusicStream(musicM);
                 break;
             case 1:
                 if (IsKeyPressed(KEY_M)) Gs = 0;
@@ -58,13 +55,9 @@ int main() {
                 DrawDf(Df);
                 break;
             case 3:
-                ResumeMusicStream(musicR);
                 drawRec();
                 if (IsKeyPressed(KEY_DELETE)) delRec();
-                if (IsKeyPressed(KEY_M)) {
-                    Gs = 0;
-                    PauseMusicStream(musicR);
-                }
+                if (IsKeyPressed(KEY_M)) Gs = 0;
                 break;
             case 4:
                 CloseWindow();
@@ -90,7 +83,6 @@ int main() {
     UnloadTexture(Mushroom);
     UnloadTexture(Pacman.tex);
     UnloadMusicStream(musicM);
-    UnloadMusicStream(musicR);
     for (int i = 0; i < 3; i++)
         UnloadMusicStream(difSongs[i]);
     for (int i = 0; i < 9; i++) {

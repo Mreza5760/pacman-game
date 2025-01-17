@@ -61,24 +61,24 @@ const char map[3][Row][Col] = {
     },
     {
         "###################################",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
-        "#                                 #",
+        "#   #         #               #   #",
+        "# # #  # # #  #         ####  #   #",
+        "### #  # # #  ####   ## #  #  #   #",
+        "#   ####   ####      #  #  #    # #",
+        "# #   #              #     #      #",
+        "#  # ##  ##  ####### # #####  #   #",
+        "## #  ## #         # #            #",
+        "#  #     #      ## #          #   #",
+        "# #            ## #   #   # ###   #",
+        "# # #### #####    ######    #   # #",
+        "# #    # #        #       #     # #",
+        "#  ### # #    ##     # ## # #######",
+        "##     #          #     # #       #",      
+        "#  ##### ## ########## ## ###   ###",
+        "# # # #   # #                     #",
+        "#   #   #   # #########  #    ### #",
+        "### # ##### #       #    # #    # #",
+        "#                ##      #   ##   #",
         "###################################"
     }
 };
@@ -134,7 +134,7 @@ void randomMap() {
     Cherry = LoadTexture("../assets/items/cherry.png");
     Pepper = LoadTexture("../assets/items/pepper.png");
     Mushroom = LoadTexture("../assets/items/mushroom.png");
-    difSongs[2] = LoadMusicStream("../assets/sounds/Yuka Kitamura - Dark Souls 3.mp3");
+    difSongs[2] = LoadMusicStream("../assets/sounds/椎名もた - Young Girl A.mp3");
     PlayMusicStream(difSongs[2]);
     PauseMusicStream(difSongs[2]);
 }
