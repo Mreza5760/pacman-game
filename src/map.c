@@ -145,8 +145,8 @@ void randomMap() {
 
 void addItem() {
     Vector2 temp = newCell();
-    if(sCn < 10) {
-        for (int i = 0; i < sMx; i++) {
+    if(sCn <= 10) {
+        for (int i = 0; i < sMx-sCn; i++) {
             temp = newCell();
             Mstate[(int)temp.y][(int)temp.x] = 0;
         }

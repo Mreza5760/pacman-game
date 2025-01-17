@@ -72,6 +72,7 @@ void pacUpd(Player *pac) {
             *pac = temp;
             if (!ghost[ty].mode) {
                 Rage[ty] = 1;
+                randCell(ty+3);
                 gosUpd(&ghost[ty], ty+3);
             } else if (ghost[ty].mode == 1) {
                 pac->point += 25;
