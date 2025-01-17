@@ -9,24 +9,30 @@
 
 int main() {
     InitWindow(ScW, ScH, "Pacman");
+    InitAudioDevice();
     SetTargetFPS(60);
     
     Gs = -1, Ms = 0, Df = 1, Ls = 0, nameSz = 0;
-    fontM = LoadFontEx("../assets/fonts/setbackt.ttf", 128, NULL, 0);
-    wel = LoadTexture("../assets/gameState/pacmantext.png");
     los =  LoadTexture("../assets/gameState/gameover.png");
+    wel = LoadTexture("../assets/gameState/pacmantext.png");
+    fontM = LoadFontEx("../assets/fonts/setbackt.ttf", 64, NULL, 0);
+    musicM = LoadMusicStream("../assets/sounds/Motoi Sakuraba - Gwyn, Lord of Cinder.mp3");
     texIn();
     readList();
     randomMap(); 
-
+    PlayMusicStream(musicM);
     while (!WindowShouldClose()) {
+        UpdateMusicStream(musicM);
+
         switch (Gs) {
             case -1:
                 getName(&Gs);
                 break;
             case 0:
+                ResumeMusicStream(musicM);
                 getIn(&Gs, &Ms);
                 DrawM(Ms);
+                if (Gs && Gs != 2) PauseMusicStream(musicM);
                 break;
             case 1:
                 if (IsKeyPressed(KEY_M)) Gs = 0;
@@ -73,12 +79,14 @@ int main() {
     UnloadTexture(Pepper);
     UnloadTexture(Mushroom);
     UnloadTexture(Pacman.tex);
+    UnloadMusicStream(musicM);
     for (int i = 0; i < 9; i++) {
         UnloadTexture(ghost[i].tex);
         for (int j = 0; j < 9; j++)
             UnloadTexture(gostex[i][j]);
     }
 
+    CloseAudioDevice();
     CloseWindow();
     return 0;
 }

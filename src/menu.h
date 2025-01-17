@@ -9,6 +9,7 @@ extern int Gs, Ms, Df, Ls, nameSz;
 extern char playerName[12];
 extern Texture2D los, wel;
 extern Font fontM;
+extern Music musicM;
 
 void getIn(int* G, int* x);
 void DrawM(int x);

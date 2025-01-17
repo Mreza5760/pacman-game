@@ -5,6 +5,7 @@
 #include <stdbool.h>
 
 Font fontM;
+Music musicM;
 Texture2D los, wel;
 char playerName[12];
 int Gs, Ms, Df, Ls, nameSz;
