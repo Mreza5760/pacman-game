@@ -160,6 +160,6 @@ void death() {
         Mstate[(int)ghost[i].startPos.y][(int)ghost[i].startPos.x] = i+3;
         ghost[i].pos = ghost[i].startPos;
         ghost[i].mode = 0;
-        ghost[i].speed = 0.05 + Df*0.025;
+        ghost[i].speed = 0.04 + Df*0.015;
     }
 }

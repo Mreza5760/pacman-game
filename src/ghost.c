@@ -41,7 +41,7 @@ void gosDef(Ghost *gos, int type) {
     gos->beh = -1;
     gos->mode = 0;
     gos->frame = 0;
-    gos->speed = 0.05 + Df*0.025;
+    gos->speed = 0.04 + Df*0.015;
     gos->pos = ghost[type-3].startPos;
     gos->tex = gostex[type-3][8];
 }
@@ -163,7 +163,7 @@ void randCell(int type) {
     if (ghost[type-3].mode == 2) {
         if ((int)ghost[type-3].pos.x == (int)ghost[type-3].startPos.x && (int)ghost[type-3].pos.y == (int)ghost[type-3].startPos.y) {
             ghost[type-3].mode = 0;
-            ghost[type-3].speed = 0.05 + Df*0.025; 
+            ghost[type-3].speed = 0.04 + Df*0.015; 
         }
         randTar[type-3] = ghost[type-3].startPos;
         return;
@@ -175,7 +175,7 @@ void randCell(int type) {
         return;
     }
     updDes(randTar[type-3].x, randTar[type-3].y, 0);
-    if (desTar[(int)ghost[type-3].pos.y][(int)ghost[type-3].pos.x] && GetTime() - LastT[type-3] < 1.5)
+    if (desTar[(int)ghost[type-3].pos.y][(int)ghost[type-3].pos.x] && GetTime() - LastT[type-3] < 5)
         return;
  
     int x = 0, y = 0;

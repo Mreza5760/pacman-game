@@ -6,12 +6,14 @@
 #include "player.h"
 #include "record.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
 int main() {
     InitWindow(ScW, ScH, "Pacman");
     InitAudioDevice();
     SetTargetFPS(60);
     
+    bool Fexit = 0;
     Gs = -1, Ms = 0, Df = 1, Ls = 0, nameSz = 0;
     los =  LoadTexture("../assets/gameState/gameover.png");
     wel = LoadTexture("../assets/gameState/pacmantext.png");
@@ -24,7 +26,8 @@ int main() {
     while (!WindowShouldClose()) {
         UpdateMusicStream(musicM);
         for (int i = 0; i < 3; i++) UpdateMusicStream(difSongs[i]);
-
+        if (Fexit)
+            break;
         switch (Gs) {
             case -1:
                 getName(&Gs);
@@ -65,8 +68,8 @@ int main() {
                 if (IsKeyPressed(KEY_M)) Gs = 0;
                 break;
             case 4:
-                CloseWindow();
-                return 0;
+                Fexit = 1;
+                break;
             case 5:
                 getInLose(&Gs, &Ls);
                 DrawLose(Ls);
