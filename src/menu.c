@@ -91,7 +91,7 @@ void getInLose(int *G, int* x) {
 }
 
 void DrawLose(int x) {
-    char* mod[] = {"Replay", "Records", "Menu", "Exit"};
+    char* mod[] = {"Instant Replay", "Records", "Menu", "Exit"};
     char* def[] = {"Easy", "Normal", "Hard"};
 
     BeginDrawing();

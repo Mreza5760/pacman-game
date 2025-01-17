@@ -55,6 +55,7 @@ int main() {
                 DrawDf(Df);
                 break;
             case 3:
+                ResumeMusicStream(musicM);
                 drawRec();
                 if (IsKeyPressed(KEY_DELETE)) delRec();
                 if (IsKeyPressed(KEY_M)) Gs = 0;
