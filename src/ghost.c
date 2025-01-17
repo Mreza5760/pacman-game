@@ -149,7 +149,7 @@ void gosUpd(Ghost *gos, int type) {
             
             updDes((int)Pacman.pos.x, (int)Pacman.pos.y, 0);
             Vector2 temp = newCell();
-            while (desTar[(int)temp.y][(int)temp.x] < 13) 
+            while (desTar[(int)temp.y][(int)temp.x] < 23) 
                 temp = newCell();
             gos->startPos = temp;
         }

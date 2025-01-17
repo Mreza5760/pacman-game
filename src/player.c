@@ -151,7 +151,7 @@ void death() {
         Mstate[(int)ghost[i].pos.y][(int)ghost[i].pos.x] = ghost[i].beh;
         
         temp = newCell();
-        while (desTar[(int)temp.y][(int)temp.x] < 13) 
+        while (desTar[(int)temp.y][(int)temp.x] < 23) 
             temp = newCell();
         ghost[i].startPos = temp;
 
