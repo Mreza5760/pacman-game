@@ -54,7 +54,7 @@ void updDes(int x, int y, int mode) {
     for (int k = 0; k <= Row+Col; k++) {
         for (int i = 0; i < Row; i++)
             for (int j = 0; j < Col; j++) {
-                if (mode != 2 && (1 <= Mstate[i][j] && Mstate[i][j] <= 9 && Mstate[i][j] != 2)) 
+                if (Mstate[i][j] == 1 || (mode != 2 && 3 <= Mstate[i][j] && Mstate[i][j] <= 9)) 
                     continue;
                 if (mode && Mstate[i][j] == 2)
                     continue;
