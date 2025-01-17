@@ -21,8 +21,12 @@ int main() {
     readList();
     randomMap(); 
     PlayMusicStream(musicM);
+    PlayMusicStream(musicR);
+    PauseMusicStream(musicR);
     while (!WindowShouldClose()) {
         UpdateMusicStream(musicM);
+        UpdateMusicStream(musicR);
+        for (int i = 0; i < 3; i++) UpdateMusicStream(difSongs[i]);
 
         switch (Gs) {
             case -1:
@@ -37,6 +41,7 @@ int main() {
             case 1:
                 if (IsKeyPressed(KEY_M)) Gs = 0;
 
+                ResumeMusicStream(difSongs[Df]);
                 addItem();
                 pacUpd(&Pacman);
                 for (int i = 0; i < gosSz; i++) {
@@ -45,6 +50,7 @@ int main() {
                 }
 
                 DrawMap();
+                if (Gs != 1) PauseMusicStream(difSongs[Df]);
                 break;
             case 2:
                 if (IsKeyPressed(KEY_M)) Gs = 0;
@@ -52,9 +58,13 @@ int main() {
                 DrawDf(Df);
                 break;
             case 3:
+                ResumeMusicStream(musicR);
                 drawRec();
                 if (IsKeyPressed(KEY_DELETE)) delRec();
-                if (IsKeyPressed(KEY_M)) Gs = 0;
+                if (IsKeyPressed(KEY_M)) {
+                    Gs = 0;
+                    PauseMusicStream(musicR);
+                }
                 break;
             case 4:
                 CloseWindow();
@@ -80,6 +90,9 @@ int main() {
     UnloadTexture(Mushroom);
     UnloadTexture(Pacman.tex);
     UnloadMusicStream(musicM);
+    UnloadMusicStream(musicR);
+    for (int i = 0; i < 3; i++)
+        UnloadMusicStream(difSongs[i]);
     for (int i = 0; i < 9; i++) {
         UnloadTexture(ghost[i].tex);
         for (int j = 0; j < 9; j++)

@@ -7,6 +7,7 @@
 #include <stdlib.h>
 
 int DEBUG = 0;
+Music difSongs[3];
 int Mstate[Row][Col];
 double aT, pT, mT, cT, sT;
 int aCn, pCn, mCn, cCn, sCn;
@@ -133,6 +134,9 @@ void randomMap() {
     Cherry = LoadTexture("../assets/items/cherry.png");
     Pepper = LoadTexture("../assets/items/pepper.png");
     Mushroom = LoadTexture("../assets/items/mushroom.png");
+    difSongs[2] = LoadMusicStream("../assets/sounds/Yuka Kitamura - Dark Souls 3.mp3");
+    PlayMusicStream(difSongs[2]);
+    PauseMusicStream(difSongs[2]);
 }
 
 void addItem() {

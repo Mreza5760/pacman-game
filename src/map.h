@@ -9,6 +9,7 @@
 #define Offset 64
 
 extern int DEBUG;
+extern Music difSongs[3];
 extern double aT, pT, mT, cT, sT;
 extern const char map[3][Row][Col];
 extern int aCn, pCn, mCn, cCn, sCn;
