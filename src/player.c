@@ -120,8 +120,6 @@ void pacUpd(Player *pac) {
 }
 
 void death() {
-    UpdateMusicStream(difSongs[Df]);
-    ResumeMusicStream(difSongs[Df]);
     Pacman.dir = 0;
     for (int i = 0; i < 11; i++) {
         Pacman.tex = deathtex[i];
@@ -129,7 +127,10 @@ void death() {
         DrawMap();
 
         double T = GetTime();
-        while (GetTime() - T < 0.08);
+        while (GetTime() - T < 0.08) {
+            UpdateMusicStream(difSongs[Df]);
+            ResumeMusicStream(difSongs[Df]);
+        }
     }
     Pacman.heart--;
     if (!Pacman.heart) {
