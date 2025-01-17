@@ -90,7 +90,7 @@ void getInLose(int *G, int* x) {
 }
 
 void DrawLose(int x) {
-    char* mod[] = {"Replay", "Records", "Play agian", "Exit"};
+    char* mod[] = {"Replay", "Records", "Menu", "Exit"};
     char* def[] = {"Easy", "Normal", "Hard"};
 
     BeginDrawing();
@@ -173,10 +173,13 @@ void DrawWel(int *G) {
     int x = MeasureTextEx(fontM, TextFormat("%s Welcome to Pacman", playerName), 50, 2).x;
     DrawTextEx(fontM, TextFormat("%s Welcome to Pacman", playerName), (Vector2){(ScW-x)/2, 580}, 50, 2, RED);
 
-    char *pr[4]= {"M for Menu", "ESC for Exit", "Press Space to start", "Made by Mreza5760"};
+    char *pr[4]= {"ESC for Exit", "Press Space to start", "M for Menu (in Game & Records)", "Made by Mreza5760"};
     for (int i = 0; i < 4; i++) {
+        Color tint = DARKGREEN;
+        if (i == 1) tint = (Color){0, 117, 44, GetTime()*255};
+        if (i == 3) tint =  (Color){120, 20, 100, 255};
         x = MeasureTextEx(fontM, pr[i], 50, 2).x;
-        DrawTextEx(fontM, pr[i], (Vector2){(ScW-x)/2, 250+i*70}, 50, 2, (i==3)?DARKBLUE:DARKGREEN);
+        DrawTextEx(fontM, pr[i], (Vector2){(ScW-x)/2, 250+i*70}, 50, 2, tint);
     }
 
     if (IsKeyPressed(KEY_SPACE)) *G = 0;

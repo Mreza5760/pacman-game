@@ -1,6 +1,7 @@
 #include "map.h"
 #include "menu.h"
 #include "draw.h"
+#include <math.h>
 #include "ghost.h"
 #include "player.h"
 #include "raylib.h"
@@ -17,21 +18,27 @@ void DrawMap() {
     if (cT > 1) cT = 1;
     if (sT > 1) sT = 1;
 
-    DrawText("Points", 40, 20, 30, GREEN);
-    DrawText(TextFormat("%d", Pacman.point), 150, 20, 30, ORANGE);
-    DrawText("Hearts", 400, 20, 30, DARKPURPLE);
+    int y = MeasureTextEx(fontM, "Points", 40, 2).y;
+    DrawTextEx(fontM, "Points", (Vector2){50, (64-y)/2}, 40, 2, DARKGREEN);
+    y = MeasureTextEx(fontM, TextFormat("%d", Pacman.point), 40, 2).y;
+    DrawTextEx(fontM, TextFormat("%d", Pacman.point), (Vector2){200, (64-y)/2}, 40, 2, ORANGE);
+    y = MeasureTextEx(fontM, "Hearts", 40, 2).y;
+    DrawTextEx(fontM, "Hearts", (Vector2){615, (64-y)/2}, 40, 2, DARKPURPLE);
     for (int i = 1; i <= Pacman.heart; i++) {
-        Rectangle dest = {470+i*50, 10, 50, 50},
+        Rectangle dest = {730+i*50, 10, 50, 50},
         sour = {0, 0, Heart.width, Heart.height};
         DrawTexturePro(Heart, sour, dest, (Vector2){0, 0}, 0, WHITE);
     }
+
+    double temT = GetTime();
+    int r = sin(temT*2)*127.5+127.5, g = sin(temT*2+2)*127.5+127.5, b = sin(temT*2+4)*127.5+127.5;
 
     for (int i = 0; i < Row; i++) {
         for (int j = 0; j < Col; j++) {
             Rectangle dest = {j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz, Cellsz};
             switch (Mstate[i][j]) {
                 case 0:
-                    Color tint = {255, GetTime()*255, GetTime()*2*255, sT*255};
+                    Color tint = {r, g, b, sT*255};
                     DrawCircle(j*Cellsz+Cellsz/2, i*Cellsz+Cellsz/2+Offset, Cellsz/8, tint);
                     break;
                 case 1:

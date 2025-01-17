@@ -104,7 +104,7 @@ void pacUpd(Player *pac) {
             return;
         case 10:
             aCn--;
-            if (pac->heart < 5)
+            if (pac->heart < 6-Df)
                 pac->heart++;
             break;
         case 11:

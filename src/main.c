@@ -33,7 +33,6 @@ int main() {
 
                 addItem();
                 pacUpd(&Pacman);
-
                 for (int i = 0; i < gosSz; i++) {
                     randCell(i+3);
                     gosUpd(&ghost[i], i+3);
