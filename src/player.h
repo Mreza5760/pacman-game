@@ -15,9 +15,8 @@ typedef struct {
 
 extern Player Pacman;
 extern double pepperT;
-extern const char *pactex[5];
+extern Texture2D pactex[5], deathtex[11];
 extern int changeFrame, pepperE;
-extern const char *deathtex[11];
 
 void death();
 void pacDef(Player *pac);

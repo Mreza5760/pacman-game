@@ -86,6 +86,10 @@ int main() {
     UnloadMusicStream(musicM);
     for (int i = 0; i < 3; i++)
         UnloadMusicStream(difSongs[i]);
+    for (int i = 0; i < 5; i++)
+        UnloadTexture(pactex[i]);
+    for (int i = 0; i < 11; i++)
+        UnloadTexture(deathtex[i]);
     for (int i = 0; i < 9; i++) {
         UnloadTexture(ghost[i].tex);
         for (int j = 0; j < 9; j++)
