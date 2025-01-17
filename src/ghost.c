@@ -54,7 +54,7 @@ void updDes(int x, int y, int mode) {
     for (int k = 0; k <= Row+Col; k++) {
         for (int i = 0; i < Row; i++)
             for (int j = 0; j < Col; j++) {
-                if (1 <= Mstate[i][j] && Mstate[i][j] <= 9 && Mstate[i][j] != 2) 
+                if (mode != 2 && (1 <= Mstate[i][j] && Mstate[i][j] <= 9 && Mstate[i][j] != 2)) 
                     continue;
                 if (mode && Mstate[i][j] == 2)
                     continue;
@@ -94,12 +94,12 @@ void gosUpd(Ghost *gos, int type) {
         gos->tex = gostex[type-3][8];
     else {
         if (gos->mode == 1) {
-            if (GetTime() - blueT[type-3] > 15.0)
+            if (GetTime() - blueT[type-3] > 10.0)
                 gos->mode = 0;
             int white = 0;
-            if ((GetTime() - blueT[type-3] > 6.0) && (GetTime() - blueT[type-3] < 9.0))
+            if ((GetTime() - blueT[type-3] > 4.0) && (GetTime() - blueT[type-3] < 6.0))
                 white = 2;
-            if ((GetTime() - blueT[type-3] > 12.0) && (GetTime() - blueT[type-3] < 14.0))
+            if ((GetTime() - blueT[type-3] > 8.0) && (GetTime() - blueT[type-3] < 9.0))
                 white = 2;
             gos->tex = gostex[7][(gos->frame%2)+white];
         }
@@ -175,7 +175,7 @@ void randCell(int type) {
         return;
     }
     updDes(randTar[type-3].x, randTar[type-3].y, 0);
-    if (desTar[(int)ghost[type-3].pos.y][(int)ghost[type-3].pos.x] && GetTime() - LastT[type-3] < 4.5)
+    if (desTar[(int)ghost[type-3].pos.y][(int)ghost[type-3].pos.x] && GetTime() - LastT[type-3] < 1.5)
         return;
  
     int x = 0, y = 0;
