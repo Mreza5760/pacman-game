@@ -11,7 +11,7 @@
 int main() {
     InitWindow(ScW, ScH, "Pacman");
     InitAudioDevice();
-    SetTargetFPS(60);
+    SetTargetFPS(120);
     
     bool Fexit = 0;
     Gs = -1, Ms = 0, Df = 1, Ls = 0, nameSz = 0;
