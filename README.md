@@ -86,8 +86,29 @@ cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
 cmake --build . --config Release
 ```
 
+## 🕹️ How to Play
+
+| Key         | Action                               |
+|-------------|--------------------------------------|
+| **Arrow keys** | Move Pacman up, down, left, right |
+| **M**        | Return to the main menu              |
+| **Delete**   | Clear all high scores (on scoreboard screen) |
+| **ESC**      | Exit the game while playing          |
+
+---
+
+## 📸 Screenshots
+
+> *(Add your own screenshots inside a `screenshots/` folder. Recommended files: `menu.png`, `gameplay.png`, `scoreboard.png`)*
+
+| Main Menu | Gameplay | Scoreboard |
+|-----------|----------|------------|
+| ![Menu](screenshots/menu.png) | ![Game](screenshots/gameplay.png) | ![Scores](screenshots/scoreboard.png) |
+
+
 ## 📄 License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+---
 
 Enjoy the game, and feel free to contribute or report issues! 🎮
