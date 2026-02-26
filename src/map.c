@@ -7,13 +7,12 @@
 #include <stdlib.h>
 
 int DEBUG = 0;
-Music difSongs[3];
 int Mstate[Row][Col];
 double aT, pT, mT, cT, sT;
 int aCn, pCn, mCn, cCn, sCn;
 int aMx, pMx, mMx, cMx, sMx;
 int ScW = Col*Cellsz, ScH = Row*Cellsz+Offset;
-Texture2D Heart, Apple, Mushroom, Pepper, Cherry;
+
 const char map[3][Row][Col] = {
    {
         "###################################",
@@ -129,14 +128,6 @@ void randomMap() {
         Mstate[(int)temp.y][(int)temp.x] = 3+i;
     }
 
-    Apple = LoadTexture("../assets/items/apple.png");
-    Heart = LoadTexture("../assets/items/heart.png");
-    Cherry = LoadTexture("../assets/items/cherry.png");
-    Pepper = LoadTexture("../assets/items/pepper.png");
-    Mushroom = LoadTexture("../assets/items/mushroom.png");
-    difSongs[0] = LoadMusicStream("../assets/sounds/Mai Sakurajima(CV Asami Seto) - hukashiginokarute.mp3");
-    difSongs[1] = LoadMusicStream("../assets/sounds/Yasuha - Fly-day Chinatown.mp3");
-    difSongs[2] = LoadMusicStream("../assets/sounds/Young Girl A.mp3");
     for (int i = 0; i < 3; i++) {
         PlayMusicStream(difSongs[i]);
         PauseMusicStream(difSongs[i]);

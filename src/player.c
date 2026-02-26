@@ -10,17 +10,8 @@
 Player Pacman;
 double pepperT;
 int changeFrame = 0, pepperE;
-Texture2D pactex[5], deathtex[11];
 
 void pacDef(Player *pac) {
-    pactex[0] = LoadTexture("../assets/sprites/pac/pacClosed.png");
-    pactex[1] = LoadTexture("../assets/sprites/pac/pacNarrow.png");
-    pactex[2] = LoadTexture("../assets/sprites/pac/pacNarrow2.png");
-    pactex[3] = LoadTexture("../assets/sprites/pac/pacWide.png");
-    pactex[4] = LoadTexture("../assets/sprites/pac/pacWide2.png");
-    for (int i = 1; i <= 11; i++)
-        deathtex[i-1] = LoadTexture(TextFormat("../assets/sprites/pac/deathAnim/death%d.png", i)); 
-
     pepperE = 0;
     pac->dir = 0;
     pac->frame = 0; 

@@ -11,31 +11,8 @@
 Ghost ghost[7];
 bool Rage[7] = {0};
 Vector2 randTar[7];
-Texture2D gostex[9][9];
 int desTar[Row][Col], gosSz;
 double LastT[7] = {0}, blueT[7];
-
-void texIn() {
-    for (int i = 0; i < 9; i++)
-        gostex[0][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/blinky/blinky%d.png", i));
-    for (int i = 0; i < 9; i++)
-        gostex[1][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/clyde/clyde%d.png", i));
-    for (int i = 0; i < 9; i++)
-        gostex[2][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/inky/inky%d.png", i));
-    for (int i = 0; i < 9; i++)
-        gostex[3][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/pinky/pinky%d.png", i));
-    for (int i = 0; i < 9; i++)
-        gostex[4][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/berrypie/berrypie%d.png", i));
-    for (int i = 0; i < 9; i++)
-        gostex[5][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/rocky/rocky%d.png", i));
-    for (int i = 0; i < 9; i++)
-        gostex[6][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/snowwhite/snowwhite%d.png", i)); 
-
-    for (int i = 0; i < 4; i++)
-        gostex[7][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/blue/blue%d.png", i));
-    for (int i = 0; i < 4; i++)
-        gostex[8][i] = LoadTexture(TextFormat("../assets/sprites/ghosts/eyes/Eye%d.png", i));
-}
 
 void gosDef(Ghost *gos, int type) {
     gos->beh = -1;

@@ -4,9 +4,6 @@
 #include "raylib.h"
 #include <stdbool.h>
 
-Font fontM;
-Music musicM;
-Texture2D los, wel;
 char playerName[12];
 int Gs, Ms, Df, Ls, nameSz;
 
@@ -172,7 +169,7 @@ void DrawWel(int *G) {
     int x = MeasureTextEx(fontM, TextFormat("%s Welcome to Pacman", playerName), 50, 2).x;
     DrawTextEx(fontM, TextFormat("%s Welcome to Pacman", playerName), (Vector2){(ScW-x)/2, 580}, 50, 2, RED);
 
-    char *pr[4]= {"ESC for Exit", "Press Space to start", "M for Menu (in Game & Records)", "Made by Mreza5760"};
+    char *pr[4]= {"ESC for Exit", "Press Space to start", "M for Menu (in Game / Records)", "Made by Mreza5760"};
     for (int i = 0; i < 4; i++) {
         Color tint = DARKGREEN;
         if (i == 1) tint = (Color){0, 117, 44, GetTime()*255};

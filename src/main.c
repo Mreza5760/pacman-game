@@ -5,21 +5,31 @@
 #include "raylib.h"
 #include "player.h"
 #include "record.h"
+#include "embedded_loader.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 int main() {
     InitWindow(ScW, ScH, "Pacman");
+
+    if (icon_png_size > 0) {
+        Image iconImg = LoadImageFromMemory(".png", icon_png, icon_png_size);
+        if (iconImg.data != NULL) {
+            SetWindowIcon(iconImg);
+            UnloadImage(iconImg);
+            TraceLog(LOG_INFO, "Window icon set successfully");
+        }
+    }
+
     InitAudioDevice();
     SetTargetFPS(120);
     
     bool Fexit = 0;
     Gs = -1, Ms = 0, Df = 1, Ls = 0, nameSz = 0;
-    los =  LoadTexture("../assets/gameState/gameover.png");
-    wel = LoadTexture("../assets/gameState/pacmantext.png");
-    fontM = LoadFontEx("../assets/fonts/setbackt.ttf", 64, NULL, 0);
-    musicM = LoadMusicStream("../assets/sounds/Tsukasa Saitoh - Elden Ring.mp3");
-    texIn();
+    
+    LoadAllEmbeddedAssets();
+
     readList();
     randomMap(); 
     PlayMusicStream(musicM);
@@ -81,27 +91,7 @@ int main() {
     }
 
     updRec();
-    UnloadFont(fontM);
-    UnloadTexture(los);
-    UnloadTexture(wel);
-    UnloadTexture(Heart);
-    UnloadTexture(Apple);
-    UnloadTexture(Cherry);
-    UnloadTexture(Pepper);
-    UnloadTexture(Mushroom);
-    UnloadTexture(Pacman.tex);
-    UnloadMusicStream(musicM);
-    for (int i = 0; i < 3; i++)
-        UnloadMusicStream(difSongs[i]);
-    for (int i = 0; i < 5; i++)
-        UnloadTexture(pactex[i]);
-    for (int i = 0; i < 11; i++)
-        UnloadTexture(deathtex[i]);
-    for (int i = 0; i < 9; i++) {
-        UnloadTexture(ghost[i].tex);
-        for (int j = 0; j < 9; j++)
-            UnloadTexture(gostex[i][j]);
-    }
+    UnloadAllEmbeddedAssets();
 
     CloseAudioDevice();
     CloseWindow();
