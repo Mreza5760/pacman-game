@@ -45,6 +45,7 @@ A classic Pacman clone written in **C** using the **Raylib** library. This proje
 Three difficulty modes (**Easy, Normal, Hard**) affect:
 - **Ghost speed** – faster on higher difficulties.
 - **Number of ghosts** – more ghosts appear.
+- **Maximum lives** – the maximum number of lives you can have is lower on harder difficulties.
 - **Item spawn rates** – frequency of special items.
 - **Map layout** – each difficulty uses a different predefined map.
 
