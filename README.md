@@ -84,3 +84,10 @@ python scripts/embed_assets.py
 mkdir build && cd build
 cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
 cmake --build . --config Release
+```
+
+## 📄 License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+
+Enjoy the game, and feel free to contribute or report issues! 🎮
