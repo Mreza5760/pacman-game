@@ -11,16 +11,26 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
 # Enable static linking for Raylib and other libraries
 set(BUILD_SHARED_LIBS OFF)
 
-# Find the Raylib package (ensure it's compiled with static support)
+# Find the Raylib package 
 find_package(raylib REQUIRED CONFIG)
 
-# Collect all .c files from the src directory
-file(GLOB SOURCES src/*.c)
+# Explicitly list all source files 
+set(SOURCES
+    src/main.c
+    src/map.c
+    src/menu.c
+    src/draw.c
+    src/ghost.c
+    src/player.c
+    src/record.c
+    src/embedded_loader.c
+    src/embedded_assets.c
+)
 
-# Define the executable and link Raylib
+# Define the executable
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-# Link Raylib statically and ensure compatibility
+# Link Raylib statically
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
 # Windows-specific configurations for standalone .exe
@@ -28,19 +38,32 @@ if(WIN32)
     # Add necessary libraries for Windows
     target_link_libraries(${PROJECT_NAME} PRIVATE winmm gdi32)
 
-    # Optional: Set compiler flags for static runtime
+    # Set compiler flags for static runtime 
     set_property(TARGET ${PROJECT_NAME} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+    
+    # Add icon resource file for the executable
+    target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/resources.rc)
+    
+    # Remove console window (GUI application)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        WIN32_EXECUTABLE TRUE
+    )
+endif()
+
+# For Linux static linking
+if(UNIX AND NOT APPLE)
+    target_link_options(${PROJECT_NAME} PRIVATE -static-libstdc++ -static-libgcc)
+endif()
+
+# For macOS bundle 
+if(APPLE)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_BUNDLE_NAME "Pacman"
+    )
 endif()
 
 # Debugging and status messages
 message(STATUS "Project: ${PROJECT_NAME}")
 message(STATUS "Raylib: Found at ${raylib_DIR}")
 message(STATUS "Output Directory: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-
-# Copy necessary files (e.g., assets) to the build directory
-add_custom_command(
-    TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/assets ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets
-    COMMENT "Copying assets to build directory"
-)
