@@ -1,2 +1,29 @@
-/build/
-.vscode/"src/embedded_assets.c" 
+# Build artifacts
+build/
+*.exe
+*.o
+*.obj
+*.dll
+*.lib
+*.a
+
+# Generated asset files
+src/embedded_assets.c
+src/embedded_assets.h
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# Python cache
+__pycache__/
+*.pyc
