@@ -8,7 +8,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Windows: use base64 encoded CMakeLists.txt (manual static linking)
   build-windows:
     runs-on: windows-latest
     steps:
@@ -25,13 +24,8 @@ jobs:
           unzip raylib.zip -d raylib
           echo "RAYLIB_PATH=$env:GITHUB_WORKSPACE\raylib\raylib-5.0_win64_mingw-w64" | Out-File -FilePath $env:GITHUB_ENV -Append
 
-      - name: Replace CMakeLists.txt with static version (base64)
-        shell: pwsh
-        run: |
-          $base64 = "IyBNaW5pbXVtIENNYWtlIHZlcnNpb24gcmVxdWlyZWQKY21ha2VfbWluaW11bV9yZXF1aXJlZChWRVJTSU9OIDMuMTUpCgojIFByb2plY3QgbmFtZSBhbmQgbGFuZ3VhZ2Ugc3RhbmRhcmQKcHJvamVjdChQYWNtYW4gQykKc2V0KENNQUtFX0NfU1RBTkRBUkQgMjMpCgojIFNldCBvdXRwdXQgZGlyZWN0b3J5IGZvciB0aGUgZXhlY3V0YWJsZQpzZXQoQ01BS0VfUlVOVElNRV9PVVRQVVRfRElSRUNUT1JZICR7Q01BS0VfU09VUkNFX0RJUn0vYnVpbGQpCgojIEVuYWJsZSBzdGF0aWMgbGlua2luZwpzZXQoQlVJTERfU0hBUkVEX0xJQlMgT0ZGKQoKIyBMaXN0IHNvdXJjZSBmaWxlcwpzZXQoU09VUkNFUwogICAgc3JjL21haW4uYwogICAgc3JjL21hcC5jCiAgICBzcmMvbWVudS5jCiAgICBzcmMvZHJhdy5jCiAgICBzcmMvZ2hvc3QuYwogICAgc3JjL3BsYXllci5jCiAgICBzcmMvcmVjb3JkLmMKICAgIHNyYy9lbWJlZGRlZF9sb2FkZXIuYwogICAgc3JjL2VtYmVkZGVkX2Fzc2V0cy5jCikKCiMgRGVmaW5lIHRoZSBleGVjdXRhYmxlCmFkZF9leGVjdXRhYmxlKCR7UFJPSkVDVF9OQU1FfSAke1NPVVJDRVN9KQoKIyBNYW51YWwgbGlua2luZyB3aXRoIHN0YXRpYyByYXlsaWIKc2V0KFJBWUxJQl9QQVRIICRFTlZ7UkFZTElCX1BBVEh9KQp0YXJnZXRfaW5jbHVkZV9kaXJlY3Rvcmllcygke1BST0pFQ1RfTkFNRX0gUFJJVkFURSgke1JBWUxJQl9QQVRIUy9pbmNsdWRlKQp0YXJnZXRfbGlua19kaXJlY3Rvcmllcygke1BST0pFQ1RfTkFNRX0gUFJJVkFURSgke1JBWUxJQl9QQVRIUy9saWIpCnRhcmdldF9saW5rX2xpYnJhcmllcygke1BST0pFQ1RfTkFNRX0gUFJJVkFURSByYXlsaWIgd2lubW0gZ2RpMzIpCgojIFdpbmRvd3M6IHJlbW92ZSBjb25zb2xlIHdpbmRvdwpzZXRfdGFyZ2V0X3Byb3BlcnRpZXMoJHtQUk9KRUNUX05BTUV9IFBST1BFUlRJRVMgV0lOMzJfRVhFQ1VUQUJMRSBUUlVFKQoKIyBEZWJ1ZyBtZXNzYWdlCm1lc3NhZ2UoU1RBVFVTICJQcm9qZWN0OiAke1BST0pFQ1RfTkFNRX0iKQptZXNzYWdlKFNUQVRVUyAiT3V0cHV0IERpcmVjdG9yeTogJHtDTUFLRV9SVU5USU1FX09VVFBVVF9ESVJFQ1RPUll9IikK"
-          $bytes = [System.Convert]::FromBase64String($base64)
-          $content = [System.Text.Encoding]::UTF8.GetString($bytes)
-          Set-Content CMakeLists.txt -Value $content -Encoding utf8
+      - name: Use Windows-specific CMakeLists
+        run: copy CMakeListsWindows.txt CMakeLists.txt
 
       - name: Embed assets
         run: python scripts/embed_assets.py
@@ -53,7 +47,6 @@ jobs:
           name: Pacman-Windows.exe
           path: build/Release/Pacman.exe
 
-  # Linux: unchanged (works)
   build-linux:
     runs-on: ubuntu-latest
     steps:
@@ -95,7 +88,6 @@ jobs:
           name: Pacman-Linux
           path: build/Pacman
 
-  # macOS: works with framework patch
   build-macos:
     runs-on: macos-latest
     steps:
