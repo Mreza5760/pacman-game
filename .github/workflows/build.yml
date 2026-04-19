@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Windows: use pre‑built static raylib (MinGW)
+  # Windows: patch CMakeLists.txt to use manual linking
   build-windows:
     runs-on: windows-latest
     steps:
@@ -25,18 +25,29 @@ jobs:
           unzip raylib.zip -d raylib
           echo "RAYLIB_PATH=$env:GITHUB_WORKSPACE\raylib\raylib-5.0_win64_mingw-w64" | Out-File -FilePath $env:GITHUB_ENV -Append
 
+      - name: Patch CMakeLists.txt for Windows
+        run: |
+          # Remove the find_package line and append manual linking
+          findstr /v "find_package(raylib REQUIRED CONFIG)" CMakeLists.txt > CMakeLists.txt.tmp
+          echo "if(WIN32)" >> CMakeLists.txt.tmp
+          echo "    target_include_directories(${PROJECT_NAME} PRIVATE $env:RAYLIB_PATH/include)" >> CMakeLists.txt.tmp
+          echo "    target_link_directories(${PROJECT_NAME} PRIVATE $env:RAYLIB_PATH/lib)" >> CMakeLists.txt.tmp
+          echo "    target_link_libraries(${PROJECT_NAME} PRIVATE raylib winmm gdi32)" >> CMakeLists.txt.tmp
+          echo "else()" >> CMakeLists.txt.tmp
+          echo "    find_package(raylib REQUIRED CONFIG)" >> CMakeLists.txt.tmp
+          echo "    target_link_libraries(${PROJECT_NAME} PRIVATE raylib)" >> CMakeLists.txt.tmp
+          echo "endif()" >> CMakeLists.txt.tmp
+          move /Y CMakeLists.txt.tmp CMakeLists.txt
+        shell: cmd
+
       - name: Embed assets
         run: python scripts/embed_assets.py
 
-      - name: Configure CMake (manual raylib path)
+      - name: Configure CMake
         run: |
           mkdir build
           cd build
-          cmake .. -DBUILD_SHARED_LIBS=OFF `
-                   -DCMAKE_BUILD_TYPE=Release `
-                   -DCMAKE_PREFIX_PATH="$env:RAYLIB_PATH" `
-                   -Draylib_DIR="$env:RAYLIB_PATH/lib/cmake/raylib"
-        shell: pwsh
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
 
       - name: Build
         run: |
@@ -49,7 +60,7 @@ jobs:
           name: Pacman-Windows.exe
           path: build/Release/Pacman.exe
 
-  # Linux: build static raylib from source
+  # Linux: build static raylib from source (proven)
   build-linux:
     runs-on: ubuntu-latest
     steps:
