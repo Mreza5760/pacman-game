@@ -8,9 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # --------------------------------------------------------------------------
-  # Windows – use pre‑built static raylib (MinGW) + patch CMakeLists.txt
-  # --------------------------------------------------------------------------
+  # Windows: use pre‑built static raylib (MinGW)
   build-windows:
     runs-on: windows-latest
     steps:
@@ -27,32 +25,18 @@ jobs:
           unzip raylib.zip -d raylib
           echo "RAYLIB_PATH=$env:GITHUB_WORKSPACE\raylib\raylib-5.0_win64_mingw-w64" | Out-File -FilePath $env:GITHUB_ENV -Append
 
-      - name: Patch CMakeLists.txt for Windows
-        run: |
-          # Backup original
-          Copy-Item CMakeLists.txt CMakeLists.txt.bak
-          # Remove the find_package line
-          (Get-Content CMakeLists.txt) -notmatch 'find_package\(raylib REQUIRED CONFIG\)' | Set-Content CMakeLists.txt.tmp
-          # Add manual linking at the end (before the final message)
-          Add-Content CMakeLists.txt.tmp @"
-          
-# Windows static linking (injected by GitHub Actions)
-if(WIN32)
-    target_include_directories(`${PROJECT_NAME} PRIVATE `$ENV{RAYLIB_PATH}/include)
-    target_link_directories(`${PROJECT_NAME} PRIVATE `$ENV{RAYLIB_PATH}/lib)
-    target_link_libraries(`${PROJECT_NAME} PRIVATE raylib winmm gdi32)
-endif()
-"@
-          Move-Item CMakeLists.txt.tmp CMakeLists.txt -Force
-
       - name: Embed assets
         run: python scripts/embed_assets.py
 
-      - name: Configure CMake
+      - name: Configure CMake (manual raylib path)
         run: |
           mkdir build
           cd build
-          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
+          cmake .. -DBUILD_SHARED_LIBS=OFF `
+                   -DCMAKE_BUILD_TYPE=Release `
+                   -DCMAKE_PREFIX_PATH="$env:RAYLIB_PATH" `
+                   -Draylib_DIR="$env:RAYLIB_PATH/lib/cmake/raylib"
+        shell: pwsh
 
       - name: Build
         run: |
@@ -65,9 +49,7 @@ endif()
           name: Pacman-Windows.exe
           path: build/Release/Pacman.exe
 
-  # --------------------------------------------------------------------------
-  # Linux – build static raylib from source (proven to work)
-  # --------------------------------------------------------------------------
+  # Linux: build static raylib from source
   build-linux:
     runs-on: ubuntu-latest
     steps:
@@ -81,7 +63,7 @@ endif()
       - name: Install dependencies
         run: sudo apt update && sudo apt install -y cmake libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
 
-      - name: Build static raylib from source
+      - name: Build static raylib
         run: |
           git clone https://github.com/raysan5/raylib.git
           cd raylib
@@ -109,9 +91,7 @@ endif()
           name: Pacman-Linux
           path: build/Pacman
 
-  # --------------------------------------------------------------------------
-  # macOS – build static raylib from source (fallback if pre‑built fails)
-  # --------------------------------------------------------------------------
+  # macOS: build static raylib from source
   build-macos:
     runs-on: macos-latest
     steps:
@@ -125,7 +105,7 @@ endif()
       - name: Install CMake
         run: brew install cmake
 
-      - name: Build static raylib from source
+      - name: Build static raylib
         run: |
           git clone https://github.com/raysan5/raylib.git
           cd raylib
