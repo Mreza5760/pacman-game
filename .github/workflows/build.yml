@@ -8,9 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # --------------------------------------------------------------------------
-  # Windows – vcpkg + static raylib (verbose)
-  # --------------------------------------------------------------------------
+  # Windows – use pre‑built static raylib (MinGW)
   build-windows:
     runs-on: windows-latest
     steps:
@@ -21,36 +19,26 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Setup vcpkg
-        uses: lukka/run-vcpkg@v11
-        with:
-          vcpkgGitCommitId: 501db0f17ef6df184fcdbfbe0f87cde2313b6ab1
-
-      - name: Install raylib (static) – verbose
+      - name: Download static raylib (Windows)
         run: |
-          vcpkg install raylib:x64-windows-static --debug
-          echo "VCPKG_ROOT=$env:VCPKG_ROOT"
-          dir "$env:VCPKG_ROOT\installed\x64-windows-static"
-        shell: cmd
+          curl -L -o raylib.zip https://github.com/raysan5/raylib/releases/download/5.0/raylib-5.0_win64_mingw-w64.zip
+          unzip raylib.zip -d raylib
+          echo "RAYLIB_PATH=$env:GITHUB_WORKSPACE\raylib\raylib-5.0_win64_mingw-w64" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Embed assets
         run: python scripts/embed_assets.py
 
-      - name: Configure CMake (verbose)
+      - name: Configure CMake
         run: |
           mkdir build
           cd build
           cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release `
-                   -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT\scripts\buildsystems\vcpkg.cmake" `
-                   -DVCPKG_TARGET_TRIPLET=x64-windows-static `
-                   --trace-expand 2>&1 | Out-File cmake_log.txt
-          type cmake_log.txt
-        shell: pwsh
+                   -DCMAKE_PREFIX_PATH="$env:RAYLIB_PATH"
 
       - name: Build
         run: |
           cd build
-          cmake --build . --config Release --verbose
+          cmake --build . --config Release
 
       - name: Upload Windows executable
         uses: actions/upload-artifact@v4
@@ -58,9 +46,7 @@ jobs:
           name: Pacman-Windows.exe
           path: build/Release/Pacman.exe
 
-  # --------------------------------------------------------------------------
-  # Linux – build raylib from source (proven)
-  # --------------------------------------------------------------------------
+  # Linux – build static raylib from source (works)
   build-linux:
     runs-on: ubuntu-latest
     steps:
@@ -74,7 +60,7 @@ jobs:
       - name: Install dependencies
         run: sudo apt update && sudo apt install -y cmake libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
 
-      - name: Build static raylib (source)
+      - name: Build static raylib
         run: |
           git clone https://github.com/raysan5/raylib.git
           cd raylib
@@ -82,22 +68,19 @@ jobs:
           cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
           make -j$(nproc)
           sudo make install
-          # Verify installation
-          ls -la /usr/local/lib/libraylib.a
 
       - name: Embed assets
         run: python3 scripts/embed_assets.py
 
-      - name: Configure CMake (verbose)
+      - name: Configure CMake
         run: |
           mkdir build && cd build
-          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release --trace-expand 2>&1 | tee cmake_log.txt
-          cat cmake_log.txt
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
 
-      - name: Build (verbose)
+      - name: Build
         run: |
           cd build
-          make VERBOSE=1 -j$(nproc)
+          make -j$(nproc)
 
       - name: Upload Linux executable
         uses: actions/upload-artifact@v4
@@ -105,9 +88,7 @@ jobs:
           name: Pacman-Linux
           path: build/Pacman
 
-  # --------------------------------------------------------------------------
-  # macOS – build raylib from source (proven)
-  # --------------------------------------------------------------------------
+  # macOS – use pre‑built static raylib (official)
   build-macos:
     runs-on: macos-latest
     steps:
@@ -118,32 +99,27 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install CMake
-        run: brew install cmake
-
-      - name: Build static raylib (source)
+      - name: Download static raylib (macOS)
         run: |
-          git clone https://github.com/raysan5/raylib.git
-          cd raylib
-          mkdir build && cd build
-          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
-          make -j$(sysctl -n hw.ncpu)
-          sudo make install
-          ls -la /usr/local/lib/libraylib.a
+          curl -L -o raylib.zip https://github.com/raysan5/raylib/releases/download/5.0/raylib-5.0_macos.tar.gz
+          tar -xzf raylib.zip
+          # The extracted folder name may vary; adjust accordingly
+          ls -la
+          # Assume it extracts to "raylib-5.0_macos"
+          echo "RAYLIB_PATH=$GITHUB_WORKSPACE/raylib-5.0_macos" >> $GITHUB_ENV
 
       - name: Embed assets
         run: python3 scripts/embed_assets.py
 
-      - name: Configure CMake (verbose)
+      - name: Configure CMake
         run: |
           mkdir build && cd build
-          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release --trace-expand 2>&1 | tee cmake_log.txt
-          cat cmake_log.txt
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$RAYLIB_PATH"
 
-      - name: Build (verbose)
+      - name: Build
         run: |
           cd build
-          make VERBOSE=1 -j$(sysctl -n hw.ncpu)
+          make -j$(sysctl -n hw.ncpu)
 
       - name: Upload macOS executable
         uses: actions/upload-artifact@v4
