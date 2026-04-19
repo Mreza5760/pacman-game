@@ -1,4 +1,4 @@
-name: Build Pacman Game (Cross‑Platform)
+name: Build Standalone Pacman Game
 
 on:
   push:
@@ -8,55 +8,44 @@ on:
   workflow_dispatch:
 
 jobs:
+  # --------------------------------------------------------------------------
+  # Windows – build static raylib from source, then static game executable
+  # --------------------------------------------------------------------------
   build-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Install vcpkg and static raylib
-        run: |
-          git clone https://github.com/Microsoft/vcpkg.git
-          cd vcpkg
-          .\bootstrap-vcpkg.bat
-          .\vcpkg integrate install
-          .\vcpkg install raylib:x64-windows-static
-          echo "VCPKG_ROOT=$env:GITHUB_WORKSPACE\vcpkg" | Out-File -FilePath $env:GITHUB_ENV -Append
-          echo "CMAKE_TOOLCHAIN_FILE=$env:GITHUB_WORKSPACE\vcpkg\scripts\buildsystems\vcpkg.cmake" | Out-File -FilePath $env:GITHUB_ENV -Append
+      - name: Install CMake (already present, but ensure)
+        run: cmake --version
 
-      - name: Embed assets (generate C arrays)
-        shell: pwsh
+      - name: Build static raylib from source
         run: |
-            Write-Host "=== Python version ==="
-            python --version
-            Write-Host "=== Test Python works ==="
-            python -c "print('Python is working')"
-            Write-Host "=== List all asset files ==="
-            Get-ChildItem assets -Recurse -File | Select-Object FullName
-            Write-Host "=== Check script file exists and is readable ==="
-            Get-Content scripts/embed_assets.py -TotalCount 5
-            Write-Host "=== Run script with traceback and unbuffered output ==="
-            python -u scripts/embed_assets.py 2>&1 | ForEach-Object { Write-Host $_ }
-            $exitCode = $LASTEXITCODE
-            Write-Host "Exit code: $exitCode"
-            if ($exitCode -ne 0) {
-                Write-Host "Script failed. Trying to run with -m trace..."
-                python -m trace --trace scripts/embed_assets.py 2>&1 | Select-Object -First 50
-                exit $exitCode
-            }
-            Write-Host "=== Checking generated files ==="
-            if (Test-Path src/embedded_assets.c) { Write-Host "SUCCESS" } else { Write-Host "FAIL: src/embedded_assets.c missing" }
-            if (Test-Path src/embedded_assets.h) { Write-Host "SUCCESS" } else { Write-Host "FAIL: src/embedded_assets.h missing" }
+          git clone https://github.com/raysan5/raylib.git
+          cd raylib
+          mkdir build
+          cd build
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
+          cmake --build . --config Release
+          # Install to system location (or we'll use the built library directly)
+          cmake --install . --prefix "$env:GITHUB_WORKSPACE\raylib-install"
 
-      - name: Configure CMake
+      - name: Embed assets
+        run: python scripts/embed_assets.py
+
+      - name: Configure game (point to our static raylib)
         run: |
           mkdir build
           cd build
-          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$env:CMAKE_TOOLCHAIN_FILE"
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release `
+                   -Draylib_DIR="$env:GITHUB_WORKSPACE\raylib-install\lib\cmake\raylib"
 
-      - name: Build
+      - name: Build game
         run: |
           cd build
           cmake --build . --config Release
@@ -67,20 +56,21 @@ jobs:
           name: Pacman-Windows
           path: build/Release/Pacman.exe
 
+  # --------------------------------------------------------------------------
+  # Linux – static build (same as before, works)
+  # --------------------------------------------------------------------------
   build-linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y cmake libasound2-dev libx11-dev libxrandr-dev \
-            libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev \
-            libxinerama-dev libwayland-dev libxkbcommon-dev
+        run: sudo apt update && sudo apt install -y cmake libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
 
       - name: Build static raylib
         run: |
@@ -92,19 +82,12 @@ jobs:
           sudo make install
 
       - name: Embed assets
-        run: |
-          python3 scripts/embed_assets.py
-          if [ $? -ne 0 ]; then exit 1; fi
-          ls -la src/embedded_assets.c || (echo "embedded_assets.c not generated" && exit 1)
+        run: python3 scripts/embed_assets.py
 
-      - name: Configure CMake
+      - name: Configure & Build
         run: |
           mkdir build && cd build
           cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
-
-      - name: Build
-        run: |
-          cd build
           make -j$(nproc)
 
       - name: Upload Linux executable
@@ -113,11 +96,16 @@ jobs:
           name: Pacman-Linux
           path: build/Pacman
 
+  # --------------------------------------------------------------------------
+  # macOS – static build
+  # --------------------------------------------------------------------------
   build-macos:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
@@ -134,19 +122,12 @@ jobs:
           sudo make install
 
       - name: Embed assets
-        run: |
-          python3 scripts/embed_assets.py
-          if [ $? -ne 0 ]; then exit 1; fi
-          ls -la src/embedded_assets.c || (echo "embedded_assets.c not generated" && exit 1)
+        run: python3 scripts/embed_assets.py
 
-      - name: Configure CMake
+      - name: Configure & Build
         run: |
           mkdir build && cd build
           cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
-
-      - name: Build
-        run: |
-          cd build
           make -j$(sysctl -n hw.ncpu)
 
       - name: Upload macOS executable
