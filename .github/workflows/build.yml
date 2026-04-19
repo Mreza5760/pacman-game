@@ -8,6 +8,9 @@ on:
   workflow_dispatch:
 
 jobs:
+  # ------------------------------------------------------------------------
+  # Windows: patch CMakeLists.txt to use static raylib (no find_package)
+  # ------------------------------------------------------------------------
   build-windows:
     runs-on: windows-latest
     steps:
@@ -18,14 +21,35 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Download static raylib (Windows)
+      - name: Download static raylib (MinGW)
         run: |
           curl -L -o raylib.zip https://github.com/raysan5/raylib/releases/download/5.0/raylib-5.0_win64_mingw-w64.zip
           unzip raylib.zip -d raylib
           echo "RAYLIB_PATH=$env:GITHUB_WORKSPACE\raylib\raylib-5.0_win64_mingw-w64" | Out-File -FilePath $env:GITHUB_ENV -Append
 
-      - name: Use Windows-specific CMakeLists
-        run: copy CMakeListsWindows.txt CMakeLists.txt
+      - name: Patch CMakeLists.txt for Windows
+        shell: pwsh
+        run: |
+          # Read original
+          $cmake = Get-Content CMakeLists.txt -Raw
+          # Remove the find_package line and the target_link_libraries that follows it
+          $cmake = $cmake -replace 'find_package\(raylib REQUIRED CONFIG\)\s*target_link_libraries\(\${PROJECT_NAME} PRIVATE raylib\)', ''
+          # Append manual static linking block
+          $block = @"
+
+          # ----- STATIC LINKING FOR WINDOWS (injected) -----
+          if(WIN32)
+              set(RAYLIB_PATH `$ENV{RAYLIB_PATH})
+              target_include_directories(`${PROJECT_NAME} PRIVATE `${RAYLIB_PATH}/include)
+              target_link_directories(`${PROJECT_NAME} PRIVATE `${RAYLIB_PATH}/lib)
+              target_link_libraries(`${PROJECT_NAME} PRIVATE raylib winmm gdi32)
+          else()
+              find_package(raylib REQUIRED CONFIG)
+              target_link_libraries(`${PROJECT_NAME} PRIVATE raylib)
+          endif()
+          "@
+          $cmake += $block
+          Set-Content CMakeLists.txt -Value $cmake -Encoding ascii
 
       - name: Embed assets
         run: python scripts/embed_assets.py
@@ -47,6 +71,9 @@ jobs:
           name: Pacman-Windows.exe
           path: build/Release/Pacman.exe
 
+  # ------------------------------------------------------------------------
+  # Linux: build static raylib from source (proven to work)
+  # ------------------------------------------------------------------------
   build-linux:
     runs-on: ubuntu-latest
     steps:
@@ -88,6 +115,9 @@ jobs:
           name: Pacman-Linux
           path: build/Pacman
 
+  # ------------------------------------------------------------------------
+  # macOS: build static raylib + add required frameworks
+  # ------------------------------------------------------------------------
   build-macos:
     runs-on: macos-latest
     steps:
