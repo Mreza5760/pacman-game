@@ -7,6 +7,10 @@ on:
     branches: [ master, main ]
   workflow_dispatch:
 
+env:
+  # Silence Node.js 20 deprecation warnings (optional)
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
 jobs:
   build-windows:
     runs-on: windows-latest
@@ -121,6 +125,8 @@ jobs:
         run: |
           cd build
           make -j$(sysctl -n hw.ncpu)
+      - name: List build directory (debug)
+        run: ls -la build/
       - name: Upload macOS executable
         uses: actions/upload-artifact@v4
         with:
