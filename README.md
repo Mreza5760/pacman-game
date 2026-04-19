@@ -100,8 +100,6 @@ cmake --build . --config Release
 
 ## 📸 Screenshots
 
-> *(Add your own screenshots inside a `screenshots/` folder. Recommended files: `menu.png`, `gameplay.png`, `scoreboard.png`)*
-
 | Main Menu | Gameplay | Scoreboard |
 |-----------|----------|------------|
 | ![Menu](screenshots/menu.png) | ![Game](screenshots/gameplay.png) | ![Scores](screenshots/scoreboard.png) |
