@@ -56,15 +56,10 @@ Three difficulty modes (**Easy, Normal, Hard**) affect:
   - **Linux/macOS**: `~/.local/share/pacman/rank.txt`
 - You can **clear the scores** from the scoreboard screen (press `Delete`).
 
-### 💾 Single‑File Executable
-All assets (images, sounds, fonts) are **embedded into the executable** using a Python script. The final `.exe` is completely standalone – no external files needed.
-
-
 ## 🚀 How to Run
 
 ### Option 1 – Download Pre‑built Executable
-Check the **[Releases](https://github.com/Mreza5760/pacman-game/releases)** page for the latest version.  
-Download the `.exe` (Windows) or the appropriate binary for your OS – **no installation required**.
+Visit the **[Releases](https://github.com/Mreza5760/pacman-game/releases)** page and download the latest version for your operating system.
 
 ### Option 2 – Build from Source
 #### Prerequisites
@@ -86,6 +81,10 @@ mkdir build && cd build
 cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
 cmake --build . --config Release
 ```
+
+After building, the executable will be in:
+- `build/Release/` on **Windows** (`Pacman.exe`)
+- `build/` on **Linux / macOS** (`Pacman`)
 
 ## 🕹️ How to Play
 
