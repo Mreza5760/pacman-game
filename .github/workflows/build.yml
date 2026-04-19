@@ -18,11 +18,11 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Download static raylib (Windows)
+      - name: Download static raylib (MSVC)
         run: |
-          curl -L -o raylib.zip https://github.com/raysan5/raylib/releases/download/5.0/raylib-5.0_win64_mingw-w64.zip
+          curl -L -o raylib.zip https://github.com/raysan5/raylib/releases/download/5.0/raylib-5.0_win64_msvc16.zip
           unzip raylib.zip -d raylib
-          echo "RAYLIB_PATH=$env:GITHUB_WORKSPACE\raylib\raylib-5.0_win64_mingw-w64" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "RAYLIB_PATH=$env:GITHUB_WORKSPACE\raylib\raylib-5.0_win64_msvc16" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Use Windows-specific CMakeLists
         run: copy CMakeListsWindows.txt CMakeLists.txt

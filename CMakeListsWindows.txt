@@ -18,11 +18,11 @@ set(SOURCES
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-# Manual static linking for Windows
+# Manual static linking for Windows (MSVC)
 set(RAYLIB_PATH $ENV{RAYLIB_PATH})
 target_include_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_PATH}/include)
 target_link_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_PATH}/lib)
-target_link_libraries(${PROJECT_NAME} PRIVATE raylib winmm gdi32)
+target_link_libraries(${PROJECT_NAME} PRIVATE raylib winmm gdi32 opengl32 user32 shell32)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
 message(STATUS "Project: ${PROJECT_NAME}")
