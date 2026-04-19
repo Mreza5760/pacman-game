@@ -18,13 +18,11 @@ set(SOURCES
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-# Manual static linking for Windows (MSVC)
-set(RAYLIB_PATH $ENV{RAYLIB_PATH})
-target_include_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_PATH}/include)
-target_link_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_PATH}/lib)
+set(RAYLIB_PATH "C:/Users/User/raylib")
+target_include_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_PATH}/src)
+target_link_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_PATH}/build/raylib)
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib winmm gdi32 opengl32 user32 shell32)
 
-# Fix entry point: use main() instead of WinMain
 set_target_properties(${PROJECT_NAME} PROPERTIES
     WIN32_EXECUTABLE TRUE
     LINK_FLAGS "/ENTRY:mainCRTStartup"
