@@ -27,12 +27,14 @@ jobs:
 
       - name: Patch CMakeLists.txt for Windows
         run: |
-          # Remove the find_package line and append manual linking
           findstr /v "find_package(raylib REQUIRED CONFIG)" CMakeLists.txt > CMakeLists.txt.tmp
           echo "if(WIN32)" >> CMakeLists.txt.tmp
           echo "    target_include_directories(${PROJECT_NAME} PRIVATE $env:RAYLIB_PATH/include)" >> CMakeLists.txt.tmp
           echo "    target_link_directories(${PROJECT_NAME} PRIVATE $env:RAYLIB_PATH/lib)" >> CMakeLists.txt.tmp
           echo "    target_link_libraries(${PROJECT_NAME} PRIVATE raylib winmm gdi32)" >> CMakeLists.txt.tmp
+          echo "elseif(APPLE)" >> CMakeLists.txt.tmp
+          echo "    find_package(raylib REQUIRED CONFIG)" >> CMakeLists.txt.tmp
+          echo "    target_link_libraries(${PROJECT_NAME} PRIVATE raylib \"-framework Foundation\" \"-framework Cocoa\" \"-framework IOKit\" \"-framework CoreVideo\")" >> CMakeLists.txt.tmp
           echo "else()" >> CMakeLists.txt.tmp
           echo "    find_package(raylib REQUIRED CONFIG)" >> CMakeLists.txt.tmp
           echo "    target_link_libraries(${PROJECT_NAME} PRIVATE raylib)" >> CMakeLists.txt.tmp
@@ -60,7 +62,7 @@ jobs:
           name: Pacman-Windows.exe
           path: build/Release/Pacman.exe
 
-  # Linux: build static raylib from source (proven)
+  # Linux: build static raylib from source (proven to work)
   build-linux:
     runs-on: ubuntu-latest
     steps:
@@ -102,7 +104,7 @@ jobs:
           name: Pacman-Linux
           path: build/Pacman
 
-  # macOS: build static raylib from source
+  # macOS: build static raylib from source + add frameworks
   build-macos:
     runs-on: macos-latest
     steps:
@@ -124,6 +126,14 @@ jobs:
           cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
           make -j$(sysctl -n hw.ncpu)
           sudo make install
+
+      - name: Patch CMakeLists.txt for macOS (add frameworks)
+        run: |
+          # Add the framework link lines after the find_package line
+          sed -i '' '/find_package(raylib REQUIRED CONFIG)/a\
+          target_link_libraries(${PROJECT_NAME} PRIVATE "-framework Foundation" "-framework Cocoa" "-framework IOKit" "-framework CoreVideo")
+          ' CMakeLists.txt
+        shell: bash
 
       - name: Embed assets
         run: python3 scripts/embed_assets.py
