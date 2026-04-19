@@ -21,31 +21,24 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install CMake (already present, but ensure)
-        run: cmake --version
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: 501db0f17ef6df184fcdbfbe0f87cde2313b6ab1
 
-      - name: Build static raylib from source
-        run: |
-          git clone https://github.com/raysan5/raylib.git
-          cd raylib
-          mkdir build
-          cd build
-          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
-          cmake --build . --config Release
-          # Install to system location (or we'll use the built library directly)
-          cmake --install . --prefix "$env:GITHUB_WORKSPACE\raylib-install"
+      - name: Install raylib (static)
+        run: vcpkg install raylib:x64-windows-static
 
       - name: Embed assets
         run: python scripts/embed_assets.py
 
-      - name: Configure game (point to our static raylib)
+      - name: Configure CMake
         run: |
           mkdir build
           cd build
-          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release `
-                   -Draylib_DIR="$env:GITHUB_WORKSPACE\raylib-install\lib\cmake\raylib"
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${{ env.VCPKG_ROOT }}\scripts\buildsystems\vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows-static
 
-      - name: Build game
+      - name: Build
         run: |
           cd build
           cmake --build . --config Release
