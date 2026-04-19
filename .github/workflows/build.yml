@@ -5,20 +5,14 @@ on:
     branches: [ master, main ]
   pull_request:
     branches: [ master, main ]
-  workflow_dispatch:   # allows manual trigger from GitHub UI
+  workflow_dispatch:
 
 jobs:
-  # --------------------------------------------------------------------------
-  # Windows build (static, standalone .exe)
-  # --------------------------------------------------------------------------
   build-windows:
     runs-on: windows-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
@@ -32,15 +26,30 @@ jobs:
           echo "VCPKG_ROOT=$env:GITHUB_WORKSPACE\vcpkg" | Out-File -FilePath $env:GITHUB_ENV -Append
           echo "CMAKE_TOOLCHAIN_FILE=$env:GITHUB_WORKSPACE\vcpkg\scripts\buildsystems\vcpkg.cmake" | Out-File -FilePath $env:GITHUB_ENV -Append
 
-      - name: Embed assets (generate C arrays)
-        run: python scripts/embed_assets.py
+      - name: Debug – list files before embedding
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Contents:"
+          dir
+          echo "Assets folder:"
+          dir assets || echo "assets/ not found"
+          echo "Scripts folder:"
+          dir scripts || echo "scripts/ not found"
 
-      - name: Configure CMake (static, release)
+      - name: Embed assets (generate C arrays)
+        run: |
+          python scripts/embed_assets.py 2>&1
+          if %errorlevel% neq 0 exit /b %errorlevel%
+          echo "Checking generated files:"
+          if exist src\embedded_assets.c (echo "src/embedded_assets.c created") else (echo "FAIL: src/embedded_assets.c missing")
+          if exist src\embedded_assets.h (echo "src/embedded_assets.h created") else (echo "FAIL: src/embedded_assets.h missing")
+
+      - name: Configure CMake
         run: |
           mkdir build
           cd build
-          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release `
-                   -DCMAKE_TOOLCHAIN_FILE="$env:CMAKE_TOOLCHAIN_FILE"
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$env:CMAKE_TOOLCHAIN_FILE"
 
       - name: Build
         run: |
@@ -53,40 +62,44 @@ jobs:
           name: Pacman-Windows
           path: build/Release/Pacman.exe
 
-  # --------------------------------------------------------------------------
-  # Linux build (static, standalone ELF)
-  # --------------------------------------------------------------------------
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Install build dependencies (CMake, ALSA, etc.)
+      - name: Install dependencies
         run: |
           sudo apt update
           sudo apt install -y cmake libasound2-dev libx11-dev libxrandr-dev \
             libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev \
             libxinerama-dev libwayland-dev libxkbcommon-dev
 
-      - name: Build static raylib from source
+      - name: Build static raylib
         run: |
           git clone https://github.com/raysan5/raylib.git
           cd raylib
           mkdir build && cd build
           cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
           make -j$(nproc)
-          sudo make install   # installs static libraylib.a and headers
+          sudo make install
+
+      - name: Debug – list files
+        run: |
+          pwd
+          ls -la
+          ls -la assets/ || echo "assets/ missing"
+          ls -la scripts/ || echo "scripts/ missing"
 
       - name: Embed assets
-        run: python3 scripts/embed_assets.py
+        run: |
+          python3 scripts/embed_assets.py 2>&1
+          if [ $? -ne 0 ]; then exit 1; fi
+          ls -la src/embedded_assets.c || echo "embedded_assets.c NOT generated"
 
-      - name: Configure CMake (static)
+      - name: Configure CMake
         run: |
           mkdir build && cd build
           cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
@@ -102,39 +115,40 @@ jobs:
           name: Pacman-Linux
           path: build/Pacman
 
-  # --------------------------------------------------------------------------
-  # macOS build (static, standalone Mach-O)
-  # --------------------------------------------------------------------------
   build-macos:
     runs-on: macos-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Install dependencies (CMake, Xcode command line tools)
-        run: |
-          brew update
-          brew install cmake
+      - name: Install CMake
+        run: brew install cmake
 
-      - name: Build static raylib from source (macOS)
+      - name: Build static raylib (macOS)
         run: |
           git clone https://github.com/raysan5/raylib.git
           cd raylib
           mkdir build && cd build
-          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release \
-                   -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
           make -j$(sysctl -n hw.ncpu)
           sudo make install
 
-      - name: Embed assets
-        run: python3 scripts/embed_assets.py
+      - name: Debug – list files
+        run: |
+          pwd
+          ls -la
+          ls -la assets/ || echo "assets/ missing"
+          ls -la scripts/ || echo "scripts/ missing"
 
-      - name: Configure CMake (static)
+      - name: Embed assets
+        run: |
+          python3 scripts/embed_assets.py 2>&1
+          if [ $? -ne 0 ]; then exit 1; fi
+          ls -la src/embedded_assets.c || echo "embedded_assets.c NOT generated"
+
+      - name: Configure CMake
         run: |
           mkdir build && cd build
           cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
