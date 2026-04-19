@@ -21,13 +21,11 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Setup vcpkg
-        uses: lukka/run-vcpkg@v11
-        with:
-          vcpkgGitCommitId: 501db0f17ef6df184fcdbfbe0f87cde2313b6ab1
-
-      - name: Install raylib (static)
-        run: vcpkg install raylib:x64-windows-static
+      - name: Download static raylib (Windows)
+        run: |
+          curl -L -o raylib.zip https://github.com/raysan5/raylib/releases/download/5.0/raylib-5.0_win64_mingw-w64.zip
+          unzip raylib.zip -d raylib_install
+          echo "RAYLIB_PATH=$env:GITHUB_WORKSPACE\raylib_install\raylib-5.0_win64_mingw-w64" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Embed assets
         run: python scripts/embed_assets.py
@@ -36,7 +34,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${{ env.VCPKG_ROOT }}\scripts\buildsystems\vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows-static
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$env:RAYLIB_PATH"
 
       - name: Build
         run: |
