@@ -26,39 +26,29 @@ jobs:
           echo "VCPKG_ROOT=$env:GITHUB_WORKSPACE\vcpkg" | Out-File -FilePath $env:GITHUB_ENV -Append
           echo "CMAKE_TOOLCHAIN_FILE=$env:GITHUB_WORKSPACE\vcpkg\scripts\buildsystems\vcpkg.cmake" | Out-File -FilePath $env:GITHUB_ENV -Append
 
-      - name: Debug – list files before embedding
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Contents:"
-          dir
-          echo "Assets folder:"
-          dir assets || echo "assets/ not found"
-          echo "Scripts folder:"
-          dir scripts || echo "scripts/ not found"
-
       - name: Embed assets (generate C arrays)
+        shell: pwsh
         run: |
-          echo "=== Debug Info ==="
-          echo "Current directory: $(pwd)"
-          echo "Files in root:"
-          dir
-          echo "Assets folder:"
-          dir assets 2>&1 || echo "ERROR: assets folder missing"
-          echo "Scripts folder:"
-          dir scripts 2>&1 || echo "ERROR: scripts folder missing"
-          echo "Python version:"
+          Write-Host "=== Current directory ==="
+          Get-Location
+          Write-Host "=== Repository root contents ==="
+          Get-ChildItem
+          Write-Host "=== Assets folder contents ==="
+          Get-ChildItem assets
+          Write-Host "=== Scripts folder contents ==="
+          Get-ChildItem scripts
+          Write-Host "=== Python version ==="
           python --version
-          echo "=== Running Python script ==="
-          python -u scripts/embed_assets.py > output.txt 2>&1
-          set ERRORLEVEL=%errorlevel%
-          type output.txt
-          echo "Exit code: %ERRORLEVEL%"
-          if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
-          echo "=== Checking generated files ==="
-          if exist src\embedded_assets.c (echo "SUCCESS: src/embedded_assets.c created") else (echo "FAIL: src/embedded_assets.c not created")
-          if exist src\embedded_assets.h (echo "SUCCESS: src/embedded_assets.h created") else (echo "FAIL: src/embedded_assets.h not created")
-    
+          Write-Host "=== Running Python script ==="
+          python scripts/embed_assets.py
+          if ($LASTEXITCODE -ne 0) {
+              Write-Host "Script failed with exit code $LASTEXITCODE"
+              exit $LASTEXITCODE
+          }
+          Write-Host "=== Checking generated files ==="
+          if (Test-Path src/embedded_assets.c) { Write-Host "SUCCESS: src/embedded_assets.c created" } else { Write-Host "FAIL: src/embedded_assets.c missing" }
+          if (Test-Path src/embedded_assets.h) { Write-Host "SUCCESS: src/embedded_assets.h created" } else { Write-Host "FAIL: src/embedded_assets.h missing" }
+
       - name: Configure CMake
         run: |
           mkdir build
@@ -100,18 +90,11 @@ jobs:
           make -j$(nproc)
           sudo make install
 
-      - name: Debug – list files
-        run: |
-          pwd
-          ls -la
-          ls -la assets/ || echo "assets/ missing"
-          ls -la scripts/ || echo "scripts/ missing"
-
       - name: Embed assets
         run: |
-          python3 scripts/embed_assets.py 2>&1
+          python3 scripts/embed_assets.py
           if [ $? -ne 0 ]; then exit 1; fi
-          ls -la src/embedded_assets.c || echo "embedded_assets.c NOT generated"
+          ls -la src/embedded_assets.c || (echo "embedded_assets.c not generated" && exit 1)
 
       - name: Configure CMake
         run: |
@@ -140,7 +123,7 @@ jobs:
       - name: Install CMake
         run: brew install cmake
 
-      - name: Build static raylib (macOS)
+      - name: Build static raylib
         run: |
           git clone https://github.com/raysan5/raylib.git
           cd raylib
@@ -149,18 +132,11 @@ jobs:
           make -j$(sysctl -n hw.ncpu)
           sudo make install
 
-      - name: Debug – list files
-        run: |
-          pwd
-          ls -la
-          ls -la assets/ || echo "assets/ missing"
-          ls -la scripts/ || echo "scripts/ missing"
-
       - name: Embed assets
         run: |
-          python3 scripts/embed_assets.py 2>&1
+          python3 scripts/embed_assets.py
           if [ $? -ne 0 ]; then exit 1; fi
-          ls -la src/embedded_assets.c || echo "embedded_assets.c NOT generated"
+          ls -la src/embedded_assets.c || (echo "embedded_assets.c not generated" && exit 1)
 
       - name: Configure CMake
         run: |
