@@ -1,0 +1,151 @@
+name: Build Pacman Game (Cross‑Platform)
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:   # allows manual trigger from GitHub UI
+
+jobs:
+  # --------------------------------------------------------------------------
+  # Windows build (static, standalone .exe)
+  # --------------------------------------------------------------------------
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install vcpkg and static raylib
+        run: |
+          git clone https://github.com/Microsoft/vcpkg.git
+          cd vcpkg
+          .\bootstrap-vcpkg.bat
+          .\vcpkg integrate install
+          .\vcpkg install raylib:x64-windows-static
+          echo "VCPKG_ROOT=$env:GITHUB_WORKSPACE\vcpkg" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "CMAKE_TOOLCHAIN_FILE=$env:GITHUB_WORKSPACE\vcpkg\scripts\buildsystems\vcpkg.cmake" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Embed assets (generate C arrays)
+        run: python scripts/embed_assets.py
+
+      - name: Configure CMake (static, release)
+        run: |
+          mkdir build
+          cd build
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release `
+                   -DCMAKE_TOOLCHAIN_FILE="$env:CMAKE_TOOLCHAIN_FILE"
+
+      - name: Build
+        run: |
+          cd build
+          cmake --build . --config Release
+
+      - name: Upload Windows executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Pacman-Windows
+          path: build/Release/Pacman.exe
+
+  # --------------------------------------------------------------------------
+  # Linux build (static, standalone ELF)
+  # --------------------------------------------------------------------------
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install build dependencies (CMake, ALSA, etc.)
+        run: |
+          sudo apt update
+          sudo apt install -y cmake libasound2-dev libx11-dev libxrandr-dev \
+            libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev \
+            libxinerama-dev libwayland-dev libxkbcommon-dev
+
+      - name: Build static raylib from source
+        run: |
+          git clone https://github.com/raysan5/raylib.git
+          cd raylib
+          mkdir build && cd build
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
+          make -j$(nproc)
+          sudo make install   # installs static libraylib.a and headers
+
+      - name: Embed assets
+        run: python3 scripts/embed_assets.py
+
+      - name: Configure CMake (static)
+        run: |
+          mkdir build && cd build
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: |
+          cd build
+          make -j$(nproc)
+
+      - name: Upload Linux executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Pacman-Linux
+          path: build/Pacman
+
+  # --------------------------------------------------------------------------
+  # macOS build (static, standalone Mach-O)
+  # --------------------------------------------------------------------------
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies (CMake, Xcode command line tools)
+        run: |
+          brew update
+          brew install cmake
+
+      - name: Build static raylib from source (macOS)
+        run: |
+          git clone https://github.com/raysan5/raylib.git
+          cd raylib
+          mkdir build && cd build
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release \
+                   -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
+          make -j$(sysctl -n hw.ncpu)
+          sudo make install
+
+      - name: Embed assets
+        run: python3 scripts/embed_assets.py
+
+      - name: Configure CMake (static)
+        run: |
+          mkdir build && cd build
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: |
+          cd build
+          make -j$(sysctl -n hw.ncpu)
+
+      - name: Upload macOS executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Pacman-macOS
+          path: build/Pacman
