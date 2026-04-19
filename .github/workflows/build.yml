@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Windows: patch CMakeLists.txt to use manual linking
+  # Windows: patch CMakeLists.txt to use manual linking (PowerShell, no extra quotes)
   build-windows:
     runs-on: windows-latest
     steps:
@@ -25,22 +25,28 @@ jobs:
           unzip raylib.zip -d raylib
           echo "RAYLIB_PATH=$env:GITHUB_WORKSPACE\raylib\raylib-5.0_win64_mingw-w64" | Out-File -FilePath $env:GITHUB_ENV -Append
 
-      - name: Patch CMakeLists.txt for Windows
+      - name: Patch CMakeLists.txt for Windows (PowerShell)
+        shell: pwsh
         run: |
-          findstr /v "find_package(raylib REQUIRED CONFIG)" CMakeLists.txt > CMakeLists.txt.tmp
-          echo "if(WIN32)" >> CMakeLists.txt.tmp
-          echo "    target_include_directories(${PROJECT_NAME} PRIVATE $env:RAYLIB_PATH/include)" >> CMakeLists.txt.tmp
-          echo "    target_link_directories(${PROJECT_NAME} PRIVATE $env:RAYLIB_PATH/lib)" >> CMakeLists.txt.tmp
-          echo "    target_link_libraries(${PROJECT_NAME} PRIVATE raylib winmm gdi32)" >> CMakeLists.txt.tmp
-          echo "elseif(APPLE)" >> CMakeLists.txt.tmp
-          echo "    find_package(raylib REQUIRED CONFIG)" >> CMakeLists.txt.tmp
-          echo "    target_link_libraries(${PROJECT_NAME} PRIVATE raylib \"-framework Foundation\" \"-framework Cocoa\" \"-framework IOKit\" \"-framework CoreVideo\")" >> CMakeLists.txt.tmp
-          echo "else()" >> CMakeLists.txt.tmp
-          echo "    find_package(raylib REQUIRED CONFIG)" >> CMakeLists.txt.tmp
-          echo "    target_link_libraries(${PROJECT_NAME} PRIVATE raylib)" >> CMakeLists.txt.tmp
-          echo "endif()" >> CMakeLists.txt.tmp
-          move /Y CMakeLists.txt.tmp CMakeLists.txt
-        shell: cmd
+          # Read original content
+          $content = Get-Content CMakeLists.txt -Raw
+          # Remove the find_package line and the following target_link_libraries line
+          $content = $content -replace 'find_package\(raylib REQUIRED CONFIG\)\s*target_link_libraries\(\${PROJECT_NAME} PRIVATE raylib\)', ''
+          # Append manual linking block
+          $block = @"
+          
+          if(WIN32)
+              target_include_directories(`${PROJECT_NAME} PRIVATE `$env:RAYLIB_PATH/include)
+              target_link_directories(`${PROJECT_NAME} PRIVATE `$env:RAYLIB_PATH/lib)
+              target_link_libraries(`${PROJECT_NAME} PRIVATE raylib winmm gdi32)
+          else()
+              find_package(raylib REQUIRED CONFIG)
+              target_link_libraries(`${PROJECT_NAME} PRIVATE raylib)
+          endif()
+          "@
+          $content += $block
+          # Write back
+          Set-Content CMakeLists.txt -Value $content -Encoding ascii
 
       - name: Embed assets
         run: python scripts/embed_assets.py
@@ -62,7 +68,7 @@ jobs:
           name: Pacman-Windows.exe
           path: build/Release/Pacman.exe
 
-  # Linux: build static raylib from source
+  # Linux: build static raylib from source (proven to work)
   build-linux:
     runs-on: ubuntu-latest
     steps:
@@ -104,7 +110,7 @@ jobs:
           name: Pacman-Linux
           path: build/Pacman
 
-  # macOS: build static raylib, then add frameworks at the end of CMakeLists.txt
+  # macOS: build static raylib, then add frameworks at the end
   build-macos:
     runs-on: macos-latest
     steps:
@@ -129,7 +135,6 @@ jobs:
 
       - name: Patch CMakeLists.txt for macOS (append frameworks)
         run: |
-          # Append the framework linking at the end of the file
           cat >> CMakeLists.txt << 'EOF'
           # macOS: link required Objective-C frameworks
           target_link_libraries(${PROJECT_NAME} PRIVATE
