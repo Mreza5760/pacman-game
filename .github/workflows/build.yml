@@ -1,113 +1,152 @@
-name: Build Pacman for all platforms
+name: Build Pacman (Cross‑platform)
 
 on:
   push:
     branches: [ master, main ]
   pull_request:
     branches: [ master, main ]
-  workflow_dispatch:                 # allows manual trigger
+  workflow_dispatch:
 
 jobs:
-  build:
-    name: Build on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false               # run all platforms even if one fails
-      matrix:
-        include:
-          - os: windows-latest
-            triplet: x64-windows-static
-            vcpkg_pkgs: "raylib"
-            exe_ext: ".exe"
-            build_dir: "build/Release"
-          - os: ubuntu-latest
-            triplet: x64-linux
-            vcpkg_pkgs: ""
-            exe_ext: ""
-            build_dir: "build"
-          - os: macos-latest
-            triplet: x64-osx
-            vcpkg_pkgs: ""
-            exe_ext: ""
-            build_dir: "build"
-
+  # --------------------------------------------------------------------------
+  # Windows – vcpkg + static raylib (verbose)
+  # --------------------------------------------------------------------------
+  build-windows:
+    runs-on: windows-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      # ------------------------------------------------------------
-      # Windows: install raylib via vcpkg (static)
-      # ------------------------------------------------------------
-      - name: Setup vcpkg (Windows)
-        if: runner.os == 'Windows'
+      - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgGitCommitId: 501db0f17ef6df184fcdbfbe0f87cde2313b6ab1
 
-      - name: Install raylib (Windows)
-        if: runner.os == 'Windows'
-        run: vcpkg install raylib:${{ matrix.triplet }}
+      - name: Install raylib (static) – verbose
+        run: |
+          vcpkg install raylib:x64-windows-static --debug
+          echo "VCPKG_ROOT=$env:VCPKG_ROOT"
+          dir "$env:VCPKG_ROOT\installed\x64-windows-static"
+        shell: cmd
 
-      # ------------------------------------------------------------
-      # Linux: install system dependencies
-      # ------------------------------------------------------------
-      - name: Install dependencies (Linux)
-        if: runner.os == 'Linux'
-        run: sudo apt update && sudo apt install -y cmake libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
-
-      # ------------------------------------------------------------
-      # macOS: install dependencies
-      # ------------------------------------------------------------
-      - name: Install dependencies (macOS)
-        if: runner.os == 'macOS'
-        run: brew install cmake
-
-      # ------------------------------------------------------------
-      # Generate embedded assets (same for all)
-      # ------------------------------------------------------------
       - name: Embed assets
-        run: |
-          python3 scripts/embed_assets.py
-        shell: bash
+        run: python scripts/embed_assets.py
 
-      # ------------------------------------------------------------
-      # Configure CMake
-      # ------------------------------------------------------------
-      - name: Configure CMake
-        env:
-          VCPKG_ROOT: ${{ env.VCPKG_ROOT }}
+      - name: Configure CMake (verbose)
         run: |
-          mkdir -p build
+          mkdir build
           cd build
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            cmake .. -DCMAKE_BUILD_TYPE=Release \
-                     -DBUILD_SHARED_LIBS=OFF \
-                     -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" \
-                     -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
-          else
-            cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF
-          fi
-        shell: bash
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release `
+                   -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT\scripts\buildsystems\vcpkg.cmake" `
+                   -DVCPKG_TARGET_TRIPLET=x64-windows-static `
+                   --trace-expand 2>&1 | Out-File cmake_log.txt
+          type cmake_log.txt
+        shell: pwsh
 
-      # ------------------------------------------------------------
-      # Build
-      # ------------------------------------------------------------
       - name: Build
         run: |
           cd build
-          cmake --build . --config Release
-        shell: bash
+          cmake --build . --config Release --verbose
 
-      # ------------------------------------------------------------
-      # Upload executable
-      # ------------------------------------------------------------
-      - name: Upload artifacts
+      - name: Upload Windows executable
         uses: actions/upload-artifact@v4
         with:
-          name: Pacman-${{ runner.os }}${{ matrix.exe_ext }}
-          path: ${{ matrix.build_dir }}/Pacman${{ matrix.exe_ext }}
+          name: Pacman-Windows.exe
+          path: build/Release/Pacman.exe
+
+  # --------------------------------------------------------------------------
+  # Linux – build raylib from source (proven)
+  # --------------------------------------------------------------------------
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y cmake libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
+
+      - name: Build static raylib (source)
+        run: |
+          git clone https://github.com/raysan5/raylib.git
+          cd raylib
+          mkdir build && cd build
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
+          make -j$(nproc)
+          sudo make install
+          # Verify installation
+          ls -la /usr/local/lib/libraylib.a
+
+      - name: Embed assets
+        run: python3 scripts/embed_assets.py
+
+      - name: Configure CMake (verbose)
+        run: |
+          mkdir build && cd build
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release --trace-expand 2>&1 | tee cmake_log.txt
+          cat cmake_log.txt
+
+      - name: Build (verbose)
+        run: |
+          cd build
+          make VERBOSE=1 -j$(nproc)
+
+      - name: Upload Linux executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Pacman-Linux
+          path: build/Pacman
+
+  # --------------------------------------------------------------------------
+  # macOS – build raylib from source (proven)
+  # --------------------------------------------------------------------------
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install CMake
+        run: brew install cmake
+
+      - name: Build static raylib (source)
+        run: |
+          git clone https://github.com/raysan5/raylib.git
+          cd raylib
+          mkdir build && cd build
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
+          make -j$(sysctl -n hw.ncpu)
+          sudo make install
+          ls -la /usr/local/lib/libraylib.a
+
+      - name: Embed assets
+        run: python3 scripts/embed_assets.py
+
+      - name: Configure CMake (verbose)
+        run: |
+          mkdir build && cd build
+          cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release --trace-expand 2>&1 | tee cmake_log.txt
+          cat cmake_log.txt
+
+      - name: Build (verbose)
+        run: |
+          cd build
+          make VERBOSE=1 -j$(sysctl -n hw.ncpu)
+
+      - name: Upload macOS executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Pacman-macOS
+          path: build/Pacman
