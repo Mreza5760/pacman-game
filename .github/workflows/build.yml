@@ -39,12 +39,26 @@ jobs:
 
       - name: Embed assets (generate C arrays)
         run: |
-          python scripts/embed_assets.py 2>&1
-          if %errorlevel% neq 0 exit /b %errorlevel%
-          echo "Checking generated files:"
-          if exist src\embedded_assets.c (echo "src/embedded_assets.c created") else (echo "FAIL: src/embedded_assets.c missing")
-          if exist src\embedded_assets.h (echo "src/embedded_assets.h created") else (echo "FAIL: src/embedded_assets.h missing")
-
+          echo "=== Debug Info ==="
+          echo "Current directory: $(pwd)"
+          echo "Files in root:"
+          dir
+          echo "Assets folder:"
+          dir assets 2>&1 || echo "ERROR: assets folder missing"
+          echo "Scripts folder:"
+          dir scripts 2>&1 || echo "ERROR: scripts folder missing"
+          echo "Python version:"
+          python --version
+          echo "=== Running Python script ==="
+          python -u scripts/embed_assets.py > output.txt 2>&1
+          set ERRORLEVEL=%errorlevel%
+          type output.txt
+          echo "Exit code: %ERRORLEVEL%"
+          if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
+          echo "=== Checking generated files ==="
+          if exist src\embedded_assets.c (echo "SUCCESS: src/embedded_assets.c created") else (echo "FAIL: src/embedded_assets.c not created")
+          if exist src\embedded_assets.h (echo "SUCCESS: src/embedded_assets.h created") else (echo "FAIL: src/embedded_assets.h not created")
+    
       - name: Configure CMake
         run: |
           mkdir build
